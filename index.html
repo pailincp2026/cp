@@ -17,19 +17,20 @@
       padding: 0;
       display: flex;
       justify-content: center;
-      /* เปลี่ยนชื่อไฟล์เป็น offshore.jpg และตั้งค่าให้เต็มจอ */
+      /* ส่วนที่แก้ไข: ใส่รูปพื้นหลัง offshore.jpg */
       background-image: url('offshore.jpg'); 
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
       background-repeat: no-repeat;
+      background-color: #003c78; /* สีสำรองกรณีรูปไม่โหลด */
     }
 
     .calculator-card {
       width: 100%; 
       max-width: 500px;
       min-height: 100vh; 
-      background: transparent; /* เอาสีพื้นหลังขาวออก */
+      background: transparent; /* ไม่ใส่สีพื้นหลังขาวทับรูป */
       display: flex;
       flex-direction: column;
     }
@@ -42,8 +43,7 @@
       color: white;
       justify-content: space-between;
       border-bottom: 3px solid var(--accent-gold); 
-      /* ใช้สีน้ำเงินโปร่งแสงเพื่อให้เห็นรูปพื้นหลังลางๆ */
-      background-color: rgba(0, 60, 120, 0.8); 
+      background-color: rgba(0, 60, 120, 0.85); /* สีน้ำเงินเข้มโปร่งแสงเพื่อให้เห็นรูปหลังลางๆ */
     }
     
     .logo {
@@ -71,10 +71,10 @@
       display: block;
       font-size: 0.75rem;
       font-weight: bold;
-      color: white; /* เปลี่ยนเป็นสีขาวเพื่อให้เด่นบนพื้นหลังเข้ม */
+      color: white; /* เปลี่ยนเป็นสีขาวเพื่อให้เด่นบนพื้นหลังน้ำทะเล */
       margin-bottom: 5px;
       text-transform: uppercase;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.8); /* เพิ่มเงาให้ตัวหนังสืออ่านง่าย */
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
     }
 
     select, input {
@@ -84,19 +84,18 @@
       border-radius: 8px; 
       font-size: 1rem;
       box-sizing: border-box;
-      /* ช่องกรอกข้อมูลขาวจางๆ แบบ Glassmorphism */
-      background-color: rgba(255, 255, 255, 0.9); 
+      background-color: rgba(255, 255, 255, 0.95); /* สีขาวเกือบสนิทเพื่อให้อ่านข้อมูลชัดเจน */
       color: var(--primary-blue);
     }
 
     input[readonly] {
-      background-color: rgba(233, 236, 239, 0.8);
+      background-color: rgba(233, 236, 239, 0.9);
       cursor: not-allowed;
       font-weight: bold;
     }
 
     .result-section {
-      background: rgba(255, 255, 255, 0.95); /* กล่องผลลัพธ์สีขาวทึบขึ้นเพื่อเน้นตัวเลข */
+      background: rgba(255, 255, 255, 0.95); 
       padding: 25px;
       border-radius: 15px;
       text-align: center;
@@ -128,7 +127,7 @@
       font-weight: bold;
       letter-spacing: 1px;
       border: none;
-      box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+      cursor: pointer;
     }
 
     .footer {
@@ -137,17 +136,15 @@
       font-size: 0.7rem;
       color: white; 
       background-color: rgba(0, 0, 0, 0.4); 
-      text-shadow: 1px 1px 2px rgba(0,0,0,1);
     }
 
     @media (min-width: 501px) {
       .calculator-card {
         margin-top: 30px;
         margin-bottom: 30px;
-        min-height: auto;
         border-radius: 20px;
-        background: rgba(0, 0, 0, 0.2);
-        backdrop-filter: blur(5px); /* หน้าจอใหญ่จะดูหรูขึ้นด้วยเอฟเฟกต์กระจกฝ้า */
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
         border: 1px solid rgba(255,255,255,0.1);
       }
     }
@@ -166,7 +163,7 @@
 
   <div class="content">
     <div class="input-group">
-      <div style="grid-column: span 2;">
+      <div>
         <label>Media</label>
         <select id="type-select" onchange="applyPreset()">
           <option value="">-- Tap to Select Media --</option>
@@ -176,8 +173,8 @@
         </select>
       </div>
 
-      <div style="grid-column: span 2;">
-        <label id="main-input-label">Hours</label>
+      <div>
+        <label>Hours</label>
         <input type="number" id="val-h" placeholder="Enter hours..." oninput="calculate()">
       </div>
 
@@ -233,9 +230,7 @@
     const h = parseFloat(document.getElementById('val-h').value) || 0;
     const r = parseFloat(document.getElementById('val-r').value) || 0;
     const p = parseFloat(document.getElementById('val-p').value) || 0;
-    
     const total = h * r * p;
-    
     document.getElementById('grand-total').innerText = 
       '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
   }
