@@ -12,14 +12,15 @@
       --bg-gray: #f0f2f5;
     }
 
+    /* เน้น Mobile View เป็นอันดับแรก */
     body {
       font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       background-color: var(--bg-gray);
       display: flex;
       justify-content: center;
-      padding: 10px;
+      padding: 0; /* ลบ padding ออกเพื่อให้ชิดขอบจอ */
       margin: 0;
-      /* ใช้รูปภาพเต็มหน้าจอเป็นฉากหลัง */
+      /* ใช้รูปภาพเต็มหน้าจอเป็นฉากหลังแบบมืออาชีพ */
       background-image: url('pailin_rig.jpg'); 
       background-size: cover; 
       background-position: center;
@@ -28,37 +29,38 @@
     }
 
     .calculator-card {
-      width: 100%;
+      width: 100%; /* กว้าง 100% บนมือถือ */
       max-width: 500px;
-      background: var(--primary-blue); /* สีพื้นหลัง Card เป็นน้ำเงินเข้ม */
-      border-radius: 20px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.3); /* เงาเข้มขึ้น */
+      background: white;
+      border-radius: 0; /* ลบขอบมนออกบนมือถือเพื่อความเป็นทางการ */
+      box-shadow: none; /* ลบเงาออกบนมือถือ */
       overflow: hidden;
-      margin-top: 50px; /* ย้าย Card ลงมาหน่อย */
-      color: white; /* เปลี่ยนสีตัวอักษรหลักเป็นสีขาว */
+      margin-top: 0;
+      min-height: 100vh; /* ให้ Card สูงเต็มจอ */
     }
 
     .hero {
-      height: 100px;
-      background: rgba(0, 0, 0, 0.2); /* โปร่งแสงเล็กน้อยทับพื้นหลัง Card */
+      height: 110px; /* เพิ่มความสูงเล็กน้อย */
+      background: var(--primary-blue) linear-gradient(135deg, #003c78 0%, #0056b3 100%);
       display: flex;
       align-items: center;
       padding: 0 20px;
+      color: white;
       justify-content: space-between;
-      border-bottom: 2px solid var(--accent-gold); /* เส้นแบ่งสีทอง */
+      border-bottom: 3px solid var(--accent-gold); /* เน้นเส้นแบ่งสีทอง */
     }
     
     .logo {
-        height: 60px;
+        height: 70px; /* เพิ่มขนาดโลโก้ */
         margin-right: 15px;
     }
 
-    .hero-text h2 { margin: 0; font-size: 1.6rem; letter-spacing: 1px; }
-    .hero-text p { margin: 0; font-size: 0.8rem; opacity: 0.7; }
+    .hero-text h2 { margin: 0; font-size: 1.5rem; letter-spacing: 1px; }
+    .hero-text p { margin: 0; font-size: 0.85rem; opacity: 0.9; }
 
     .content { 
         padding: 20px; 
-        background-color: rgba(255, 255, 255, 0.95); /* พื้นหลังขาวทึบขึ้นเพื่อการอ่านที่ดี */
+        background-color: #fff; /* ขาวสะอาดสำหรับเนื้อหา */
         color: #333;
     }
 
@@ -79,7 +81,7 @@
 
     label {
       display: block;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: bold;
       color: var(--primary-blue);
       margin-bottom: 5px;
@@ -89,8 +91,8 @@
     select, input {
       width: 100%;
       padding: 12px;
-      border: 1.5px solid #dde;
-      border-radius: 10px;
+      border: 1px solid var(--primary-blue); /* ใช้สีน้ำเงินเข้มที่ขอบ input */
+      border-radius: 5px; /* ลดความโค้งมน */
       font-size: 1rem;
       box-sizing: border-box;
       transition: all 0.3s;
@@ -99,30 +101,29 @@
     input[readonly] {
       background-color: #e9ecef;
       color: var(--primary-blue);
-      border-color: #dde;
+      border-color: #ccc;
       cursor: not-allowed;
       font-weight: bold;
     }
 
     .result-section {
-      background: var(--primary-blue); /* ใช้สีน้ำเงินเข้มสำหรับส่วนผลลัพธ์ */
+      background: #f8f9fa;
       padding: 25px;
-      border-radius: 15px;
+      border-radius: 8px;
       text-align: center;
-      border: 2px solid var(--accent-gold); /* กรอบสีทอง */
-      color: white;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--primary-blue);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* เงาละเอียด */
     }
 
     #selected-label {
       font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.8);
+      color: #666;
       margin-bottom: 10px;
       font-weight: 600;
     }
 
     .total-display {
-      color: var(--accent-gold); /* ใช้สีทองสำหรับยอดรวม */
+      color: var(--success-green); 
       font-weight: 800;
       font-size: 2.8rem;
       margin-bottom: 5px;
@@ -141,15 +142,21 @@
 
     .footer {
       text-align: center;
-      padding: 15px;
+      padding: 20px;
       font-size: 0.7rem;
-      color: rgba(255, 255, 255, 0.6);
-      background-color: rgba(0, 0, 0, 0.2);
+      color: rgba(0, 60, 120, 0.7); /* สีน้ำเงินจางๆ */
+      background-color: #fff;
+      border-top: 1px solid #eee;
     }
 
-    @media (max-width: 400px) {
-      .total-display { font-size: 2rem; }
-      .field-row { grid-template-columns: 1fr; }
+    /* Desktop View: เพิ่มเงาและขอบมนกลับมาเมื่อหน้าจอใหญ่ขึ้น */
+    @media (min-width: 501px) {
+      .calculator-card {
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        margin-top: 50px;
+        min-height: auto;
+      }
     }
   </style>
 </head>
