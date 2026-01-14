@@ -29,6 +29,14 @@
       box-shadow: 0 10px 25px rgba(0,0,0,0.1);
       overflow: hidden;
       margin-top: 10px;
+      
+      /* --- โค้ดสำหรับฉากหลังที่เพิ่มเข้ามา --- */
+      /* ใช้รูปภาพแท่นไพลินเป็นฉากหลังหลักของตัว Card */
+      background-image: url('pailin_rig.jpg'); 
+      background-size: cover; 
+      background-position: center;
+      background-repeat: no-repeat;
+      /* ------------------------------------- */
     }
 
     .hero {
@@ -39,6 +47,9 @@
       padding: 0 20px;
       color: white;
       justify-content: space-between;
+      /* --- เพิ่มความโปร่งใสให้ hero เพื่อให้เห็น background card ด้านหลังได้ --- */
+      background-color: rgba(0, 60, 120, 0.75); 
+      /* ------------------------------------------------------------------ */
     }
     
     .logo {
@@ -49,7 +60,12 @@
     .hero-text h2 { margin: 0; font-size: 1.4rem; letter-spacing: 1px; }
     .hero-text p { margin: 0; font-size: 0.8rem; opacity: 0.8; }
 
-    .content { padding: 20px; }
+    .content { 
+        padding: 20px; 
+        /* --- เพิ่มความโปร่งใสให้ content เพื่อให้เห็น background card ด้านหลังได้ --- */
+        background-color: rgba(255, 255, 255, 0.85);
+        /* ------------------------------------------------------------------ */
+    }
 
     .input-group {
       display: flex;
@@ -80,7 +96,7 @@
       padding: 12px;
       border: 1.5px solid #dde;
       border-radius: 10px;
-      font-size: 1rem;
+      font-size: 1;
       box-sizing: border-box;
       transition: all 0.3s;
     }
@@ -131,6 +147,9 @@
       padding: 20px;
       font-size: 0.7rem;
       color: #aaa;
+      /* --- เพิ่มความโปร่งใสให้ footer --- */
+      background-color: rgba(255, 255, 255, 0.7);
+      /* ------------------------------- */
     }
 
     @media (max-width: 400px) {
