@@ -42,7 +42,7 @@
     }
     
     .logo {
-        height: 60px; /* ปรับขนาดโลโก้ตามต้องการ */
+        height: 60px;
         margin-right: 15px;
     }
 
@@ -143,8 +143,7 @@
 
 <div class="calculator-card">
   <div class="hero">
-    <!-- Image Tag สำหรับโลโก้จากไฟล์ในเครื่อง -->
-    <img src="logo.png" alt="Company Logo" class="logo">
+    <img src="logo.png" alt="Logo" class="logo">
     <div class="hero-text">
       <h2>Benefit Calculator</h2>
       <p>Operational Cost Estimation (2026)</p>
@@ -170,11 +169,11 @@
 
       <div class="field-row">
         <div>
-          <label id="rate-label">Rate: mmscf/hrs</label>
+          <label>Rate: mmscf/hrs</label>
           <input type="number" id="val-r" readonly value="0">
         </div>
         <div>
-          <label id="price-label">$mmscf</label>
+          <label>$mmscf</label>
           <input type="number" id="val-p" readonly value="0">
         </div>
       </div>
@@ -183,7 +182,7 @@
     <div class="result-section">
       <div id="selected-label">Please select media type above</div>
       <div class="total-display" id="grand-total">$0.00</div>
-      <div class="save-cost-badge" id="badge-text">SAVE COST</div>
+      <div class="save-cost-badge">SAVE COST</div>
     </div>
   </div>
 
@@ -195,61 +194,33 @@
 
 <script>
   const presets = {
-    gas_pacpp: { label: "Gas / PACPP", rate: 9.17, price: 6000, isRouth: false },
-    condy:     { label: "CONDY PACPP", rate: 396,  price: 60,   isRouth: false },
-    remote:    { label: "Gas Remote Platform", rate: 0.21, price: 6000, isRouth: false },
+    gas_pacpp: { label: "Gas / PACPP", rate: 9.17, price: 6000 },
+    condy:     { label: "CONDY PACPP", rate: 396,  price: 60 },
+    remote:    { label: "Gas Remote Platform", rate: 0.21, price: 6000 }
+  };
 
   function applyPreset() {
     const select = document.getElementById('type-select');
     const data = presets[select.value];
-    const mainInputLabel = document.getElementById('main-input-label');
-    const rateLabel = document.getElementById('rate-label');
-    const priceLabel = document.getElementById('price-label');
-    const badgeText = document.getElementById('badge-text');
 
     if (data) {
       document.getElementById('val-r').value = data.rate;
       document.getElementById('val-p').value = data.price;
       document.getElementById('selected-label').innerText = "Selected: " + data.label;
-      
-      if (data.isRouth) {
-          mainInputLabel.innerText = "Distance (Mile)";
-          rateLabel.innerText = "Liter/Mile";
-          priceLabel.innerText = "$/Liter";
-          badgeText.innerText = "ROUND-TRIP COST";
-      } else {
-          mainInputLabel.innerText = "Hours";
-          rateLabel.innerText = "Rate: mmscf/hrs";
-          priceLabel.innerText = "$/mmscf";
-          badgeText.innerText = "SAVE COST";
-      }
-
     } else {
       document.getElementById('val-r').value = 0;
       document.getElementById('val-p').value = 0;
       document.getElementById('selected-label').innerText = "Please select media type above";
-      mainInputLabel.innerText = "Hours";
-      rateLabel.innerText = "Rate: mmscf/hrs";
-      priceLabel.innerText = "$/mmscf";
-      badgeText.innerText = "SAVE COST";
     }
     calculate(); 
   }
 
   function calculate() {
-    const select = document.getElementById('type-select');
-    const selectedType = select.value;
     const h = parseFloat(document.getElementById('val-h').value) || 0;
     const r = parseFloat(document.getElementById('val-r').value) || 0;
     const p = parseFloat(document.getElementById('val-p').value) || 0;
     
-    let total = 0;
-    
-    if (selectedType && presets[selectedType].isRouth) {
-        total = h * r * p * 2; 
-    } else {
-        total = h * r * p;
-    }
+    const total = h * r * p;
     
     document.getElementById('grand-total').innerText = 
       '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
