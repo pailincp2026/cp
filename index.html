@@ -215,27 +215,6 @@
       document.getElementById('val-p').value = data.price;
       document.getElementById('selected-label').innerText = "Selected: " + data.label;
       
-      if (data.isRouth) {
-          mainInputLabel.innerText = "Distance (KG)";
-          rateLabel.innerText = "Liter/KG";
-          priceLabel.innerText = "$/Liter";
-          badgeText.innerText = "ROUND-TRIP COST";
-      } else {
-          mainInputLabel.innerText = "Hours";
-          rateLabel.innerText = "Rate: mmscf/hrs";
-          priceLabel.innerText = "$/mmscf";
-          badgeText.innerText = "SAVE COST";
-      }
-
-    } else {
-      document.getElementById('val-r').value = 0;
-      document.getElementById('val-p').value = 0;
-      document.getElementById('selected-label').innerText = "Please select media type above";
-      mainInputLabel.innerText = "Hours";
-      rateLabel.innerText = "Rate: mmscf/hrs";
-      priceLabel.innerText = "$/mmscf";
-      badgeText.innerText = "SAVE COST";
-    }
     calculate(); 
   }
 
