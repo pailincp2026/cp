@@ -24,13 +24,12 @@
     .calculator-card {
       width: 100%; 
       max-width: 500px;
-      background: white; /* พื้นหลังหลักเป็นสีขาว */
+      background: white;
       border-radius: 0; 
       box-shadow: none; 
       overflow: hidden;
       margin-top: 0;
       min-height: 100vh; 
-      /* ลบ background-image ออกจากตรงนี้ */
     }
 
     .hero {
@@ -42,13 +41,10 @@
       justify-content: space-between;
       border-bottom: 3px solid var(--accent-gold); 
       
-      /* --- ใส่รูปภาพพื้นหลังที่โดดเด่นเฉพาะในแถบ hero นี้ --- */
       background-image: url('pailin_rig.jpg'); 
-      background-size: cover; /* ให้เต็มพื้นที่แถบ */
+      background-size: cover; 
       background-position: center;
-      /* เพิ่มสีน้ำเงินเข้มทับเพื่อให้ข้อความอ่านง่ายขึ้น */
       background-color: rgba(0, 60, 120, 0.85); 
-      /* ------------------------------------------------ */
     }
     
     .logo {
@@ -61,8 +57,11 @@
 
     .content { 
         padding: 20px; 
-        /* กลับไปใช้พื้นหลังสีขาวทึบแบบปกติ */
-        background-color: #fff; 
+        /* --- เพิ่มรูปพื้นหลังแบบจางๆ --- */
+        background-image: url('pailin_rig.jpg');
+        background-size: 100px; 
+        background-repeat: repeat; 
+        background-color: rgba(255, 255, 255, 0.8); /* พื้นหลังโปร่งใสขึ้น */
         color: #333;
     }
 
@@ -147,7 +146,7 @@
       padding: 15px;
       font-size: 0.7rem;
       color: rgba(0, 60, 120, 0.7); 
-      background-color: #fff; /* พื้นหลังสีขาวทึบ */
+      background-color: #fff; 
       border-top: 1px solid #eee;
     }
 
