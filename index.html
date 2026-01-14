@@ -18,14 +18,9 @@
       background-color: var(--bg-gray);
       display: flex;
       justify-content: center;
-      padding: 0; /* ลบ padding ออกเพื่อให้ชิดขอบจอ */
+      padding: 0; 
       margin: 0;
-      /* ใช้รูปภาพเต็มหน้าจอเป็นฉากหลังแบบมืออาชีพ */
-      background-image: url('pailin_rig.jpg'); 
-      background-size: cover; 
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
+      /* ลบรูปภาพพื้นหลังจาก body ออก */
     }
 
     .calculator-card {
@@ -37,21 +32,30 @@
       overflow: hidden;
       margin-top: 0;
       min-height: 100vh; /* ให้ Card สูงเต็มจอ */
+      
+      /* --- เพิ่มรูปภาพพื้นหลังในตัว Card แทน --- */
+      background-image: url('pailin_rig.jpg'); 
+      background-size: cover; 
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed; /* ทำให้ภาพพื้นหลังอยู่กับที่เมื่อเลื่อนหน้าจอ */
+      /* ------------------------------------- */
     }
 
     .hero {
-      height: 110px; /* เพิ่มความสูงเล็กน้อย */
-      background: var(--primary-blue) linear-gradient(135deg, #003c78 0%, #0056b3 100%);
+      height: 110px; 
+      /* ใช้สีโปร่งใสเพื่อให้เห็นภาพพื้นหลังด้านหลังได้ */
+      background: rgba(0, 60, 120, 0.7); 
       display: flex;
       align-items: center;
       padding: 0 20px;
       color: white;
       justify-content: space-between;
-      border-bottom: 3px solid var(--accent-gold); /* เน้นเส้นแบ่งสีทอง */
+      border-bottom: 3px solid var(--accent-gold); 
     }
     
     .logo {
-        height: 70px; /* เพิ่มขนาดโลโก้ */
+        height: 70px; 
         margin-right: 15px;
     }
 
@@ -60,7 +64,8 @@
 
     .content { 
         padding: 20px; 
-        background-color: #fff; /* ขาวสะอาดสำหรับเนื้อหา */
+        /* ใช้สีโปร่งใสเพื่อให้เห็นภาพพื้นหลังด้านหลังได้ */
+        background-color: rgba(255, 255, 255, 0.9); 
         color: #333;
     }
 
@@ -91,8 +96,8 @@
     select, input {
       width: 100%;
       padding: 12px;
-      border: 1px solid var(--primary-blue); /* ใช้สีน้ำเงินเข้มที่ขอบ input */
-      border-radius: 5px; /* ลดความโค้งมน */
+      border: 1px solid var(--primary-blue); 
+      border-radius: 5px; 
       font-size: 1rem;
       box-sizing: border-box;
       transition: all 0.3s;
@@ -112,7 +117,7 @@
       border-radius: 8px;
       text-align: center;
       border: 1px solid var(--primary-blue);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* เงาละเอียด */
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); 
     }
 
     #selected-label {
@@ -142,10 +147,11 @@
 
     .footer {
       text-align: center;
-      padding: 20px;
+      padding: 15px;
       font-size: 0.7rem;
-      color: rgba(0, 60, 120, 0.7); /* สีน้ำเงินจางๆ */
-      background-color: #fff;
+      color: rgba(0, 60, 120, 0.7); 
+      /* ใช้สีโปร่งใสเพื่อให้เห็นภาพพื้นหลังด้านหลังได้ */
+      background-color: rgba(255, 255, 255, 0.9);
       border-top: 1px solid #eee;
     }
 
