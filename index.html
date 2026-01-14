@@ -12,7 +12,6 @@
       --bg-gray: #f0f2f5;
     }
 
-    /* เน้น Mobile View เป็นอันดับแรก */
     body {
       font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       background-color: var(--bg-gray);
@@ -23,34 +22,33 @@
     }
 
     .calculator-card {
-      width: 100%; /* กว้าง 100% บนมือถือ */
+      width: 100%; 
       max-width: 500px;
-      background: white;
-      border-radius: 0; /* ลบขอบมนออกบนมือถือเพื่อความเป็นทางการ */
-      box-shadow: none; /* ลบเงาออกบนมือถือ */
+      background: white; /* พื้นหลังหลักเป็นสีขาว */
+      border-radius: 0; 
+      box-shadow: none; 
       overflow: hidden;
       margin-top: 0;
-      min-height: 100vh; /* ให้ Card สูงเต็มจอ */
-      
-      /* --- เพิ่มรูปภาพพื้นหลังในตัว Card และปรับขนาด/ความโปร่งใส --- */
-      background-image: url('pailin_rig.jpg'); 
-      background-size: 50%; /* ทำให้รูปเล็กลงเหลือ 50% */
-      background-position: center;
-      background-repeat: repeat; /* ทำให้รูปแสดงซ้ำ */
-      background-attachment: fixed; /* ทำให้ภาพพื้นหลังอยู่กับที่เมื่อเลื่อนหน้าจอ */
-      /* ------------------------------------- */
+      min-height: 100vh; 
+      /* ลบ background-image ออกจากตรงนี้ */
     }
 
     .hero {
       height: 110px; 
-      /* ใช้สีโปร่งใสมากขึ้น (0.5) เพื่อให้เห็นภาพพื้นหลังด้านหลังได้ชัดขึ้น */
-      background: rgba(0, 60, 120, 0.5); 
       display: flex;
       align-items: center;
       padding: 0 20px;
       color: white;
       justify-content: space-between;
       border-bottom: 3px solid var(--accent-gold); 
+      
+      /* --- ใส่รูปภาพพื้นหลังที่โดดเด่นเฉพาะในแถบ hero นี้ --- */
+      background-image: url('pailin_rig.jpg'); 
+      background-size: cover; /* ให้เต็มพื้นที่แถบ */
+      background-position: center;
+      /* เพิ่มสีน้ำเงินเข้มทับเพื่อให้ข้อความอ่านง่ายขึ้น */
+      background-color: rgba(0, 60, 120, 0.85); 
+      /* ------------------------------------------------ */
     }
     
     .logo {
@@ -63,8 +61,8 @@
 
     .content { 
         padding: 20px; 
-        /* ใช้สีโปร่งใสมากขึ้น (0.75) เพื่อให้เห็นภาพพื้นหลังด้านหลังได้ชัดขึ้น */
-        background-color: rgba(255, 255, 255, 0.75); 
+        /* กลับไปใช้พื้นหลังสีขาวทึบแบบปกติ */
+        background-color: #fff; 
         color: #333;
     }
 
@@ -149,8 +147,7 @@
       padding: 15px;
       font-size: 0.7rem;
       color: rgba(0, 60, 120, 0.7); 
-      /* ใช้สีโปร่งใสมากขึ้น (0.75) เพื่อให้เห็นภาพพื้นหลังด้านหลังได้ชัดขึ้น */
-      background-color: rgba(255, 255, 255, 0.75);
+      background-color: #fff; /* พื้นหลังสีขาวทึบ */
       border-top: 1px solid #eee;
     }
 
