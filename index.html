@@ -20,7 +20,6 @@
       justify-content: center;
       padding: 0; 
       margin: 0;
-      /* ลบรูปภาพพื้นหลังจาก body ออก */
     }
 
     .calculator-card {
@@ -33,19 +32,19 @@
       margin-top: 0;
       min-height: 100vh; /* ให้ Card สูงเต็มจอ */
       
-      /* --- เพิ่มรูปภาพพื้นหลังในตัว Card แทน --- */
+      /* --- เพิ่มรูปภาพพื้นหลังในตัว Card และปรับขนาด/ความโปร่งใส --- */
       background-image: url('pailin_rig.jpg'); 
-      background-size: cover; 
+      background-size: 50%; /* ทำให้รูปเล็กลงเหลือ 50% */
       background-position: center;
-      background-repeat: no-repeat;
+      background-repeat: repeat; /* ทำให้รูปแสดงซ้ำ */
       background-attachment: fixed; /* ทำให้ภาพพื้นหลังอยู่กับที่เมื่อเลื่อนหน้าจอ */
       /* ------------------------------------- */
     }
 
     .hero {
       height: 110px; 
-      /* ใช้สีโปร่งใสเพื่อให้เห็นภาพพื้นหลังด้านหลังได้ */
-      background: rgba(0, 60, 120, 0.7); 
+      /* ใช้สีโปร่งใสมากขึ้น (0.5) เพื่อให้เห็นภาพพื้นหลังด้านหลังได้ชัดขึ้น */
+      background: rgba(0, 60, 120, 0.5); 
       display: flex;
       align-items: center;
       padding: 0 20px;
@@ -64,8 +63,8 @@
 
     .content { 
         padding: 20px; 
-        /* ใช้สีโปร่งใสเพื่อให้เห็นภาพพื้นหลังด้านหลังได้ */
-        background-color: rgba(255, 255, 255, 0.9); 
+        /* ใช้สีโปร่งใสมากขึ้น (0.75) เพื่อให้เห็นภาพพื้นหลังด้านหลังได้ชัดขึ้น */
+        background-color: rgba(255, 255, 255, 0.75); 
         color: #333;
     }
 
@@ -150,8 +149,8 @@
       padding: 15px;
       font-size: 0.7rem;
       color: rgba(0, 60, 120, 0.7); 
-      /* ใช้สีโปร่งใสเพื่อให้เห็นภาพพื้นหลังด้านหลังได้ */
-      background-color: rgba(255, 255, 255, 0.9);
+      /* ใช้สีโปร่งใสมากขึ้น (0.75) เพื่อให้เห็นภาพพื้นหลังด้านหลังได้ชัดขึ้น */
+      background-color: rgba(255, 255, 255, 0.75);
       border-top: 1px solid #eee;
     }
 
