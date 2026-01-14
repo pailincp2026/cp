@@ -18,7 +18,7 @@
       display: flex;
       justify-content: center;
       min-height: 100vh;
-      /* แก้ไขเป็น .JPG ตามชื่อไฟล์จริงใน GitHub ของคุณ */
+      /* พื้นหลังหลัก offshore.JPG */
       background-image: url('offshore.JPG'); 
       background-size: cover;
       background-position: center;
@@ -29,65 +29,66 @@
     .calculator-card {
       width: 100%; 
       max-width: 500px;
-      /* เอฟเฟกต์ Glassmorphism แบบในรูปตัวอย่าง */
-      background: rgba(255, 255, 255, 0.1); 
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
+      /* ปรับความโปร่งใสให้เห็นรูปชัดขึ้น */
+      background: rgba(255, 255, 255, 0.05); 
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      box-shadow: 0 0 30px rgba(0,0,0,0.4);
     }
 
     .hero {
-      height: 110px; 
+      height: 120px; 
       display: flex;
       align-items: center;
       padding: 0 20px;
       color: white;
       justify-content: space-between;
-      border-bottom: 3px solid var(--accent-gold); 
-      background-color: rgba(0, 60, 120, 0.5); 
+      border-bottom: 4px solid var(--accent-gold); 
+      position: relative;
+      /* ใส่รูป pailin_rig.jpg แบบคุมโทนเข้มเพื่อให้ข้อความชัด */
+      background-image: linear-gradient(rgba(0, 40, 80, 0.5), rgba(0, 40, 80, 0.5)), 
+                        url('pailin_rig.jpg'); 
+      background-size: cover;
+      background-position: center;
     }
     
     .logo {
-        height: 70px; 
-        margin-right: 15px;
+        height: 75px; 
+        filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.6));
     }
 
-    .hero-text h2 { margin: 0; font-size: 1.5rem; letter-spacing: 1px; }
-    .hero-text p { margin: 0; font-size: 0.85rem; opacity: 0.9; }
+    .hero-text h2 { margin: 0; font-size: 1.6rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); }
+    .hero-text p { margin: 0; font-size: 0.85rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); }
 
     .content { 
-        padding: 20px; 
+        padding: 25px 20px; 
         flex-grow: 1;
-    }
-
-    .input-group {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-bottom: 25px;
     }
 
     label {
       display: block;
       font-size: 0.75rem;
       font-weight: bold;
-      color: white; 
-      margin-bottom: 5px;
+      color: #ffffff; 
+      margin-bottom: 8px;
       text-transform: uppercase;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.9); /* เน้นตัวหนังสือบนรูป */
     }
 
     select, input {
       width: 100%;
-      padding: 12px;
+      padding: 14px;
       border: 1px solid rgba(255, 255, 255, 0.4); 
-      border-radius: 8px; 
+      border-radius: 12px; 
       font-size: 1rem;
       box-sizing: border-box;
-      background: rgba(255, 255, 255, 0.9); 
+      /* สีขาวโปร่งแสงพอประมาณเพื่อให้ใช้งานง่ายแต่ยังเห็นรูป */
+      background: rgba(255, 255, 255, 0.88); 
       color: var(--primary-blue);
+      margin-bottom: 15px;
     }
 
     input[readonly] {
@@ -96,54 +97,49 @@
     }
 
     .result-section {
-      background: rgba(255, 255, 255, 0.95); 
+      background: rgba(255, 255, 255, 0.92); 
       padding: 25px;
-      border-radius: 15px;
+      border-radius: 20px;
       text-align: center;
-      border: 1px solid var(--primary-blue);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); 
-    }
-
-    #selected-label {
-      font-size: 0.9rem;
-      color: #555;
-      margin-bottom: 10px;
-      font-weight: 600;
+      border: 1px solid rgba(0, 60, 120, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); 
+      margin-top: 10px;
     }
 
     .total-display {
       color: var(--success-green); 
       font-weight: 800;
-      font-size: 3rem;
-      margin-bottom: 10px;
+      font-size: 3.2rem;
+      margin: 5px 0;
     }
 
     .save-cost-badge {
       display: inline-block;
       background: var(--success-green);
       color: white;
-      padding: 10px 25px;
-      border-radius: 25px;
-      font-size: 0.85rem;
+      padding: 12px 35px;
+      border-radius: 30px;
+      font-size: 0.9rem;
       font-weight: bold;
       border: none;
       cursor: pointer;
+      box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
     }
 
     .footer {
       text-align: center;
       padding: 20px;
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       color: white; 
-      background-color: rgba(0, 0, 0, 0.2); 
+      background-color: rgba(0, 0, 0, 0.4); 
+      text-shadow: 1px 1px 2px rgba(0,0,0,1);
     }
 
     @media (min-width: 501px) {
       .calculator-card {
-        margin: 30px 0;
-        border-radius: 20px;
+        margin: 40px 0;
+        border-radius: 25px;
         min-height: auto;
-        border: 1px solid rgba(255, 255, 255, 0.2);
       }
     }
   </style>
@@ -160,36 +156,30 @@
   </div>
 
   <div class="content">
-    <div class="input-group">
-      <div>
-        <label>Media</label>
-        <select id="type-select" onchange="applyPreset()">
-          <option value="">-- Tap to Select Media --</option>
-          <option value="gas_pacpp">Gas / PACPP</option>
-          <option value="condy">CONDY PACPP</option>
-          <option value="remote">Gas Remote Platform</option>
-        </select>
-      </div>
+    <label>Media</label>
+    <select id="type-select" onchange="applyPreset()">
+      <option value="">-- Tap to Select Media --</option>
+      <option value="gas_pacpp">Gas / PACPP</option>
+      <option value="condy">CONDY PACPP</option>
+      <option value="remote">Gas Remote Platform</option>
+    </select>
 
-      <div>
-        <label>Hours</label>
-        <input type="number" id="val-h" placeholder="Enter hours..." oninput="calculate()">
-      </div>
+    <label>Hours</label>
+    <input type="number" id="val-h" placeholder="Enter hours..." oninput="calculate()">
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-        <div>
-          <label>Rate: mmscf/hrs</label>
-          <input type="number" id="val-r" readonly value="0">
-        </div>
-        <div>
-          <label>$mmscf</label>
-          <input type="number" id="val-p" readonly value="0">
-        </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+      <div>
+        <label>Rate: mmscf/hrs</label>
+        <input type="number" id="val-r" readonly value="0">
+      </div>
+      <div>
+        <label>$mmscf</label>
+        <input type="number" id="val-p" readonly value="0">
       </div>
     </div>
 
     <div class="result-section">
-      <div id="selected-label">Please select media type above</div>
+      <div id="selected-label" style="font-weight: 600; color: #444;">Please select media type above</div>
       <div class="total-display" id="grand-total">$0.00</div>
       <button class="save-cost-badge">SAVE COST</button>
     </div>
