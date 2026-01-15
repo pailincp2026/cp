@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Benefit Calculator 2026</title>
+  <title>Benefit Calculator 2026 - Transparent</title>
   <style>
     :root {
       --primary-blue: #002d5a;
@@ -14,63 +14,79 @@
     body {
       font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       margin: 0; padding: 0; display: flex; justify-content: center;
-      min-height: 100vh; background-color: #001a33;
-      background-image: linear-gradient(rgba(0, 30, 60, 0.4), rgba(0, 20, 40, 0.6)), url('offshore.JPG'); 
-      background-size: cover; background-position: center; background-attachment: fixed;
+      min-height: 100vh; 
+      /* พื้นหลังหลักของหน้าจอ */
+      background-image: url('offshore.JPG'); 
+      background-size: cover; 
+      background-position: center; 
+      background-attachment: fixed;
+      background-repeat: no-repeat;
     }
 
     .calculator-card {
       width: 100%; max-width: 500px;
-      background: rgba(255, 255, 255, 0.05); 
-      backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+      /* ปรับให้โปร่งใส 100% */
+      background: transparent; 
       display: flex; flex-direction: column; min-height: 100vh;
     }
 
     .hero {
       height: 110px; display: flex; align-items: center; padding: 0 20px;
-      color: white; justify-content: space-between; border-bottom: 4px solid var(--accent-gold); 
-      background-image: linear-gradient(rgba(0, 45, 90, 0.5), rgba(0, 45, 90, 0.5)), url('pailin_rig.jpg'); 
-      background-size: cover; background-position: center;
+      color: white; justify-content: space-between; 
+      border-bottom: 4px solid var(--accent-gold); 
+      background: rgba(0, 45, 90, 0.3); /* ใส่สีจางๆ เฉพาะหัวข้อเพื่อให้โลโก้เด่น */
     }
     
-    .logo { height: 70px; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5)); }
-    .hero-text h2 { margin: 0; font-size: 1.5rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); }
-    .hero-text p { margin: 0; font-size: 0.8rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
+    .logo { height: 70px; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.8)); }
+    .hero-text h2 { margin: 0; font-size: 1.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,1); }
+    .hero-text p { margin: 0; font-size: 0.8rem; text-shadow: 1px 1px 3px rgba(0,0,0,1); }
 
     .content { padding: 25px 20px; flex-grow: 1; }
 
     label {
       display: block; font-size: 0.75rem; font-weight: bold; color: #ffffff; 
-      margin-bottom: 8px; text-transform: uppercase; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+      margin-bottom: 8px; text-transform: uppercase; 
+      text-shadow: 2px 2px 4px rgba(0,0,0,1); /* เงาเข้มเพื่อให้เห็นตัวหนังสือบนรูปภาพ */
     }
 
     select, input {
-      width: 100%; padding: 14px; border: 1px solid rgba(255, 255, 255, 0.3); 
+      width: 100%; padding: 14px; border: 2px solid rgba(255, 255, 255, 0.5); 
       border-radius: 12px; font-size: 1rem; box-sizing: border-box;
-      background: rgba(255, 255, 255, 0.95); color: var(--primary-blue); margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.9); /* ให้ช่องกรอกขาวจางๆ เพื่อให้พิมพ์ง่าย */
+      color: var(--primary-blue); margin-bottom: 20px;
+      font-weight: bold;
     }
 
     .row-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 5px; }
 
     .result-section {
-      background: rgba(255, 255, 255, 0.95); padding: 30px 20px;
-      border-radius: 20px; text-align: center; border: 1px solid var(--primary-blue);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4); margin-top: 10px;
+      /* ส่วนแสดงผลโปร่งใส แต่มีขอบขาวจางๆ ให้ดูเป็นสัดส่วน */
+      background: rgba(255, 255, 255, 0.15); 
+      padding: 30px 20px;
+      border-radius: 20px; text-align: center; 
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(2px); /* เบลอเล็กน้อยเฉพาะส่วนแสดงผลเพื่อให้ตัวเลขเด่น */
+      margin-top: 10px;
     }
 
-    .total-display { color: var(--success-green); font-weight: 800; font-size: 3.2rem; margin: 10px 0; }
+    .total-display { 
+      color: #00ff44; /* สีเขียวสว่างเพื่อให้ตัดกับรูปพื้นหลัง */
+      font-weight: 800; font-size: 3.5rem; margin: 10px 0; 
+      text-shadow: 3px 3px 10px rgba(0,0,0,0.8);
+    }
     
     .save-cost-badge {
       display: block; width: 100%; background: var(--success-green); color: white;
       padding: 15px; border-radius: 15px; font-weight: bold; border: none;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     }
 
-    #route-summary { font-size: 1.1rem; margin-bottom: 4px; }
-    #distance-value { font-size: 0.85rem; font-weight: normal; opacity: 0.9; }
+    #route-summary { font-size: 1.1rem; margin-bottom: 4px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+    #distance-value { font-size: 0.85rem; font-weight: normal; }
 
     .footer {
       text-align: center; padding: 20px 20px 40px 20px; font-size: 0.7rem; color: white; 
-      background-color: rgba(0, 0, 0, 0.4);
+      text-shadow: 1px 1px 3px rgba(0,0,0,1);
     }
   </style>
 </head>
@@ -92,7 +108,7 @@
       <option value="gas_pacpp">Gas / PACPP</option>
       <option value="condy">CONDY PACPP</option>
       <option value="remote">Gas Remote Platform</option>
-      </select>
+    </select>
 
     <label for="val-hours">Additional Hours</label>
     <input type="number" id="val-hours" placeholder="0" oninput="calculate()" value="0">
@@ -118,7 +134,7 @@
     <input type="hidden" id="val-factor" value="1">
 
     <div class="result-section">
-      <div id="selected-label" style="font-weight: 600; color: #666; font-size: 0.9rem;">Total Cost Estimate</div>
+      <div id="selected-label" style="font-weight: bold; color: #ffffff; font-size: 1rem; text-shadow: 1px 1px 3px #000;">Total Cost Estimate</div>
       <div class="total-display" id="grand-total">$0.00</div>
       
       <button class="save-cost-badge">
@@ -134,13 +150,13 @@
 </div>
 
 <script>
-  const locations = ["PALQ", "PAWA", "PAWB", "PAWC", "PAWD", "PAWE", "PAWF", "PAWG", "PAWH", "PAWI", "PAWJ", "PAWK", "PAWL", "PAWM", "PAWN", "PAWO", "PAWP", "PAWQ", "PAWR", "PAWS", "PAWT", "PAWU", "MGWA", "MGWB", "MGWC", "MGWD", "MGWE", "MGWF", "MGWG", "MGWH", "MGWI", "MGWJ", "MGWK", "MGWL", "SKL"];
+  const locations = ["PALQ", "PAWA", "PAWB", "PAWC", "PAWD", "PAWE", "PAWF", "PAWG", "PAWH", "PAWI", "PAWJ", "PAWK", "PAWL", "PAWM", "PAWN", "PAWO", "PAWP", "PAWQ", "PAWR", "PAWS", "PAWT", "PAWU", "MGWA", "MGWB", "MGWC", "MGWD", "MGWE", "MGWF", "MGWG", "MGWH", "MGWI", "MGWJ", "MGWK", "MGWL"];
 
   const distMatrix = {
-    "PALQ": {"PAWA":65.44,"PAWB":52.95,"PAWD":48.06,"PAWS":102.65, "SKL": 1.0},
-    "PAWA": {"PALQ":65.44,"PAWD":93.41,"PAWS":105.36},
-    "PAWD": {"PALQ":48.06,"PAWA":93.41,"PAWS":75.20},
-    "SKL": {"PALQ": 1.0} 
+    "PALQ": {"PAWA":65.44616,"PAWB":52.95437,"PAWC":154.5181,"PAWD":48.06627,"PAWS":102.65},
+    "PAWA": {"PALQ":65.44616,"PAWB":88.25728,"PAWD":93.41693,"PAWS":105.3656},
+    "PAWB": {"PALQ":52.95437,"PAWA":88.25728,"PAWD":98.30503,"PAWS":57.29934},
+    "PAWD": {"PALQ":48.06627,"PAWA":93.41693,"PAWB":98.30503,"PAWS":75.201}
   };
 
   const presets = {
@@ -148,9 +164,6 @@
     condy:     { label: "CONDY PACPP", rate: 396,  price: 60,   factor: 1 },
     remote:    { label: "Gas Remote Platform", rate: 0.21, price: 6000, factor: 1 }
   };
-
-  // Preset พิเศษสำหรับ SKL-PALQ โดยเฉพาะ
-  const sklSpecial = { rate: 3610, price: 0.621, factor: 2 };
 
   const fromSel = document.getElementById('loc-from');
   const toSel = document.getElementById('loc-to');
@@ -167,21 +180,14 @@
     const hiddenDist = document.getElementById('val-dist');
 
     if (from && to) {
-      // เช็คเงื่อนไขพิเศษ: ถ้าเลือก SKL-PALQ ให้เปลี่ยน Rate/Price ทันที
-      if ((from === "SKL" && to === "PALQ") || (from === "PALQ" && to === "SKL")) {
-        document.getElementById('val-rate').value = sklSpecial.rate;
-        document.getElementById('val-price').value = sklSpecial.price;
-        document.getElementById('val-factor').value = sklSpecial.factor;
-        document.getElementById('selected-label').innerText = "SKL-PALQ Special Route";
-      } else {
-        // ถ้าไม่ใช่ SKL-PALQ ให้กลับไปใช้ค่าตาม Media Type ที่เลือกไว้
-        applyPreset(); 
-      }
-
       let dist = (from === to) ? 0 : (distMatrix[from]?.[to] || distMatrix[to]?.[from] || 0);
       hiddenDist.value = dist;
       routeDisplay.innerText = from + " ➔ " + to;
       distDisplay.innerText = dist.toFixed(2) + " Miles";
+    } else {
+      hiddenDist.value = 0;
+      routeDisplay.innerText = "PLEASE SELECT ROUTE";
+      distDisplay.innerText = "0.00 Miles";
     }
     calculate();
   }
@@ -189,22 +195,24 @@
   function applyPreset() {
     const select = document.getElementById('type-select');
     const data = presets[select.value];
-    
     if (data) {
       document.getElementById('val-rate').value = data.rate;
       document.getElementById('val-price').value = data.price;
       document.getElementById('val-factor').value = data.factor; 
       document.getElementById('selected-label').innerText = data.label;
+    } else {
+      document.getElementById('val-rate').value = 0;
+      document.getElementById('selected-label').innerText = "Total Cost Estimate";
     }
     calculate();
   }
 
   function calculate() {
+    const mediaSelected = document.getElementById('type-select').value;
     const from = document.getElementById('loc-from').value;
     const to = document.getElementById('loc-to').value;
     
-    // แสดง $0.00 จนกว่าจะเลือกสถานที่ครบ
-    if (!from || !to) {
+    if (!mediaSelected || !from || !to) {
       document.getElementById('grand-total').innerText = '$0.00';
       return;
     }
