@@ -3,67 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Benefit Calculator 2026 - Premium Edition</title>
+  <title>Benefit Calculator 2026</title>
   <style>
     :root {
       --primary-blue: #002d5a;
       --accent-gold: #ffb81c;
-      --success-green: #2ecc71;
-      --glass-bg: rgba(255, 255, 255, 0.1);
+      --success-green: #00ff88;
+      --glass-white: rgba(255, 255, 255, 0.12);
       --glass-border: rgba(255, 255, 255, 0.2);
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0; padding: 0; 
-      display: flex; justify-content: center;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      margin: 0; padding: 0; display: flex; justify-content: center;
       min-height: 100vh;
       background-color: #001a33;
-      /* พื้นหลังหลัก */
-      background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('offshore.png'); 
+      /* พื้นหลัง 100% เต็มหน้าจอ */
+      background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('offshore.JPG'); 
       background-repeat: no-repeat;
       background-position: center; 
       background-attachment: fixed;
-      background-size: cover; /* ปรับให้เต็มหน้าจอเพื่อความสวยงาม */
+      background-size: cover; 
     }
 
     .calculator-card {
       width: 100%; max-width: 480px;
       background: transparent; 
       display: flex; flex-direction: column;
-      margin: 20px;
+      padding-bottom: 40px;
     }
 
     .hero {
       height: 120px; display: flex; align-items: center; padding: 0 25px;
       color: white; justify-content: space-between; 
       border-bottom: 4px solid var(--accent-gold); 
-      border-radius: 20px 20px 0 0;
       background-image: linear-gradient(rgba(0, 45, 90, 0.6), rgba(0, 45, 90, 0.6)), url('pailin_rig.jpg'); 
       background-size: cover; 
       background-position: center;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      margin-top: 20px;
     }
     
-    .logo { height: 60px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); }
-    .hero-text h2 { margin: 0; font-size: 1.4rem; letter-spacing: 1px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
-    .hero-text p { margin: 0; font-size: 0.75rem; opacity: 0.9; text-transform: uppercase; }
+    .logo { height: 65px; filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.6)); }
+    .hero-text h2 { margin: 0; font-size: 1.6rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); letter-spacing: 1px; }
+    .hero-text p { margin: 0; font-size: 0.8rem; opacity: 0.9; font-weight: 300; }
 
     .content { 
       padding: 30px 25px; 
-      background: var(--glass-bg);
+      background: var(--glass-white);
       backdrop-filter: blur(15px);
       -webkit-backdrop-filter: blur(15px);
       border: 1px solid var(--glass-border);
       border-top: none;
       border-radius: 0 0 20px 20px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
     }
 
     label {
-      display: block; font-size: 0.7rem; font-weight: 700; color: #ffb81c; 
-      margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1.5px;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+      display: block; font-size: 0.75rem; font-weight: bold; color: var(--accent-gold); 
+      margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     }
 
     select, input {
@@ -71,46 +71,49 @@
       border-radius: 12px; font-size: 1rem; box-sizing: border-box;
       background: rgba(255, 255, 255, 0.95);
       color: var(--primary-blue); margin-bottom: 25px;
-      font-weight: 600; transition: all 0.3s ease;
-    }
-
-    select:focus, input:focus {
-      outline: none; border-color: var(--accent-gold); box-shadow: 0 0 10px rgba(255, 184, 28, 0.4);
+      font-weight: bold; transition: all 0.3s ease;
     }
 
     .row-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
     .result-section {
       background: rgba(0, 0, 0, 0.4); 
-      padding: 25px; border-radius: 18px; text-align: center; 
+      padding: 25px;
+      border-radius: 20px; text-align: center; 
       border: 1px solid var(--glass-border);
       margin-top: 10px;
     }
 
-    #selected-label { 
-      font-weight: 600; color: #ffffff; font-size: 1.1rem; 
-      text-shadow: 1px 1px 3px #000; letter-spacing: 1px;
-    }
-
+    /* ช่องสีเขียวกลาง - แสดงผลลัพธ์หลัก */
     .total-display { 
-      color: #00ff88; 
-      font-weight: 800; font-size: 3.2rem; 
+      color: var(--success-green); 
+      font-weight: 800; 
+      font-size: 3.2rem; 
       margin: 15px 0; 
       text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
-      min-height: 4.5rem; display: flex; align-items: center; justify-content: center;
+      min-height: 4.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
+    /* ปุ่มล่าง - SAVE COSTS ถาวร */
     .save-cost-badge {
-      display: block; width: 100%; background: var(--success-green); color: white;
-      padding: 16px; border-radius: 12px; font-weight: 700; border: none;
-      box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
-      font-size: 1.4rem; cursor: pointer; transition: transform 0.2s;
+      display: block; width: 100%; background: #28a745; color: white;
+      padding: 16px; border-radius: 12px; font-weight: bold; border: none;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      font-size: 1.6rem; letter-spacing: 2px;
+      cursor: pointer;
     }
-    .save-cost-badge:active { transform: scale(0.98); }
+
+    #selected-label { 
+      font-weight: 600; color: #ffffff; font-size: 1.1rem; 
+      text-shadow: 1px 1px 5px #000;
+      letter-spacing: 1px;
+    }
 
     .footer {
-      text-align: center; padding: 30px; font-size: 0.65rem; color: rgba(255,255,255,0.6); 
-      letter-spacing: 1px;
+      text-align: center; padding: 25px; font-size: 0.7rem; color: rgba(255,255,255,0.6); 
     }
   </style>
 </head>
@@ -120,21 +123,21 @@
   <div class="hero">
     <img src="logo.png" alt="Logo" class="logo">
     <div class="hero-text">
-      <h2>Benefit Calc</h2>
-      <p>Operational Estimator</p>
+      <h2>Benefit Calculator</h2>
+      <p>Operational Cost Estimation</p>
     </div>
   </div>
 
   <div class="content">
     <label>Media Type Selection</label>
     <select id="type-select" onchange="applyPreset()">
-      <option value="">-- Select Media --</option>
+      <option value="">-- Tap to Select Media --</option>
       <option value="gas_pacpp">Gas / PACPP</option>
       <option value="condy">CONDY PACPP</option>
       <option value="remote">Gas Remote Platform</option>
     </select>
 
-    <label>Additional Hours</label>
+    <label for="val-hours">Additional Hours</label>
     <input type="number" id="val-hours" placeholder="0" oninput="calculate()">
 
     <div class="row-grid">
@@ -154,66 +157,81 @@
 
     <div class="result-section">
       <div id="selected-label">COST ESTIMATE</div>
-      <div class="total-display" id="money-output">$0.00</div>
-      <button class="save-cost-badge" id="distance-output">0.00 Miles</button>
+      
+      <div class="total-display" id="main-output">$0.00</div>
+      
+      <button class="save-cost-badge">SAVE COSTS</button>
     </div>
   </div>
 
   <div class="footer">
-    © 2026 CHEVRON — INTERNAL ACCESS ONLY
+    © CHEVRON — INTERNAL USE ONLY | 2026
   </div>
 </div>
 
 <script>
   const locations = ["PALQ", "PAWA", "PAWB", "PAWC", "PAWD", "PAWE", "PAWF", "PAWG", "PAWH", "PAWI", "PAWJ", "PAWK", "PAWL", "PAWM", "PAWN", "PAWO", "PAWP", "PAWQ", "PAWR", "PAWS", "PAWT", "PAWU", "MGWA", "MGWB", "MGWC", "MGWD", "MGWE", "MGWF", "MGWG", "MGWH", "MGWI", "MGWJ", "MGWK", "MGWL"];
   const distMatrix = { "PALQ": {"PAWA":65.44,"PAWB":52.95,"PAWD":48.06,"PAWS":102.65}, "PAWA": {"PALQ":65.44,"PAWB":88.25}, "PAWB": {"PALQ":52.95,"PAWA":88.25} };
-  const presets = { gas_pacpp: { rate: 9.17, price: 6000 }, condy: { rate: 396, price: 60 }, remote: { rate: 0.21, price: 6000 } };
+  
+  const presets = {
+    gas_pacpp: { rate: 9.17, price: 6000 },
+    condy:     { rate: 396,  price: 60 },
+    remote:    { rate: 0.21, price: 6000 }
+  };
 
   const fromSel = document.getElementById('loc-from');
   const toSel = document.getElementById('loc-to');
   const typeSel = document.getElementById('type-select');
   const hoursInput = document.getElementById('val-hours');
+  const mainOutput = document.getElementById('main-output');
+  const routeLabel = document.getElementById('selected-label');
 
   locations.forEach(loc => {
     fromSel.add(new Option(loc, loc));
     toSel.add(new Option(loc, loc));
   });
 
+  // เมื่อเลือก Media Type
   function applyPreset() {
     fromSel.selectedIndex = 0;
     toSel.selectedIndex = 0;
-    document.getElementById('selected-label').innerText = "COST ESTIMATE";
-    document.getElementById('distance-output').innerText = "0.00 Miles";
-    calculate();
+    routeLabel.innerText = "COST ESTIMATE";
+    calculate(); // ไปแสดงยอดเงินที่ main-output
   }
 
+  // เมื่อเลือก Origin/Destination
   function updateDistance() {
     typeSel.selectedIndex = 0;
     hoursInput.value = "";
-    document.getElementById('money-output').innerText = "$0.00";
-    const from = fromSel.value; const to = toSel.value;
-    const routeLabel = document.getElementById('selected-label');
-    const distOutput = document.getElementById('distance-output');
+    
+    const from = fromSel.value;
+    const to = toSel.value;
+    
     if (from && to) {
       let dist = (from === to) ? 0 : (distMatrix[from]?.[to] || distMatrix[to]?.[from] || 0);
       routeLabel.innerText = from + " ➔ " + to;
-      distOutput.innerText = dist.toFixed(2) + " Miles";
+      // แสดงระยะทาง Miles ที่ช่องกลางสีเขียว
+      mainOutput.innerText = dist.toFixed(2) + " Miles";
     } else {
       routeLabel.innerText = "COST ESTIMATE";
-      distOutput.innerText = "0.00 Miles";
+      mainOutput.innerText = "0.00 Miles";
     }
   }
 
+  // คำนวณยอดเงิน
   function calculate() {
     const mediaKey = typeSel.value;
     const hoursVal = hoursInput.value;
-    const moneyOutput = document.getElementById('money-output');
+    
     if (!mediaKey || !hoursVal || parseFloat(hoursVal) <= 0) {
-      moneyOutput.innerText = '$0.00'; return;
+      if (!fromSel.value) mainOutput.innerText = '$0.00';
+      return;
     }
+
     const { rate, price } = presets[mediaKey];
     const total = parseFloat(hoursVal) * rate * price;
-    moneyOutput.innerText = '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    // แสดงยอดเงินที่ช่องกลางสีเขียว
+    mainOutput.innerText = '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
   }
 </script>
 
