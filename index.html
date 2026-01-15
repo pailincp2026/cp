@@ -1,42 +1,221 @@
-<div class="content">
-  <label>Media</label>
-  <select id="type-select" onchange="applyPreset()">
-    <option value="">-- Tap to Select Media --</option>
-    <option value="gas_pacpp">Gas / PACPP</option>
-    <option value="condy">CONDY PACPP</option>
-    <option value="remote">Gas Remote Platform</option>
-    <option value="skl_palq">SKL-PALQ</option>
-  </select>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Benefit Calculator 2026 - Clean View</title>
+  <style>
+    :root {
+      --primary-blue: #002d5a;
+      --accent-gold: #ffb81c;
+      --success-green: #28a745;
+    }
 
-  <div class="row-grid">
-    <div>
-      <label>Origin</label>
-      <select id="loc-from" onchange="updateDistance()">
-        <option value="">-- From --</option>
-      </select>
-    </div>
-    <div>
-      <label>Destination</label>
-      <select id="loc-to" onchange="updateDistance()">
-        <option value="">-- To --</option>
-      </select>
+    body {
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      margin: 0; padding: 0; display: flex; justify-content: center;
+      min-height: 100vh; background-color: #001a33;
+      background-image: linear-gradient(rgba(0, 30, 60, 0.4), rgba(0, 20, 40, 0.6)), url('offshore.JPG'); 
+      background-size: cover; background-position: center; background-attachment: fixed;
+    }
+
+    .calculator-card {
+      width: 100%; max-width: 500px;
+      background: rgba(255, 255, 255, 0.05); 
+      backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+      display: flex; flex-direction: column; min-height: 100vh;
+    }
+
+    .hero {
+      height: 110px; display: flex; align-items: center; padding: 0 20px;
+      color: white; justify-content: space-between; border-bottom: 4px solid var(--accent-gold); 
+      background-image: linear-gradient(rgba(0, 45, 90, 0.5), rgba(0, 45, 90, 0.5)), url('pailin_rig.jpg'); 
+      background-size: cover; background-position: center;
+    }
+    
+    .logo { height: 70px; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5)); }
+    .hero-text h2 { margin: 0; font-size: 1.5rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); }
+    .hero-text p { margin: 0; font-size: 0.8rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
+
+    .content { padding: 25px 20px; flex-grow: 1; }
+
+    label {
+      display: block; font-size: 0.75rem; font-weight: bold; color: #ffffff; 
+      margin-bottom: 8px; text-transform: uppercase; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+    }
+
+    select {
+      width: 100%; padding: 14px; border: 1px solid rgba(255, 255, 255, 0.3); 
+      border-radius: 12px; font-size: 1rem; box-sizing: border-box;
+      background: rgba(255, 255, 255, 0.95); color: var(--primary-blue); margin-bottom: 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .row-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 10px; }
+
+    .result-section {
+      background: rgba(255, 255, 255, 0.95); padding: 30px 20px;
+      border-radius: 20px; text-align: center; border: 1px solid var(--primary-blue);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4); margin-top: 10px;
+    }
+
+    .total-display { color: var(--success-green); font-weight: 800; font-size: 3.2rem; margin: 10px 0; }
+    
+    .save-cost-badge {
+      display: block; width: 100%; background: var(--success-green); color: white;
+      padding: 15px; border-radius: 15px; font-weight: bold; border: none;
+      cursor: pointer; transition: transform 0.2s, background 0.2s;
+    }
+
+    .save-cost-badge:active { transform: scale(0.98); background: #1e7e34; }
+
+    #route-summary { font-size: 1.1rem; letter-spacing: 0.5px; margin-bottom: 4px; }
+    #distance-value { font-size: 0.85rem; font-weight: normal; opacity: 0.9; }
+
+    .footer {
+      text-align: center; padding: 20px 20px 40px 20px; font-size: 0.7rem; color: white; 
+      background-color: rgba(0, 0, 0, 0.4); text-shadow: 1px 1px 2px rgba(0,0,0,1);
+    }
+  </style>
+</head>
+<body>
+
+<div class="calculator-card">
+  <div class="hero">
+    <img src="logo.png" alt="Logo" class="logo">
+    <div class="hero-text">
+      <h2>Benefit Calculator</h2>
+      <p>Operational Cost Estimation (2026)</p>
     </div>
   </div>
 
-  <input type="hidden" id="val-h" value="0">
-  <input type="hidden" id="val-r" value="0">
-  <input type="hidden" id="val-p" value="0">
-  <input type="hidden" id="val-f" value="1">
+  <div class="content">
+    <label>Media Type</label>
+    <select id="type-select" onchange="applyPreset()">
+      <option value="">-- Tap to Select Media --</option>
+      <option value="gas_pacpp">Gas / PACPP</option>
+      <option value="condy">CONDY PACPP</option>
+      <option value="remote">Gas Remote Platform</option>
+      <option value="skl_palq">SKL-PALQ</option>
+    </select>
 
-  <div class="result-section">
-    <div id="selected-label" style="font-weight: 600; color: #555; font-size: 0.85rem; margin-bottom: 5px;">
-      Ready to Calculate
+    <div class="row-grid">
+      <div>
+        <label>Origin</label>
+        <select id="loc-from" onchange="updateDistance()">
+          <option value="">-- From --</option>
+        </select>
+      </div>
+      <div>
+        <label>Destination</label>
+        <select id="loc-to" onchange="updateDistance()">
+          <option value="">-- To --</option>
+        </select>
+      </div>
     </div>
-    <div class="total-display" id="grand-total">$0.00</div>
-    
-    <button class="save-cost-badge" id="main-action-btn">
-      <div id="route-text">PLEASE SELECT ROUTE</div>
-      <div id="dist-text" style="font-size: 0.8rem; font-weight: normal; opacity: 0.8;">0.00 Miles</div>
-    </button>
+
+    <input type="hidden" id="val-h" value="0">
+    <input type="hidden" id="val-r" value="0">
+    <input type="hidden" id="val-p" value="0">
+    <input type="hidden" id="val-f" value="1">
+
+    <div class="result-section">
+      <div id="selected-label" style="font-weight: 600; color: #666; font-size: 0.9rem;">Estimation Total</div>
+      <div class="total-display" id="grand-total">$0.00</div>
+      
+      <button class="save-cost-badge" onclick="alert('Cost Saved to Log')">
+        <div id="route-summary">PLEASE SELECT ROUTE</div>
+        <div id="distance-value">0.00 Miles</div>
+      </button>
+    </div>
+  </div>
+
+  <div class="footer">
+    © CHEVRON — INTERNAL USE ONLY<br>
+    DVE Sirasit CP-CO | Updated Jan 2026
   </div>
 </div>
+
+<script>
+  // List of locations
+  const locations = ["PALQ", "PAWA", "PAWB", "PAWC", "PAWD", "PAWE", "PAWF", "PAWG", "PAWH", "PAWI", "PAWJ", "PAWK", "PAWL", "PAWM", "PAWN", "PAWO", "PAWP", "PAWQ", "PAWR", "PAWS", "PAWT", "PAWU", "MGWA", "MGWB", "MGWC", "MGWD", "MGWE", "MGWF", "MGWG", "MGWH", "MGWI", "MGWJ", "MGWK", "MGWL"];
+
+  // Matrix Data
+  const distMatrix = {
+    "PALQ": {"PAWA":65.446,"PAWB":52.954,"PAWC":154.518,"PAWD":48.066,"PAWE":99.662,"PAWF":3.258,"PAWG":138.224,"PAWH":58.928,"PAWI":102.921,"PAWS":102.650},
+    "PAWA": {"PALQ":65.446,"PAWB":88.257,"PAWD":93.416,"PAWS":105.365},
+    "PAWB": {"PALQ":52.954,"PAWA":88.257,"PAWD":98.305,"PAWS":57.299},
+    "PAWD": {"PALQ":48.066,"PAWA":93.416,"PAWB":98.305,"PAWS":75.201} 
+    // เพิ่มข้อมูลพิกัดอื่นๆ ตรงนี้ตามโครงสร้างด้านบน
+  };
+
+  const presets = {
+    gas_pacpp: { label: "Gas / PACPP", rate: 9.17, price: 6000, factor: 1 },
+    condy:     { label: "CONDY PACPP", rate: 396,  price: 60,   factor: 1 },
+    remote:    { label: "Gas Remote Platform", rate: 0.21, price: 6000, factor: 1 },
+    skl_palq:  { label: "SKL-PALQ", rate: 3610, price: 0.621, factor: 2 }
+  };
+
+  // Initialize Dropdowns
+  const fromSel = document.getElementById('loc-from');
+  const toSel = document.getElementById('loc-to');
+  locations.forEach(loc => {
+    fromSel.add(new Option(loc, loc));
+    toSel.add(new Option(loc, loc));
+  });
+
+  function updateDistance() {
+    const from = fromSel.value;
+    const to = toSel.value;
+    const routeDisplay = document.getElementById('route-summary');
+    const distDisplay = document.getElementById('distance-value');
+    const hiddenDist = document.getElementById('val-h');
+
+    if (from && to) {
+      if (from === to) {
+        hiddenDist.value = 0;
+        routeDisplay.innerText = from + " ➔ " + to;
+        distDisplay.innerText = "0.00 Miles (Same Location)";
+      } else {
+        // Search symmetric matrix
+        let dist = (distMatrix[from] && distMatrix[from][to]) || (distMatrix[to] && distMatrix[to][from]);
+        
+        if (dist) {
+          hiddenDist.value = dist;
+          routeDisplay.innerText = from + " ➔ " + to;
+          distDisplay.innerText = dist.toFixed(2) + " Miles";
+        } else {
+          hiddenDist.value = 0;
+          routeDisplay.innerText = "ROUTE NOT FOUND";
+          distDisplay.innerText = "Check Matrix Data";
+        }
+      }
+      calculate();
+    }
+  }
+
+  function applyPreset() {
+    const select = document.getElementById('type-select');
+    const data = presets[select.value];
+    if (data) {
+      document.getElementById('val-r').value = data.rate;
+      document.getElementById('val-p').value = data.price;
+      document.getElementById('val-f').value = data.factor; 
+      document.getElementById('selected-label').innerText = data.label;
+      calculate();
+    }
+  }
+
+  function calculate() {
+    const h = parseFloat(document.getElementById('val-h').value) || 0;
+    const r = parseFloat(document.getElementById('val-r').value) || 0;
+    const p = parseFloat(document.getElementById('val-p').value) || 0;
+    const f = parseFloat(document.getElementById('val-f').value) || 1;
+    
+    const total = h * r * p * f; 
+    document.getElementById('grand-total').innerText = '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  }
+</script>
+
+</body>
+</html>
