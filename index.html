@@ -15,14 +15,12 @@
       font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       margin: 0; padding: 0; display: flex; justify-content: center;
       min-height: 100vh;
-      background-color: #001a33; /* ใส่สีพื้นหลังเข้มไว้เผื่อรูปเล็กลงแล้วเห็นขอบ */
-      
-      /* ปรับแต่งรูปพื้นหลัง */
+      background-color: #001a33;
       background-image: url('offshore.JPG'); 
       background-repeat: no-repeat;
       background-position: center; 
       background-attachment: fixed;
-      background-size: 20%; /* ย่อขนาดลง 80% คือเหลือ 20% ของพื้นที่ */
+      background-size: 90%; 
     }
 
     .calculator-card {
@@ -71,10 +69,11 @@
       margin-top: 10px;
     }
 
+    /* ช่องแสดงผลกลาง (ยอดเงิน $) */
     .total-display { 
       color: #00ff44; 
       font-weight: 800; 
-      font-size: 3.2rem; 
+      font-size: 3.5rem; 
       margin: 10px 0; 
       text-shadow: 3px 3px 10px rgba(0,0,0,0.8);
       min-height: 4.5rem;
@@ -83,11 +82,12 @@
       justify-content: center;
     }
     
+    /* ปุ่มล่าง (ระยะทาง Miles) */
     .save-cost-badge {
       display: block; width: 100%; background: var(--success-green); color: white;
       padding: 15px; border-radius: 15px; font-weight: bold; border: none;
       box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-      font-size: 1.4rem; letter-spacing: 2px;
+      font-size: 1.8rem; letter-spacing: 1px;
     }
 
     #selected-label { 
@@ -115,7 +115,7 @@
 
   <div class="content">
     <label>Media Type</label>
-    <select id="type-select" onchange="applyPreset()">
+    <select id="type-select" onchange="calculate()">
       <option value="">-- Tap to Select Media --</option>
       <option value="gas_pacpp">Gas / PACPP</option>
       <option value="condy">CONDY PACPP</option>
@@ -140,24 +140,30 @@
       </div>
     </div>
 
-    <input type="hidden" id="val-dist" value="0">
-
     <div class="result-section">
       <div id="selected-label">COST ESTIMATE</div>
-      <div class="total-display" id="grand-total">$0.00</div>
-      <button class="save-cost-badge">SAVE COST</button>
+      
+      <div class="total-display" id="money-output">$0.00</div>
+      
+      <button class="save-cost-badge" id="distance-output">0.00 Miles</button>
     </div>
   </div>
 
   <div class="footer">
-    © CHEVRON — INTERNAL USE ONLY | 2026
+    © CHEVRON — INTERNAL USE ONLY | 2026<br>
+    By SIRAST CP-CO
   </div>
 </div>
 
 <script>
-  // Logic JavaScript เหมือนเดิมเพื่อรักษาระบบการทำงาน
   const locations = ["PALQ", "PAWA", "PAWB", "PAWC", "PAWD", "PAWE", "PAWF", "PAWG", "PAWH", "PAWI", "PAWJ", "PAWK", "PAWL", "PAWM", "PAWN", "PAWO", "PAWP", "PAWQ", "PAWR", "PAWS", "PAWT", "PAWU", "MGWA", "MGWB", "MGWC", "MGWD", "MGWE", "MGWF", "MGWG", "MGWH", "MGWI", "MGWJ", "MGWK", "MGWL"];
   const distMatrix = { "PALQ": {"PAWA":65.44,"PAWB":52.95,"PAWD":48.06,"PAWS":102.65}, "PAWA": {"PALQ":65.44,"PAWB":88.25}, "PAWB": {"PALQ":52.95,"PAWA":88.25} };
+  
+  const presets = {
+    gas_pacpp: { rate: 9.17, price: 6000 },
+    condy:     { rate: 396,  price: 60 },
+    remote:    { rate: 0.21, price: 6000 }
+  };
 
   const fromSel = document.getElementById('loc-from');
   const toSel = document.getElementById('loc-to');
@@ -170,14 +176,30 @@
     const from = fromSel.value;
     const to = toSel.value;
     const routeLabel = document.getElementById('selected-label');
-    const display = document.getElementById('grand-total');
+    const distOutput = document.getElementById('distance-output');
+    
     if (from && to) {
       let dist = (from === to) ? 0 : (distMatrix[from]?.[to] || distMatrix[to]?.[from] || 0);
       routeLabel.innerText = from + " ➔ " + to;
-      display.innerText = dist.toFixed(2) + " Miles";
+      distOutput.innerText = dist.toFixed(2) + " Miles";
     } else {
       routeLabel.innerText = "COST ESTIMATE";
-      display.innerText = "0.00 Miles";
+      distOutput.innerText = "0.00 Miles";
+    }
+  }
+
+  function calculate() {
+    const mediaKey = document.getElementById('type-select').value;
+    const hours = parseFloat(document.getElementById('val-hours').value) || 0;
+    const moneyOutput = document.getElementById('money-output');
+    
+    if (mediaKey && presets[mediaKey]) {
+      const { rate, price } = presets[mediaKey];
+      // คำนวณยอดเงินตาม Media Type และ Hours
+      const total = (rate * price) + (hours * rate * price);
+      moneyOutput.innerText = '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    } else {
+      moneyOutput.innerText = '$0.00';
     }
   }
 </script>
