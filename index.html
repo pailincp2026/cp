@@ -16,7 +16,6 @@
       font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       margin: 0; padding: 0; display: flex; justify-content: center;
       min-height: 100vh;
-      /* พื้นหลังหลักของหน้าจอ */
       background: #001a33 url('offshore.JPG') no-repeat center center fixed;
       background-size: cover;
     }
@@ -27,25 +26,31 @@
       padding: 20px;
     }
 
+    /* ส่วนหัว: ใช้ภาพ Pailin.rig.png เป็นพื้นหลัง */
     .hero {
       height: 120px; display: flex; align-items: center; padding: 0 25px;
       color: white; justify-content: space-between; 
       border-bottom: 4px solid var(--accent-gold); 
-      background: rgba(0, 45, 90, 0.6); /* หัวข้อโปร่งแสงเล็กน้อย */
-      backdrop-filter: blur(10px);
+      background-image: linear-gradient(to right, rgba(0,45,90,0.7), rgba(0,45,90,0.3)), url('Pailin.rig.png');
+      background-size: cover;
+      background-position: center;
       border-radius: 20px 20px 0 0;
+      position: relative;
+      overflow: hidden;
     }
     
-    .logo { height: 75px; filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.5)); }
-    .hero-text h2 { margin: 0; font-size: 1.6rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
-    .hero-text p { margin: 0; font-size: 0.8rem; opacity: 0.9; color: var(--accent-gold); }
+    .logo { height: 60px; z-index: 2; filter: drop-shadow(2px 2px 8px rgba(0,0,0,0.8)); }
+    
+    .hero-text { z-index: 2; text-align: right; }
+    .hero-text h2 { margin: 0; font-size: 1.4rem; text-shadow: 2px 2px 6px rgba(0,0,0,1); }
+    .hero-text p { margin: 0; font-size: 0.75rem; color: var(--accent-gold); font-weight: bold; }
 
     .content { 
       padding: 30px 25px; 
-      /* แก้ไข: โปร่งใส 100% (Transparent) แต่ยังคงเอฟเฟกต์ Blur ให้ตัวหนังสืออ่านง่าย */
+      /* โปร่งใส 100% มองทะลุเห็น offshore.JPG */
       background: transparent; 
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
       border: 1px solid var(--glass-border);
       border-top: none;
       border-radius: 0 0 20px 20px;
@@ -53,50 +58,42 @@
 
     label {
       display: block; font-size: 0.75rem; font-weight: bold; color: var(--accent-gold); 
-      margin-bottom: 10px; text-transform: uppercase;
-      text-shadow: 1px 1px 3px rgba(0,0,0,1); /* เงาเข้มเพื่อให้ข้อความลอยเด่นบนภาพ */
+      margin-bottom: 8px; text-transform: uppercase;
+      text-shadow: 1px 1px 4px rgba(0,0,0,1);
     }
 
     select, input {
-      width: 100%; padding: 15px; border: 1px solid var(--glass-border); 
-      border-radius: 12px; font-size: 1rem; box-sizing: border-box;
-      background: rgba(255, 255, 255, 0.9); /* ให้ช่องกรอกข้อมูลขาวชัดเจนเพื่อการใช้งานที่ง่าย */
-      color: var(--primary-blue); margin-bottom: 25px;
+      width: 100%; padding: 14px; border: 1px solid var(--glass-border); 
+      border-radius: 10px; font-size: 1rem; box-sizing: border-box;
+      background: rgba(255, 255, 255, 0.95); 
+      color: var(--primary-blue); margin-bottom: 20px;
       font-weight: bold;
     }
 
-    .row-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .row-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
     .result-section {
-      background: rgba(0, 0, 0, 0.5); /* พื้นหลังผลลัพธ์ดำจางๆ เพื่อขับตัวเลขสีเขียว */
-      padding: 25px;
-      border-radius: 20px; text-align: center; 
+      background: rgba(0, 0, 0, 0.6); 
+      padding: 20px; border-radius: 15px; text-align: center; 
       border: 1px solid var(--glass-border);
       margin-top: 10px;
     }
 
     .total-display { 
       color: var(--success-green); 
-      font-weight: 800; 
-      font-size: 3.2rem; 
-      margin: 15px 0; 
-      text-shadow: 0 0 15px rgba(0, 255, 136, 0.8);
+      font-weight: 800; font-size: 3rem; 
+      margin: 10px 0; 
+      text-shadow: 0 0 15px rgba(0, 255, 136, 0.6);
     }
     
-    .save-cost-badge {
-      display: block; width: 100%; background: #28a745; color: white;
+    .save-btn {
+      width: 100%; background: #28a745; color: white;
       padding: 16px; border-radius: 12px; font-weight: bold; border: none;
-      font-size: 1.4rem; cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-    }
-
-    #selected-label { 
-      font-weight: 600; color: #ffffff; font-size: 1.1rem; 
-      text-shadow: 2px 2px 5px #000;
+      font-size: 1.3rem; cursor: pointer;
     }
 
     .footer {
-      text-align: center; padding: 25px; font-size: 0.7rem; color: #ffffff; 
+      text-align: center; padding: 20px; font-size: 0.65rem; color: #ffffff; 
       text-shadow: 1px 1px 3px #000;
     }
   </style>
@@ -105,7 +102,7 @@
 
 <div class="calculator-card">
   <div class="hero">
-    <img src="Pailin.rig.png" alt="Pailin Rig" class="logo">
+    <img src="logo.png" alt="Logo" class="logo">
     <div class="hero-text">
       <h2>Benefit Calculator</h2>
       <p>Operational Cost Estimation</p>
@@ -140,9 +137,9 @@
     <input type="number" id="val-hours" placeholder="0" oninput="calculate()">
 
     <div class="result-section">
-      <div id="selected-label">COST ESTIMATE</div>
+      <div id="selected-label" style="color: white; font-size: 0.9rem;">ESTIMATED TOTAL</div>
       <div class="total-display" id="main-output">$0.00</div>
-      <button class="save-cost-badge">SAVE COSTS</button>
+      <button class="save-btn">SAVE COSTS</button>
     </div>
   </div>
 
@@ -152,7 +149,8 @@
 </div>
 
 <script>
-  const locations = ["PALQ", "PAWA", "PAWB", "PAWD", "PAWS", "MGWA", "MGWB"]; 
+  // Script Logic เหมือนเดิม
+  const locations = ["PALQ", "PAWA", "PAWB", "PAWD", "PAWS"]; 
   const distMatrix = { "PALQ": {"PAWA":65.44,"PAWB":52.95,"PAWD":48.06,"PAWS":102.65} };
   const presets = { gas_pacpp: { rate: 9.17, price: 6000 }, condy: { rate: 396, price: 60 }, remote: { rate: 0.21, price: 6000 } };
 
@@ -161,7 +159,6 @@
   const typeSel = document.getElementById('type-select');
   const hoursInput = document.getElementById('val-hours');
   const mainOutput = document.getElementById('main-output');
-  const routeLabel = document.getElementById('selected-label');
 
   locations.forEach(loc => {
     fromSel.add(new Option(loc, loc));
@@ -169,12 +166,10 @@
   });
 
   function updateDistance() {
-    const from = fromSel.value;
-    const to = toSel.value;
-    if (from && to) {
+    const from = fromSel.value; const to = toSel.value;
+    if (from && to && !typeSel.value) {
       let dist = (from === to) ? 0 : (distMatrix[from]?.[to] || distMatrix[to]?.[from] || 0);
-      routeLabel.innerText = from + " ➔ " + to;
-      if (!typeSel.value) mainOutput.innerText = dist.toFixed(2) + " Miles";
+      mainOutput.innerText = dist.toFixed(2) + " Miles";
     }
   }
 
@@ -185,7 +180,6 @@
       const { rate, price } = presets[mediaKey];
       const total = hoursVal * rate * price;
       mainOutput.innerText = '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2});
-      routeLabel.innerText = "COST ESTIMATE";
     }
   }
 </script>
