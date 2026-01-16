@@ -20,7 +20,7 @@
       font-family: 'Inter', sans-serif;
       margin: 0; padding: 0;
       min-height: 100vh;
-      /* ใส่รูปพื้นหลัง pailin.jpg */
+  
       background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('pailin.jpg') no-repeat center center fixed;
       background-size: cover;
       display: flex;
@@ -40,7 +40,7 @@
     }
 
     .logo { 
-      height: clamp(80px, 15vw, 120px); /* ปรับขนาดโลโก้ตามหน้าจอ */
+      height: clamp(80px, 15vw, 120px);
       margin-bottom: 15px;
       filter: drop-shadow(0 4px 15px rgba(0,0,0,0.5));
     }
@@ -112,7 +112,7 @@
 
     .row-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
-    /* Route Benefit Results */
+    
     .route-result-box {
       background: rgba(0, 0, 0, 0.4);
       border-radius: 20px;
@@ -137,7 +137,7 @@
       line-height: 1.5;
     }
 
-    /* Desktop Adjustments */
+   
     @media (min-width: 768px) {
       .calculator-card { padding: 40px; }
       .header-container { padding-top: 50px; }
@@ -190,7 +190,7 @@
     </div>
   </div>
 
-  <!-- Route Analysis Section -->
+
   <div class="route-result-box">
     <div class="route-header">ROUTE BENEFIT ANALYSIS</div>
     <div class="route-item"><span>Benefit</span> <span id="res-benefit">-</span></div>
@@ -206,7 +206,7 @@
 </div>
 
 <script>
-  // ข้อมูลพิกัด (อ้างอิงปี 2026)
+ 
   const locations = {
     "PALQ": { b: 0, d: 0, c: 0 },
     "NALQ": { b: -7905.33, d: -7185.945, c: -19.526 },
