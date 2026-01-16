@@ -9,13 +9,13 @@
       --primary-blue: #002d5a;
       --accent-gold: #ffb81c;
       --success-green: #00ff88;
+      --white: #ffffff;
     }
 
     body {
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       margin: 0; padding: 0;
       min-height: 100vh;
-      /* พื้นหลังหลักของหน้าจอ */
       background: #001a33 url('offshore.JPG') no-repeat center center fixed;
       background-size: cover;
       display: flex;
@@ -23,14 +23,13 @@
       align-items: center;
     }
 
-    /* แถบบนยาวเต็มหน้าเว็บ */
     .hero-wrapper {
       width: 100%;
-      background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('pailin_rig.jpg');
+      background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.2)), url('pailin_rig.jpg');
       background-size: cover;
       background-position: center;
       border-bottom: 4px solid var(--accent-gold);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
       display: flex;
       justify-content: center;
     }
@@ -42,85 +41,82 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 20px;
+      padding: 0 25px;
       box-sizing: border-box;
     }
     
     .logo { height: 60px; filter: drop-shadow(2px 2px 10px rgba(0,0,0,0.8)); }
-    .hero-text { text-align: right; color: white; }
-    .hero-text h2 { margin: 0; font-size: 1.4rem; text-shadow: 2px 2px 8px #000; }
-    .hero-text p { margin: 0; font-size: 0.8rem; color: var(--accent-gold); text-shadow: 1px 1px 4px #000; }
+    .hero-text { text-align: right; color: var(--white); }
+    .hero-text h2 { margin: 0; font-size: 1.5rem; text-shadow: 2px 2px 10px #000; }
+    .hero-text p { margin: 0; font-size: 0.85rem; color: var(--accent-gold); text-shadow: 1px 1px 5px #000; font-weight: 600; }
 
-    /* ตัวการ์ดเครื่องคิดเลข - ลบเส้นขอบและพื้นหลังออก */
     .calculator-card {
       width: 95%;
       max-width: 500px;
-      margin: 20px 0;
-      display: flex;
-      flex-direction: column;
+      margin: 30px 0;
+      padding: 10px;
     }
 
-    .content { 
-      padding: 20px; 
-      background: transparent; /* โปร่งใส 100% */
-      border: none; /* ลบเส้นกรอบออก */
-      box-sizing: border-box;
-    }
-
+    /* ปรับปรุง Label ให้อ่านง่ายขึ้นมาก */
     label {
-      display: block; font-size: 0.8rem; font-weight: bold; color: var(--accent-gold); 
-      margin-bottom: 10px; text-transform: uppercase;
-      text-shadow: 2px 2px 6px rgba(0,0,0,1); /* เพิ่มเงาให้ข้อความลอยเด่นบนภาพ */
+      display: block; font-size: 0.85rem; font-weight: 800; color: var(--white); 
+      margin-bottom: 8px; text-transform: uppercase;
+      text-shadow: 0px 2px 8px rgba(0,0,0,1), 0px 0px 4px rgba(0,0,0,1);
+      letter-spacing: 1.2px;
     }
 
     select, input {
-      width: 100%; padding: 15px; border: 1px solid rgba(255,255,255,0.3); 
-      border-radius: 12px; font-size: 1rem; box-sizing: border-box;
-      background: rgba(255, 255, 255, 0.95); 
-      color: var(--primary-blue); margin-bottom: 25px;
-      font-weight: bold;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      width: 100%; padding: 14px; border: 2px solid rgba(255,255,255,0.2); 
+      border-radius: 14px; font-size: 1.1rem; box-sizing: border-box;
+      background: rgba(255, 255, 255, 0.98); 
+      color: var(--primary-blue); margin-bottom: 22px;
+      font-weight: 700;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.3);
     }
 
     .row-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
-    /* ส่วนผลลัพธ์ - ลบเส้นกรอบและพื้นหลังออก */
+    /* Checkbox Styles */
+    .checkbox-container {
+      display: flex; align-items: center; margin-bottom: 20px;
+      color: var(--white); font-weight: bold; cursor: pointer;
+      text-shadow: 2px 2px 6px #000;
+    }
+
+    .checkbox-container input {
+      width: auto; margin: 0 10px 0 0; cursor: pointer;
+      transform: scale(1.5);
+    }
+
     .result-section {
-      background: transparent; 
-      padding: 10px;
-      border: none; /* ลบเส้นกรอบออก */
-      text-align: center; 
-      margin-top: 10px;
+      text-align: center; margin-top: 15px;
     }
 
     .total-display { 
       color: var(--success-green); 
-      font-weight: 800; font-size: 3.8rem; 
-      margin: 10px 0; 
-      text-shadow: 0 0 20px rgba(0, 255, 136, 1), 3px 3px 10px #000;
+      font-weight: 900; font-size: 4rem; 
+      margin: 5px 0 15px 0; 
+      text-shadow: 0 0 25px rgba(0, 255, 136, 0.8), 3px 3px 15px #000;
     }
     
     .save-btn {
       width: 100%; background: #28a745; color: white;
-      padding: 16px; border-radius: 12px; font-weight: bold; border: none;
-      font-size: 1.5rem; cursor: pointer;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
-      text-transform: uppercase;
+      padding: 18px; border-radius: 15px; font-weight: 900; border: none;
+      font-size: 1.6rem; cursor: pointer;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.6);
+      text-transform: uppercase; transition: 0.3s;
     }
+    .save-btn:active { transform: scale(0.98); }
 
     .footer {
-      text-align: center; padding: 20px; font-size: 0.75rem; color: #ffffff; 
-      text-shadow: 1px 1px 4px #000;
-      opacity: 0.9;
+      text-align: center; padding: 25px; font-size: 0.8rem; color: var(--white); 
+      text-shadow: 1px 1px 5px #000; font-weight: 600;
     }
 
-    /* Responsive ปรับขนาดสำหรับมือถือ */
     @media (max-width: 600px) {
-      .hero-content { height: 80px; }
-      .logo { height: 50px; }
-      .hero-text h2 { font-size: 1.2rem; }
-      .total-display { font-size: 3.2rem; }
-      .content { padding: 10px; }
+      .total-display { font-size: 3rem; }
+      .hero-content { height: 85px; }
+      .logo { height: 45px; }
     }
   </style>
 </head>
@@ -138,6 +134,7 @@
 
 <div class="calculator-card">
   <div class="content">
+    
     <label>Media Type Selection</label>
     <select id="type-select" onchange="calculate()">
       <option value="">-- Tap to Select Media --</option>
@@ -145,6 +142,9 @@
       <option value="condy">CONDY PACPP</option>
       <option value="remote">Gas Remote Platform</option>
     </select>
+
+    <label for="val-hours">Additional Hours</label>
+    <input type="number" id="val-hours" placeholder="Enter hours..." oninput="calculate()">
 
     <div class="row-grid">
       <div>
@@ -161,11 +161,13 @@
       </div>
     </div>
 
-    <label for="val-hours">Additional Hours</label>
-    <input type="number" id="val-hours" placeholder="0" oninput="calculate()">
+    <label class="checkbox-container">
+      <input type="checkbox" id="round-trip" onchange="updateDistance()"> 
+      x2 Round Trip
+    </label>
 
     <div class="result-section">
-      <div id="selected-label" style="color: white; font-weight: bold; text-shadow: 2px 2px 4px #000; letter-spacing: 1px;">TOTAL ESTIMATE</div>
+      <div id="selected-label" style="color: var(--accent-gold); font-weight: 900; text-shadow: 2px 2px 4px #000; letter-spacing: 1.5px;">ESTIMATED TOTAL</div>
       <div class="total-display" id="main-output">$0.00</div>
       <button class="save-btn">SAVE COSTS</button>
     </div>
@@ -186,6 +188,7 @@
   const typeSel = document.getElementById('type-select');
   const hoursInput = document.getElementById('val-hours');
   const mainOutput = document.getElementById('main-output');
+  const roundTripCb = document.getElementById('round-trip');
 
   locations.forEach(loc => {
     fromSel.add(new Option(loc, loc));
@@ -193,20 +196,29 @@
   });
 
   function updateDistance() {
-    const from = fromSel.value; const to = toSel.value;
+    const from = fromSel.value; 
+    const to = toSel.value;
+    const isRoundTrip = roundTripCb.checked;
+
     if (from && to && !typeSel.value) {
       let dist = (from === to) ? 0 : (distMatrix[from]?.[to] || distMatrix[to]?.[from] || 0);
+      if (isRoundTrip) dist = dist * 2;
       mainOutput.innerText = dist.toFixed(2) + " Miles";
     }
+    if (typeSel.value) calculate(); // ถ้าเลือก Media ไว้ให้คำนวณเงินต่อทันที
   }
 
   function calculate() {
     const mediaKey = typeSel.value;
-    const hoursVal = parseFloat(hoursInput.value);
+    const hoursVal = parseFloat(hoursInput.value) || 0;
+    
+    // Logic การคำนวณ (สามารถปรับสูตรเพื่อรวมระยะทาง Miles ได้ที่นี่ถ้าต้องการ)
     if (mediaKey && hoursVal > 0) {
       const { rate, price } = presets[mediaKey];
       const total = hoursVal * rate * price;
       mainOutput.innerText = '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2});
+    } else if (!typeSel.value && fromSel.value && toSel.value) {
+      updateDistance();
     } else {
       mainOutput.innerText = '$0.00';
     }
