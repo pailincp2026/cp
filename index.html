@@ -9,14 +9,13 @@
       --primary-blue: #002d5a;
       --accent-gold: #ffb81c;
       --success-green: #00ff88;
-      --glass-border: rgba(255, 255, 255, 0.4);
     }
 
     body {
       font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       margin: 0; padding: 0;
       min-height: 100vh;
-      /* ปรับพื้นหลังให้เหมาะสมกับทุกหน้าจอ */
+      /* พื้นหลังหลักของหน้าจอ */
       background: #001a33 url('offshore.JPG') no-repeat center center fixed;
       background-size: cover;
       display: flex;
@@ -38,7 +37,7 @@
 
     .hero-content {
       width: 100%;
-      max-width: 1200px; /* จำกัดความกว้างเนื้อหาในแถบบน */
+      max-width: 1200px;
       height: 100px;
       display: flex;
       align-items: center;
@@ -52,72 +51,76 @@
     .hero-text h2 { margin: 0; font-size: 1.4rem; text-shadow: 2px 2px 8px #000; }
     .hero-text p { margin: 0; font-size: 0.8rem; color: var(--accent-gold); text-shadow: 1px 1px 4px #000; }
 
-    /* ตัวการ์ดเครื่องคิดเลข */
+    /* ตัวการ์ดเครื่องคิดเลข - ลบเส้นขอบและพื้นหลังออก */
     .calculator-card {
       width: 95%;
       max-width: 500px;
-      margin: 30px 0;
+      margin: 20px 0;
       display: flex;
       flex-direction: column;
     }
 
     .content { 
-      padding: 30px 25px; 
+      padding: 20px; 
       background: transparent; /* โปร่งใส 100% */
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
+      border: none; /* ลบเส้นกรอบออก */
       box-sizing: border-box;
     }
 
     label {
       display: block; font-size: 0.8rem; font-weight: bold; color: var(--accent-gold); 
       margin-bottom: 10px; text-transform: uppercase;
-      text-shadow: 2px 2px 6px rgba(0,0,0,1);
+      text-shadow: 2px 2px 6px rgba(0,0,0,1); /* เพิ่มเงาให้ข้อความลอยเด่นบนภาพ */
     }
 
     select, input {
-      width: 100%; padding: 15px; border: 1px solid var(--glass-border); 
+      width: 100%; padding: 15px; border: 1px solid rgba(255,255,255,0.3); 
       border-radius: 12px; font-size: 1rem; box-sizing: border-box;
       background: rgba(255, 255, 255, 0.95); 
       color: var(--primary-blue); margin-bottom: 25px;
       font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
 
     .row-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
+    /* ส่วนผลลัพธ์ - ลบเส้นกรอบและพื้นหลังออก */
     .result-section {
       background: transparent; 
-      padding: 20px;
-      border-radius: 20px; text-align: center; 
-      border: 1px solid var(--glass-border);
+      padding: 10px;
+      border: none; /* ลบเส้นกรอบออก */
+      text-align: center; 
       margin-top: 10px;
     }
 
     .total-display { 
       color: var(--success-green); 
-      font-weight: 800; font-size: 3.5rem; 
+      font-weight: 800; font-size: 3.8rem; 
       margin: 10px 0; 
-      text-shadow: 0 0 20px rgba(0, 255, 136, 1), 2px 2px 10px #000;
+      text-shadow: 0 0 20px rgba(0, 255, 136, 1), 3px 3px 10px #000;
     }
     
     .save-btn {
       width: 100%; background: #28a745; color: white;
       padding: 16px; border-radius: 12px; font-weight: bold; border: none;
       font-size: 1.5rem; cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+      text-transform: uppercase;
     }
 
     .footer {
       text-align: center; padding: 20px; font-size: 0.75rem; color: #ffffff; 
       text-shadow: 1px 1px 4px #000;
+      opacity: 0.9;
     }
 
-    /* ปรับแต่งสำหรับมือถือ */
+    /* Responsive ปรับขนาดสำหรับมือถือ */
     @media (max-width: 600px) {
       .hero-content { height: 80px; }
-      .logo { height: 45px; }
-      .hero-text h2 { font-size: 1.1rem; }
-      .total-display { font-size: 2.8rem; }
+      .logo { height: 50px; }
+      .hero-text h2 { font-size: 1.2rem; }
+      .total-display { font-size: 3.2rem; }
+      .content { padding: 10px; }
     }
   </style>
 </head>
@@ -162,7 +165,7 @@
     <input type="number" id="val-hours" placeholder="0" oninput="calculate()">
 
     <div class="result-section">
-      <div id="selected-label" style="color: white; font-weight: bold; text-shadow: 1px 1px 3px #000;">TOTAL ESTIMATE</div>
+      <div id="selected-label" style="color: white; font-weight: bold; text-shadow: 2px 2px 4px #000; letter-spacing: 1px;">TOTAL ESTIMATE</div>
       <div class="total-display" id="main-output">$0.00</div>
       <button class="save-btn">SAVE COSTS</button>
     </div>
