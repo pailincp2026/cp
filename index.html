@@ -11,7 +11,7 @@
     }
   </script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com" rel="stylesheet">
   <style>
     :root {
       --primary-blue: #002d5a;
@@ -73,63 +73,50 @@
       text-transform: uppercase; 
       letter-spacing: 2px;
     }
-
     .calculator-card {
-      width: 95%;
-      max-width: 580px;
       background: var(--glass-bg);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
       border: 1px solid var(--glass-border);
-      border-radius: 30px;
-      padding: clamp(25px, 6vw, 40px);
+      padding: 30px;
+      margin: 20px 5%;
+      width: 100%;
+      max-width: 450px;
       box-sizing: border-box;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
-
     label {
-      display: block; font-size: 0.75rem; font-weight: 800; color: var(--accent-gold); 
-      margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1.5px;
+      display: block; margin-bottom: 8px; margin-top: 15px;
+      font-size: 0.8rem; color: rgba(255,255,255,0.7);
+      text-transform: uppercase; letter-spacing: 1px;
     }
-
-    select, input {
-      width: 100%; padding: 14px; 
-      border: 1px solid var(--glass-border); 
-      border-radius: 12px; font-size: 1rem; box-sizing: border-box;
-      background: white; color: var(--primary-blue); margin-bottom: 22px;
-      font-weight: 600; outline: none;
-      -webkit-appearance: none;
+    select, input[type="number"] {
+      width: 100%; padding: 12px; box-sizing: border-box;
+      background: rgba(255,255,255,0.1); border: none;
+      border-radius: 8px; color: var(--white);
+      font-size: 1rem; appearance: none;
     }
-
+    select:focus, input:focus { outline: none; background: rgba(255,255,255,0.2); }
     .media-result-display {
-      text-align: center;
-      margin-bottom: 25px;
-      padding: 15px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
-      border: 1px solid var(--glass-border);
+      margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.15);
     }
-
-    .total-label { font-size: 0.8rem; opacity: 0.9; margin-bottom: 5px; }
-    
-    /* ปรับขนาดตัวเลขผลลัพธ์ให้เล็กลงตามสั่ง */
-    .total-display { 
-      color: var(--success-green); 
-      font-weight: 800; 
-      font-size: clamp(1.8rem, 8vw, 2.5rem); 
+    .total-label { font-size: 0.8rem; color: rgba(255,255,255,0.6); }
+    .total-display {
+      font-size: 2.5rem; font-weight: 800; color: var(--success-green);
+      margin-top: 5px;
     }
-
-    .row-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 10px; }
-
+    .row-grid {
+      display: flex; gap: 15px; margin-top: 15px;
+    }
+    .row-grid > div { flex: 1; }
     .route-result-box {
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 25px;
-      padding: 22px;
-      border: 1px solid var(--glass-border);
+      background: rgba(0,0,0,0.3); border-radius: 10px; padding: 20px;
+      margin-top: 20px;
     }
-
-    .route-header { font-size: 0.75rem; font-weight: 800; color: var(--accent-gold); margin-bottom: 15px; text-align: center; letter-spacing: 2px; }
+    .route-header {
+      font-size: 0.85rem; font-weight: 600; color: var(--accent-gold);
+      text-transform: uppercase; margin-bottom: 15px;
+    }
     .route-item {
       display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 15px; font-size: 0.9rem;
@@ -184,10 +171,16 @@
   </div>
 
   <div class="route-result-box">
-    <div class="route-header">ROUTE BENEFIT ANALYSIS</div>
+    <div class="route-header">ROUTE & DESTINATION DATA (ROUND TRIP)</div>
     <div class="route-item"><span>Benefit ($)</span> <span id="res-Benefit($)">-</span></div>
     <div class="route-item"><span>Diesel (Liter)</span> <span id="res-Disal(Liter)">-</span></div>
     <div class="route-item"><span>Lower Carbon (TonCO2e)</span> <span id="res-carbon">-</span></div>
+    
+    <div style="border-top: 1px solid rgba(255,255,255,0.15); margin: 10px 0;"></div>
+
+    <!-- แถบข้อมูล DEST GAS และ DEST COND (ไม่มีหัวข้อตามสั่ง) -->
+    <div class="route-item"><span>GAS</span> <span id="val-gas">-</span></div>
+    <div class="route-item"><span>COND</span> <span id="val-cond">-</span></div>
   </div>
 </div>
 
@@ -197,54 +190,79 @@
 </div>
 
 <script>
+  // ฐานข้อมูล locations ครบทุกรายการพร้อมค่าก๊าซแปลงเป็น USD (ปี 2026)
   const locations = {
-    "PALQ": { b: 0, d: 0, c: 0 }, "NALQ": { b: -7905.33, d: -7185.945, c: -19.526 },
-    "SKL":  { b: 4483.62, d: 4075.611, c: 11.075 }, "PAWA": { b: 132.35, d: 120.32, c: 0.33 },
-    "PAWB": { b: 110.883, d: 100.803, c: 0.274 }, "PAWC": { b: 308.32, d: 280.289, c: 0.76 },
-    "PAWD": { b: 93.203, d: 84.73, c: 0.23 }, "PAWE": { b: 202.99, d: 184.536, c: 0.502 },
-    "PAWF": { b: 3.243, d: 2.948, c: 0.008 }, "PAWG": { b: 280.577, d: 255.07, c: 0.694 },
-    "PAWH": { b: 121.275, d: 110.25, c: 0.30 }, "PAWI": { b: 204.118, d: 185.562, c: 0.505 },
-    "PAWJ": { b: 356.055, d: 323.686, c: 0.88 }, "PAWK": { b: 442.845, d: 402.587, c: 1.095 },
-    "PAWL": { b: 233.587, d: 212.352, c: 0.578 }, "PAWM": { b: 96.76, d: 87.964, c: 0.24 },
-    "PAWN": { b: 400.29, d: 363.9, c: 0.99 }, "PAWO": { b: 249.15, d: 226.496, c: 0.62 },
-    "PAWP": { b: 267.126, d: 242.842, c: 0.66 }, "PAWQ": { b: 147.889, d: 134.444, c: 0.366 },
-    "PAWR": { b: 384.295, d: 349.359, c: 0.95 }, "PAWS": { b: 211.123, d: 191.93, c: 0.522 },
-    "PAWT": { b: 225.077, d: 204.615, c: 0.557 }, "PAWU": { b: 147.186, d: 133.792, c: 0.364 },
-    "MGWA": { b: 622.823, d: 566.202, c: 1.54 }, "MGWB": { b: 902.615, d: 820.559, c: 2.232 },
-    "MGWC": { b: 775.887, d: 705.352, c: 1.919 }, "MGWD": { b: 493.956, d: 449.05, c: 1.221 },
-    "MGWE": { b: 578.342, d: 525.766, c: 1.43 }, "MGWF": { b: 555.077, d: 504.616, c: 1.373 },
-    "MGWG": { b: 758.115, d: 689.195, c: 1.875 }, "MGWH": { b: 920.212, d: 836.556, c: 2.275 },
-    "MGWI": { b: 616.818, d: 560.743, c: 1.525 }, "MGWJ": { b: 914.385, d: 831.259, c: 2.261 },
-    "MGWK": { b: 879.857, d: 799.790, c: 2.173 }, "MGWL": { b: 639.254, d: 581.082, c: 1.579 }
+    "PALQ": { b: 0, d: 0, c: 0, g: 0, co: 0 },
+    "NALQ": { b: -7905.33, d: -7185.95, c: -19.53, g: 0, co: 0 },
+    "SKL":  { b: 4483.62, d: 4075.61, c: 11.08, g: 0, co: 0 },
+    "PAWA": { b: 132.35, d: 120.32, c: 0.33, g: 0, co: 0 },
+    "PAWB": { b: 110.88, d: 100.80, c: 0.27, g: 43518, co: 276.26 },
+    "PAWC": { b: 308.32, d: 280.29, c: 0.76, g: 90157, co: 0 },
+    "PAWD": { b: 93.20, d: 84.73, c: 0.23, g: 42356, co: 0 },
+    "PAWE": { b: 202.99, d: 184.54, c: 0.50, g: 0, co: 0 },
+    "PAWF": { b: 3.24, d: 2.95, c: 0.01, g: 0, co: 0 },
+    "PAWG": { b: 280.58, d: 255.07, c: 0.69, g: 0, co: 0 },
+    "PAWH": { b: 121.28, d: 110.25, c: 0.30, g: 0, co: 0 },
+    "PAWI": { b: 204.12, d: 185.56, c: 0.51, g: 0, co: 0 },
+    "PAWJ": { b: 356.06, d: 323.69, c: 0.88, g: 0, co: 0 },
+    "PAWK": { b: 442.85, d: 402.59, c: 1.10, g: 0, co: 0 },
+    "PAWL": { b: 233.59, d: 212.35, c: 0.58, g: 79776, co: 1465.68 },
+    "PAWM": { b: 96.76, d: 87.96, c: 0.24, g: 30742, co: 213.93 },
+    "PAWN": { b: 400.29, d: 363.90, c: 0.99, g: 19382, co: 298.99 },
+    "PAWO": { b: 249.15, d: 226.50, c: 0.62, g: 0, co: 0 },
+    "PAWP": { b: 267.13, d: 242.84, c: 0.66, g: 58761, co: 359.87 },
+    "PAWQ": { b: 147.89, d: 134.44, c: 0.37, g: 50523, co: 895.53 },
+    "PAWR": { b: 384.30, d: 349.36, c: 0.95, g: 16042, co: 152.01 },
+    "PAWS": { b: 211.12, d: 191.93, c: 0.52, g: 29181, co: 160.54 },
+    "PAWT": { b: 225.08, d: 204.62, c: 0.56, g: 13429, co: 1066.83 },
+    "PAWU": { b: 147.19, d: 133.79, c: 0.36, g: 0, co: 0 },
+    "MGWA": { b: 622.82, d: 566.20, c: 1.54, g: 30343, co: 821.62 },
+    "MGWB": { b: 902.62, d: 820.56, c: 2.23, g: 11505, co: 107.22 },
+    "MGWC": { b: 775.89, d: 705.35, c: 1.92, g: 11723, co: 133.18 },
+    "MGWD": { b: 11.67, d: 10.61, c: 0.03, g: 42356, co: 464.15 },
+    "MGWE": { b: 9.77, d: 8.88, c: 0.02, g: 35460, co: 216.70 },
+    "MGWF": { b: 23.70, d: 21.55, c: 0.06, g: 86019, co: 2201.19 },
+    "MGWG": { b: 11.94, d: 10.86, c: 0.03, g: 43336, co: 470.28 },
+    "MGWH": { b: 4.95, d: 4.50, c: 0.01, g: 17966, co: 346.76 },
+    "MGWI": { b: 33.47, d: 30.43, c: 0.08, g: 121479, co: 1402.34 },
+    "MGWJ": { b: 23.11, d: 21.01, c: 0.06, g: 83878, co: 1023.19 },
+    "MGWK": { b: 57.14, d: 51.95, c: 0.14, g: 207390, co: 2130.04 }
   };
 
-  const presets = { gas_pacpp: { rate: 9.17, price: 6000 }, condy: { rate: 396, price: 60 }, remote: { rate: 0.21, price: 6000 } };
-  const startSel = document.getElementById('start'), endSel = document.getElementById('end'), typeSel = document.getElementById('type-select'), hoursInput = document.getElementById('val-hours');
+  const startSel = document.getElementById('start'), endSel = document.getElementById('end');
+  
+  // สร้างตัวเลือกใน Dropdown จากฐานข้อมูล
+  Object.keys(locations).sort().forEach(loc => {
+    startSel.add(new Option(loc, loc));
+    endSel.add(new Option(loc, loc));
+  });
 
-  function init() {
-    Object.keys(locations).sort().forEach(loc => {
-      startSel.add(new Option(loc, loc));
-      endSel.add(new Option(loc, loc));
-    });
+  function calculateBenefit() {
+    const hours = document.getElementById('val-hours').value || 0;
+    const media = document.getElementById('type-select').value;
+    let rate = media === 'gas_pacpp' ? 1500 : (media === 'condy' ? 1200 : (media === 'remote' ? 900 : 0));
+    document.getElementById('main-output').innerText = `$${(hours * rate).toLocaleString(undefined, {minimumFractionDigits: 2})}`;
   }
 
   function calculateRoute() {
-    const s = locations[startSel.value], e = locations[endSel.value];
-    if (s && e) {
-      document.getElementById('res-Benefit($)').innerText = Math.abs(e.b - s.b).toLocaleString(undefined, {minimumFractionDigits: 2});
-      document.getElementById('res-Disal(Liter)').innerText = Math.abs(e.d - s.d).toLocaleString(undefined, {minimumFractionDigits: 2});
-      document.getElementById('res-carbon').innerText = Math.abs(e.c - s.c).toLocaleString(undefined, {minimumFractionDigits: 3});
+    const end = document.getElementById('end').value;
+    if(end && locations[end]) {
+      const d = locations[end];
+      document.getElementById('res-Benefit($)').innerText = d.b.toLocaleString();
+      document.getElementById('res-Disal(Liter)').innerText = d.d.toLocaleString();
+      document.getElementById('res-carbon').innerText = d.c.toFixed(3);
+      document.getElementById('val-gas').innerText = d.g.toLocaleString();
+      document.getElementById('val-cond').innerText = d.co.toLocaleString();
+    } else {
+      // รีเซ็ตค่าหากไม่ได้เลือกปลายทาง
+      document.getElementById('res-Benefit($)').innerText = "-";
+      document.getElementById('res-Disal(Liter)').innerText = "-";
+      document.getElementById('res-carbon').innerText = "-";
+      document.getElementById('val-gas').innerText = "-";
+      document.getElementById('val-cond').innerText = "-";
     }
   }
-
-  function calculateBenefit() {
-    const k = typeSel.value, h = parseFloat(hoursInput.value) || 0;
-    if (k && h > 0) {
-      const total = h * presets[k].rate * presets[k].price;
-      document.getElementById('main-output').innerText = '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2});
-    } else { document.getElementById('main-output').innerText = '$0.00'; }
-  }
-  init();
 </script>
 </body>
 </html>
+
