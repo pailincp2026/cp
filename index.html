@@ -7,29 +7,50 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-gradient: linear-gradient(135deg, rgba(0, 20, 50, 0.85) 0%, rgba(0, 10, 30, 0.7) 100%);
+      /* ปรับ Overlay ให้สมดุล: เห็นรูปชัดแต่ตัวหนังสืออ่านง่าย */
+      --bg-gradient: linear-gradient(135deg, rgba(0, 20, 50, 0.8) 0%, rgba(0, 10, 30, 0.7) 100%);
       --accent-gold: #ffb81c; 
       --success-green: #00ff88;
       --glass-bg: rgba(255, 255, 255, 0.08); 
       --glass-border: rgba(255, 255, 255, 0.18);
     }
+
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     
     body {
-      font-family: 'Inter', sans-serif; margin: 0; padding: 15px; min-height: 100vh;
-      background: var(--bg-gradient), url('pailin.jpg') no-repeat center center fixed;
-      background-size: cover; color: white; display: flex; flex-direction: column; align-items: center;
+      font-family: 'Inter', sans-serif; 
+      margin: 0; 
+      padding: 15px; 
+      min-height: 100vh;
+      color: white; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center;
+
+      /* ส่วนจัดการพื้นหลัง */
+      background-color: #001432; /* สีสำรองกรณีรูปไม่โหลด */
+      background-image: var(--bg-gradient), url('Pailin.jpg');
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
     }
 
     .container { 
-      width: 100%; max-width: 550px; background: var(--glass-bg);
-      backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-      padding: 25px; border-radius: 24px; border: 1px solid var(--glass-border);
+      width: 100%; 
+      max-width: 550px; 
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px); 
+      -webkit-backdrop-filter: blur(20px);
+      padding: 25px; 
+      border-radius: 24px; 
+      border: 1px solid var(--glass-border);
       box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+      margin: auto 0; /* จัดให้อยู่กลางหน้าจอแนวตั้งพอดี */
     }
 
     .app-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
-    .logo-img { height: 45px; width: auto; filter: drop-shadow(0 0 8px rgba(255,255,255,0.2)); }
+    .logo-img { height: 45px; width: auto; }
     .header-text { border-left: 3px solid var(--accent-gold); padding-left: 15px; }
     .header-text h2 { margin: 0; font-size: 1.4rem; font-weight: 900; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
     .header-text p { margin: 0; font-size: 0.75rem; color: var(--accent-gold); font-weight: 700; letter-spacing: 2px; }
@@ -67,18 +88,16 @@
       border: 1px solid rgba(0, 255, 136, 0.4); border-radius: 20px; padding: 22px; text-align: center; margin-top: 25px;
     }
     .final-saving-card .amount { 
-        font-size: clamp(2rem, 8vw, 3.2rem); /* ปรับขนาดอัตโนมัติตามหน้าจอ */
+        font-size: clamp(2rem, 8vw, 3.2rem); 
         font-weight: 900; color: var(--success-green); margin: 5px 0; 
         text-shadow: 0 0 20px rgba(0,255,136,0.4);
     }
 
-    /* Custom Scrollbar สำหรับ Dropdown */
     select option { background: #000a1f; color: white; }
 
     @media (max-width: 480px) {
       .container { padding: 18px; border-radius: 20px; }
       .header-text h2 { font-size: 1.2rem; }
-      .custom-select, .custom-input { padding: 12px; font-size: 0.95rem; }
     }
   </style>
 </head>
@@ -125,7 +144,6 @@
 </div>
 
 <script>
-  // ข้อมูล Locations ที่คุณให้มา (คงไว้ครบถ้วน)
   const locations = {
     "PALQ":{b:0,d:0,c:0,g:0,co:0},"NALQ":{b:-7905.3,d:-7185.9,c:-19.5,g:0,co:0},"SKL":{b:4483.6,d:4075.6,c:11.1,g:0,co:0},
     "PAWA":{b:132.4,d:120.3,c:0.3,g:0,co:0},"PAWB":{b:110.9,d:100.8,c:0.3,g:43518,co:276.3},"PAWC":{b:308.3,d:280.3,c:0.8,g:90157,co:0},
