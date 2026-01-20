@@ -68,7 +68,7 @@
     <div class="header-text"><h2>Operational Estimator</h2><p>LIN ASSET PERFORMANCE</p></div>
   </header>
 
-  <div class="step-title">🚢 STEP 1: Route Selection</div>
+  <div class="step-title">🚢 Route:Round Trip Selection</div>
   <div class="input-row">
     <select id="start" class="custom-select" onchange="calculate()"><option value="">Origin</option></select>
     <select id="end" class="custom-select" onchange="calculate()"><option value="">Destination</option></select>
@@ -79,17 +79,17 @@
     <div class="benefit-item"><span>🍃 Carbon Reduced</span> <span class="value" id="res-carbon">0.00 T</span></div>
   </div>
 
-  <div class="step-title">🏗️ STEP 2: Platform Data</div>
+  <div class="step-title">🏗️ Platform:Remote Data</div>
   <select id="prod-platform" class="custom-select" onchange="calculate()" style="margin-bottom:10px;"><option value="">Select Platform</option></select>
   <div class="platform-stats">
     <span>💨 Gas: <b id="res-g">0</b> MMSCFD</span>
     <span>💧 Condy: <b id="res-co">0</b> BBLS</span>
   </div>
 
-  <div class="step-title">🛠 STEP 3: Media & Hours</div>
+  <div class="step-title">🛠 Process:Other</div>
   <div class="input-row">
     <select id="type-select" class="custom-select" onchange="calculate()">
-      <option value="">Media Type</option>
+      <option value="">Process select Type</option>
       <option value="gas_pacpp">Gas / PACPP</option>
       <option value="condy">CONDY PACPP</option>
       <option value="remote">Gas Remote Platform</option>
