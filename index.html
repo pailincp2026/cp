@@ -4,60 +4,66 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Chevron Operational Estimator</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-overlay: rgba(0, 15, 40, 0.9);
+      --bg-overlay: rgba(0, 15, 40, 0.92);
       --accent-gold: #ffb81c;
       --success-green: #00ff88;
-      --border-color: rgba(255, 255, 255, 0.12);
+      --border-color: rgba(255, 255, 255, 0.2);
     }
 
     body {
-      font-family: 'Inter', sans-serif; margin: 0; padding: 10px; min-height: 100vh;
+      font-family: 'Inter', sans-serif; margin: 0; padding: 12px; min-height: 100vh;
       background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('Pailin.jpg') no-repeat center center fixed;
       background-size: cover; color: white; display: flex; flex-direction: column; align-items: center;
     }
 
-    .container { width: 100%; max-width: 420px; box-sizing: border-box; }
+    .container { width: 100%; max-width: 450px; box-sizing: border-box; }
 
-    .app-header { display: flex; align-items: center; gap: 12px; margin: 10px 0 15px; width: 100%; }
-    .logo-img { height: 40px; width: auto; }
-    .header-text { border-left: 2px solid var(--accent-gold); padding-left: 10px; }
-    .header-text h2 { margin: 0; font-size: 1.1rem; font-weight: 800; text-transform: uppercase; }
-    .header-text p { margin: 0; font-size: 0.65rem; color: var(--accent-gold); letter-spacing: 1.5px; }
+    /* Header */
+    .app-header { display: flex; align-items: center; gap: 15px; margin: 15px 0 20px; width: 100%; }
+    .logo-img { height: 50px; width: auto; }
+    .header-text { border-left: 3px solid var(--accent-gold); padding-left: 12px; }
+    .header-text h2 { margin: 0; font-size: 1.3rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.5px; }
+    .header-text p { margin: 0; font-size: 0.75rem; color: var(--accent-gold); letter-spacing: 1.5px; font-weight: 700; }
 
+    /* Step Titles */
     .step-title {
-      font-size: 0.75rem; font-weight: 700; color: rgba(255,255,255,0.8); margin: 15px 0 8px;
-      display: flex; align-items: center; gap: 8px; text-transform: uppercase;
+      font-size: 0.95rem; font-weight: 800; color: #ffffff; margin: 20px 0 10px;
+      display: flex; align-items: center; gap: 10px; text-transform: uppercase;
     }
     .step-title::after { content: ""; flex: 1; height: 1px; background: var(--border-color); }
 
-    .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+    /* Inputs & Selects */
+    .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
     .custom-select, .custom-input {
-      background: rgba(255, 255, 255, 0.1); border: 1px solid var(--border-color);
-      border-radius: 8px; padding: 10px; color: white; font-size: 0.85rem;
-      width: 100%; box-sizing: border-box; outline: none; backdrop-filter: blur(5px);
+      background: rgba(255, 255, 255, 0.15); border: 1px solid var(--border-color);
+      border-radius: 10px; padding: 14px; color: white; font-size: 1.05rem; font-weight: 600;
+      width: 100%; box-sizing: border-box; outline: none; backdrop-filter: blur(10px);
     }
 
+    /* Benefit Box */
     .benefit-box {
-      background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-color);
-      border-radius: 10px; padding: 12px; margin-top: 5px;
+      background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);
+      border-radius: 12px; padding: 15px; margin-top: 5px;
     }
-    .benefit-item { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.8rem; align-items: center; }
-    .benefit-item .value { font-weight: 700; color: var(--success-green); }
+    .benefit-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1rem; align-items: center; }
+    .benefit-item .value { font-size: 1.15rem; font-weight: 800; color: var(--success-green); }
 
+    /* Stats */
     .platform-stats {
-      display: flex; justify-content: space-between; padding: 8px 2px;
-      font-size: 0.75rem; color: #a0aec0; border-bottom: 1px solid var(--border-color);
+      display: flex; justify-content: space-between; padding: 10px 5px;
+      font-size: 0.95rem; color: #cbd5e0; border-bottom: 1px solid var(--border-color);
     }
-    .platform-stats b { color: var(--success-green); }
+    .platform-stats b { font-size: 1.1rem; color: var(--success-green); margin-left: 5px; }
 
+    /* Final Result */
     .final-saving-card {
-      background: rgba(0, 255, 136, 0.08); border: 1px solid rgba(0, 255, 136, 0.25);
-      border-radius: 15px; padding: 15px; text-align: center; margin-top: 20px;
+      background: rgba(0, 255, 136, 0.12); border: 2px solid rgba(0, 255, 136, 0.4);
+      border-radius: 20px; padding: 20px; text-align: center; margin-top: 25px;
     }
-    .final-saving-card .amount { font-size: 2.2rem; font-weight: 800; color: var(--success-green); margin: 4px 0; }
+    .final-saving-card .amount { font-size: 2.8rem; font-weight: 900; color: var(--success-green); margin: 8px 0; }
   </style>
 </head>
 <body>
@@ -71,7 +77,7 @@
     </div>
   </header>
 
-  <div class="step-title">📍 STEP 1: Route Selection</div>
+  <div class="step-title">🚢 STEP 1: Route Selection</div>
   <div class="input-row">
     <select id="start" class="custom-select" onchange="calculate()"><option value="">Origin</option></select>
     <select id="end" class="custom-select" onchange="calculate()"><option value="">Destination</option></select>
@@ -83,11 +89,13 @@
     <div class="benefit-item"><span>🍃 Carbon Reduced</span> <span class="value" id="res-carbon">0.00 T</span></div>
   </div>
 
-  <div class="step-title">📊 STEP 2: Platform Data</div>
-  <select id="prod-platform" class="custom-select" onchange="calculate()"><option value="">Select Platform</option></select>
+  <div class="step-title">🏗️ STEP 2: Platform Data</div>
+  <select id="prod-platform" class="custom-select" onchange="calculate()" style="margin-bottom: 8px;">
+    <option value="">Select Platform</option>
+  </select>
   <div class="platform-stats">
-    <span>💨 Gas: <b id="res-g">0</b> MMSCFD</span>
-    <span>💧 Condy: <b id="res-co">0</b> BBLS</span>
+    <span>💨 Gas: <b id="res-g">0</b> <small>MMSCFD</small></span>
+    <span>💧 Condy: <b id="res-co">0</b> <small>BBLS</small></span>
   </div>
 
   <div class="step-title">🛠 STEP 3: Media & Hours</div>
@@ -102,14 +110,14 @@
   </div>
 
   <div class="final-saving-card">
-    <div style="font-size: 0.65rem; font-weight: 800; color: #a0aec0; letter-spacing: 1.2px;">🏆 ESTIMATED COST SAVING</div>
+    <div style="font-size: 0.8rem; font-weight: 900; color: #cbd5e0;">🏆 ESTIMATED COST SAVING</div>
     <div class="amount" id="main-output">$ 0</div>
-    <div style="font-size: 0.7rem; color: #a0aec0;">USD per Operation</div>
+    <div style="font-size: 0.9rem; font-weight: 600; color: #cbd5e0;">USD per Operation</div>
   </div>
 </div>
 
 <script>
-  // Data Locations (30+ แท่น)
+  // Database ครบถ้วน
   const locations = {
     "PALQ": { b: 0, d: 0, c: 0, g: 0, co: 0 }, "NALQ": { b: -7905.33, d: -7185.94, c: -19.52, g: 0, co: 0 },
     "SKL":  { b: 4483.62, d: 4075.61, c: 11.07, g: 0, co: 0 }, "PAWA": { b: 132.35, d: 120.32, c: 0.33, g: 0, co: 0 },
