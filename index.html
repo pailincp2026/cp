@@ -4,217 +4,156 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Chevron Operational Estimator</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #000a1f;
-      --card-bg: rgba(255, 255, 255, 0.05);
+      --bg-overlay: rgba(0, 15, 40, 0.9);
       --accent-gold: #ffb81c;
       --success-green: #00ff88;
-      --border-color: rgba(255, 255, 255, 0.15);
-      --text-dim: #a0aec0;
+      --border-color: rgba(255, 255, 255, 0.12);
     }
 
     body {
-      font-family: 'Inter', sans-serif; margin: 0; padding: 20px; min-height: 100vh;
-      background: radial-gradient(circle at top, #002d5a 0%, #000a1f 100%);
-      color: white; display: flex; flex-direction: column; align-items: center;
+      font-family: 'Inter', sans-serif; margin: 0; padding: 10px; min-height: 100vh;
+      background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('Pailin.jpg') no-repeat center center fixed;
+      background-size: cover; color: white; display: flex; flex-direction: column; align-items: center;
     }
 
-    .container { width: 100%; max-width: 500px; padding-bottom: 50px; }
+    .container { width: 100%; max-width: 420px; box-sizing: border-box; }
 
-    /* Header Section */
-    .app-header { text-align: left; margin-bottom: 20px; border-left: 3px solid var(--accent-gold); padding-left: 15px; width: 100%; }
-    .app-header h2 { margin: 0; font-size: 1.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: -0.5px; }
-    .app-header p { margin: 2px 0 0; font-size: 0.75rem; color: var(--accent-gold); letter-spacing: 2px; }
+    .app-header { display: flex; align-items: center; gap: 12px; margin: 10px 0 15px; width: 100%; }
+    .logo-img { height: 40px; width: auto; }
+    .header-text { border-left: 2px solid var(--accent-gold); padding-left: 10px; }
+    .header-text h2 { margin: 0; font-size: 1.1rem; font-weight: 800; text-transform: uppercase; }
+    .header-text p { margin: 0; font-size: 0.65rem; color: var(--accent-gold); letter-spacing: 1.5px; }
 
-    /* Step Titles */
     .step-title {
-      font-size: 0.85rem; font-weight: 700; color: white; margin: 35px 0 15px;
-      display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 0.5px;
+      font-size: 0.75rem; font-weight: 700; color: rgba(255,255,255,0.8); margin: 15px 0 8px;
+      display: flex; align-items: center; gap: 8px; text-transform: uppercase;
     }
     .step-title::after { content: ""; flex: 1; height: 1px; background: var(--border-color); }
 
-    /* Input Controls */
-    .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 15px; }
-    
+    .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
     .custom-select, .custom-input {
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid var(--border-color);
-      border-radius: 10px; padding: 12px;
-      color: white; font-size: 0.9rem; font-weight: 500;
-      width: 100%; box-sizing: border-box; outline: none; transition: 0.3s;
-      appearance: none;
+      background: rgba(255, 255, 255, 0.1); border: 1px solid var(--border-color);
+      border-radius: 8px; padding: 10px; color: white; font-size: 0.85rem;
+      width: 100%; box-sizing: border-box; outline: none; backdrop-filter: blur(5px);
     }
-    .custom-select:focus, .custom-input:focus { border-color: var(--accent-gold); background: rgba(255,255,255,0.12); }
-    select option { background: #001529; color: white; }
 
-    /* Step 1: Benefit Box */
     .benefit-box {
-      background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color);
-      border-radius: 12px; padding: 18px; margin-top: 10px;
+      background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-color);
+      border-radius: 10px; padding: 12px; margin-top: 5px;
     }
-    .benefit-item { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 0.9rem; }
-    .benefit-item:last-child { margin-bottom: 0; }
-    .benefit-item .label { flex: 1; color: #cbd5e0; }
+    .benefit-item { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.8rem; align-items: center; }
     .benefit-item .value { font-weight: 700; color: var(--success-green); }
-    .icon { font-size: 1rem; width: 20px; text-align: center; }
 
-    /* Step 2: Stats Display */
     .platform-stats {
-      display: flex; justify-content: space-between; padding: 12px 5px;
-      font-size: 0.8rem; color: var(--text-dim); border-bottom: 1px solid var(--border-color); margin-bottom: 10px;
+      display: flex; justify-content: space-between; padding: 8px 2px;
+      font-size: 0.75rem; color: #a0aec0; border-bottom: 1px solid var(--border-color);
     }
-    .platform-stats b { color: var(--success-green); margin-left: 4px; }
+    .platform-stats b { color: var(--success-green); }
 
-    /* Animation for Conditional Step 3 */
-    #step3-section { 
-      display: none; opacity: 0; transform: translateY(15px); 
-      transition: all 0.6s ease;
-    }
-    #step3-section.show { display: block; opacity: 1; transform: translateY(0); }
-
-    /* Step 3: Final Output */
     .final-saving-card {
-      background: rgba(0, 255, 136, 0.05); border: 1px solid rgba(0, 255, 136, 0.2);
-      border-radius: 18px; padding: 25px; text-align: center; margin-top: 20px;
+      background: rgba(0, 255, 136, 0.08); border: 1px solid rgba(0, 255, 136, 0.25);
+      border-radius: 15px; padding: 15px; text-align: center; margin-top: 20px;
     }
-    .final-saving-card .title { font-size: 0.7rem; font-weight: 800; letter-spacing: 1.5px; color: var(--text-dim); text-transform: uppercase; }
-    .final-saving-card .amount { font-size: 3.2rem; font-weight: 900; color: var(--success-green); margin: 8px 0; text-shadow: 0 0 25px rgba(0, 255, 136, 0.3); }
-    .final-saving-card .unit { font-size: 0.8rem; color: var(--text-dim); }
+    .final-saving-card .amount { font-size: 2.2rem; font-weight: 800; color: var(--success-green); margin: 4px 0; }
   </style>
 </head>
 <body>
 
 <div class="container">
   <header class="app-header">
-    <h2>Operational Estimator</h2>
-    <p>PAILIN ASSET PERFORMANCE</p>
+    <img src="logo.png" alt="Logo" class="logo-img" onerror="this.style.opacity='0'">
+    <div class="header-text">
+      <h2>Operational Estimator</h2>
+      <p>PAILIN ASSET PERFORMANCE</p>
+    </div>
   </header>
 
-  <div class="step-title">STEP 1: เลือกเส้นทาง</div>
+  <div class="step-title">📍 STEP 1: Route Selection</div>
   <div class="input-row">
-    <select id="start" class="custom-select" onchange="calculate()">
-      <option value="">Origin</option>
-    </select>
-    <select id="end" class="custom-select" onchange="calculate()">
-      <option value="">Destination</option>
-    </select>
+    <select id="start" class="custom-select" onchange="calculate()"><option value="">Origin</option></select>
+    <select id="end" class="custom-select" onchange="calculate()"><option value="">Destination</option></select>
   </div>
 
   <div class="benefit-box">
-    <div class="benefit-item">
-        <span class="icon">💰</span> <span class="label">Cost Saving:</span> <span class="value" id="res-Benefit($)">$ ____</span>
-    </div>
-    <div class="benefit-item">
-        <span class="icon">⛽</span> <span class="label">Diesel Saving:</span> <span class="value" id="res-Disal(Liter)">____ Liter</span>
-    </div>
-    <div class="benefit-item">
-        <span class="icon">🍃</span> <span class="label">Carbon Reduced:</span> <span class="value" id="res-carbon">____ Ton</span>
-    </div>
+    <div class="benefit-item"><span>💰 Cost Saving</span> <span class="value" id="res-Benefit($)">$ 0.00</span></div>
+    <div class="benefit-item"><span>⛽ Diesel Saving</span> <span class="value" id="res-Disal(Liter)">0 L</span></div>
+    <div class="benefit-item"><span>🍃 Carbon Reduced</span> <span class="value" id="res-carbon">0.00 T</span></div>
   </div>
 
-  <div class="step-title">STEP 2: เลือก PLATFORM</div>
-  <select id="prod-platform" class="custom-select" onchange="toggleStep3()">
-    <option value="">Select Active Platform</option>
-  </select>
+  <div class="step-title">📊 STEP 2: Platform Data</div>
+  <select id="prod-platform" class="custom-select" onchange="calculate()"><option value="">Select Platform</option></select>
   <div class="platform-stats">
-    <span>Gas: <b id="res-g">____</b> MMSCFD</span>
-    <span>Condensate: <b id="res-co">____</b> BBLS</span>
+    <span>💨 Gas: <b id="res-g">0</b> MMSCFD</span>
+    <span>💧 Condy: <b id="res-co">0</b> BBLS</span>
   </div>
 
-  <div id="step3-section">
-    <div class="step-title">STEP 3: ประเภทงาน</div>
-    <div class="input-row">
-        <select id="type-select" class="custom-select" onchange="calculate()">
-          <option value="">Media Type</option>
-          <option value="gas_pacpp">Gas / PACPP</option>
-          <option value="condy">CONDY PACPP</option>
-          <option value="remote">Gas Remote Platform</option>
-        </select>
-        <input type="number" id="val-hours" class="custom-input" placeholder="Hours" oninput="calculate()">
-    </div>
+  <div class="step-title">🛠 STEP 3: Media & Hours</div>
+  <div class="input-row">
+    <select id="type-select" class="custom-select" onchange="calculate()">
+      <option value="">Media Type</option>
+      <option value="gas_pacpp">Gas / PACPP</option>
+      <option value="condy">CONDY PACPP</option>
+      <option value="remote">Gas Remote Platform</option>
+    </select>
+    <input type="number" id="val-hours" class="custom-input" placeholder="Work Hours" oninput="calculate()">
+  </div>
 
-    <div class="final-saving-card">
-        <div class="title">ESTIMATED COST SAVING</div>
-        <div class="amount" id="main-output">$ 0</div>
-        <div class="unit">USD / Operation</div>
-    </div>
+  <div class="final-saving-card">
+    <div style="font-size: 0.65rem; font-weight: 800; color: #a0aec0; letter-spacing: 1.2px;">🏆 ESTIMATED COST SAVING</div>
+    <div class="amount" id="main-output">$ 0</div>
+    <div style="font-size: 0.7rem; color: #a0aec0;">USD per Operation</div>
   </div>
 </div>
 
 <script>
+  // Data Locations (30+ แท่น)
   const locations = {
-    "PALQ": { b: 0, d: 0, c: 0, g: 0, co: 0 }, 
-    "NALQ": { b: -7905.33, d: -7185.94, c: -19.52, g: 0, co: 0 },
-    "PAWB": { b: 110.88, d: 100.80, c: 0.27, g: 43518, co: 276.26 }, 
-    "PAWC": { b: 308.32, d: 280.28, c: 0.76, g: 90157, co: 0 },
-    "PAWD": { b: 93.20, d: 84.73, c: 0.23, g: 42356, co: 0 }, 
-    "PAWL": { b: 233.58, d: 212.35, c: 0.57, g: 79776, co: 1465.68 }, 
-    "PAWM": { b: 96.76, d: 87.96, c: 0.24, g: 30742, co: 213.93 }, 
-    "PAWN": { b: 400.29, d: 363.90, c: 0.99, g: 19382, co: 298.99 }, 
-    "PAWP": { b: 267.12, d: 242.84, c: 0.66, g: 58761, co: 359.87 }, 
-    "PAWQ": { b: 147.88, d: 134.44, c: 0.36, g: 50523, co: 895.53 }, 
-    "PAWR": { b: 384.29, d: 349.35, c: 0.95, g: 16042, co: 152.01 }, 
-    "PAWS": { b: 211.12, d: 191.93, c: 0.52, g: 29181, co: 160.54 }, 
-    "PAWT": { b: 225.07, d: 204.61, c: 0.55, g: 13429, co: 1066.83 }, 
-    "MGWA": { b: 622.82, d: 566.20, c: 1.54, g: 30343, co: 821.62 }, 
-    "MGWD": { b: 493.95, d: 449.05, c: 1.22, g: 42356, co: 464.15 }, 
-    "MGWE": { b: 578.34, d: 525.76, c: 1.43, g: 35460, co: 216.70 }, 
-    "MGWF": { b: 555.07, d: 504.61, c: 1.37, g: 86019, co: 2201.19 }, 
-    "MGWG": { b: 758.11, d: 689.19, c: 1.87, g: 43336, co: 470.28 }, 
-    "MGWI": { b: 616.81, d: 560.74, c: 1.52, g: 121479, co: 1402.34 }, 
-    "MGWJ": { b: 914.38, d: 831.25, c: 2.26, g: 83878, co: 1023.19 }, 
-    "MGWK": { b: 879.85, d: 799.79, c: 2.17, g: 207390, co: 2130.04 }
+    "PALQ": { b: 0, d: 0, c: 0, g: 0, co: 0 }, "NALQ": { b: -7905.33, d: -7185.94, c: -19.52, g: 0, co: 0 },
+    "SKL":  { b: 4483.62, d: 4075.61, c: 11.07, g: 0, co: 0 }, "PAWA": { b: 132.35, d: 120.32, c: 0.33, g: 0, co: 0 },
+    "PAWB": { b: 110.88, d: 100.80, c: 0.27, g: 43518, co: 276.26 }, "PAWC": { b: 308.32, d: 280.28, c: 0.76, g: 90157, co: 0 },
+    "PAWD": { b: 93.20, d: 84.73, c: 0.23, g: 42356, co: 0 }, "PAWE": { b: 202.99, d: 184.53, c: 0.50, g: 0, co: 0 },
+    "PAWF": { b: 3.24, d: 2.94, c: 0.00, g: 0, co: 0 }, "PAWG": { b: 280.57, d: 255.07, c: 0.69, g: 0, co: 0 },
+    "PAWH": { b: 121.27, d: 110.25, c: 0.30, g: 0, co: 0 }, "PAWI": { b: 204.11, d: 185.56, c: 0.50, g: 0, co: 0 },
+    "PAWJ": { b: 356.05, d: 323.68, c: 0.88, g: 0, co: 0 }, "PAWK": { b: 442.84, d: 402.58, c: 1.09, g: 0, co: 0 },
+    "PAWL": { b: 233.58, d: 212.35, c: 0.57, g: 79776, co: 1465.68 }, "PAWM": { b: 96.76, d: 87.96, c: 0.24, g: 30742, co: 213.93 },
+    "PAWN": { b: 400.29, d: 363.9, c: 0.99, g: 19382, co: 298.99 }, "PAWO": { b: 249.15, d: 226.49, c: 0.62, g: 0, co: 0 },
+    "PAWP": { b: 267.12, d: 242.84, c: 0.66, g: 58761, co: 359.87 }, "PAWQ": { b: 147.88, d: 134.44, c: 0.36, g: 50523, co: 895.53 },
+    "PAWR": { b: 384.29, d: 349.35, c: 0.95, g: 16042, co: 152.01 }, "PAWS": { b: 211.12, d: 191.93, c: 0.52, g: 29181, co: 160.54 },
+    "PAWT": { b: 225.07, d: 204.61, c: 0.55, g: 13429, co: 1066.83 }, "PAWU": { b: 147.18, d: 133.79, c: 0.36, g: 0, co: 0 },
+    "MGWA": { b: 622.82, d: 566.20, c: 1.54, g: 30343, co: 821.62 }, "MGWB": { b: 902.61, d: 820.55, c: 2.23, g: 11505, co: 107.22 },
+    "MGWC": { b: 775.88, d: 705.35, c: 1.91, g: 11723, co: 133.18 }, "MGWD": { b: 493.95, d: 449.05, c: 1.22, g: 42356, co: 464.15 },
+    "MGWE": { b: 578.34, d: 525.76, c: 1.43, g: 35460, co: 216.70 }, "MGWF": { b: 555.07, d: 504.61, c: 1.37, g: 86019, co: 2201.19 },
+    "MGWG": { b: 758.11, d: 689.19, c: 1.87, g: 43336, co: 470.28 }, "MGWH": { b: 920.21, d: 836.55, c: 2.27, g: 17966, co: 346.76 },
+    "MGWI": { b: 616.81, d: 560.74, c: 1.52, g: 121479, co: 1402.34 }, "MGWJ": { b: 914.38, d: 831.25, c: 2.26, g: 83878, co: 1023.19 },
+    "MGWK": { b: 879.85, d: 799.79, c: 2.17, g: 207390, co: 2130.04 }, "MGWL": { b: 639.25, d: 581.08, c: 1.57, g: 0, co: 0 }
   };
 
-  const presets = { 
-    gas_pacpp: { rate: 9.17, price: 6000 }, 
-    condy: { rate: 396, price: 60 }, 
-    remote: { rate: 0.21, price: 6000 } 
-  };
+  const presets = { gas_pacpp: { rate: 9.17, price: 6000 }, condy: { rate: 396, price: 60 }, remote: { rate: 0.21, price: 6000 } };
 
   function init() {
     const sS = document.getElementById('start'), eS = document.getElementById('end'), pS = document.getElementById('prod-platform');
     Object.keys(locations).sort().forEach(loc => {
-      sS.add(new Option(loc, loc)); 
-      eS.add(new Option(loc, loc));
+      sS.add(new Option(loc, loc)); eS.add(new Option(loc, loc));
       if (locations[loc].g > 0 || locations[loc].co > 0) pS.add(new Option(loc, loc));
     });
   }
 
-  function toggleStep3() {
-    const platform = document.getElementById('prod-platform').value;
-    const step3 = document.getElementById('step3-section');
-    if(platform) { 
-        step3.style.display = 'block';
-        setTimeout(() => step3.classList.add('show'), 10);
-    } else { 
-        step3.classList.remove('show');
-        setTimeout(() => step3.style.display = 'none', 600);
-    }
-    calculate();
-  }
-
   function calculate() {
-    // Step 1
     const s = locations[document.getElementById('start').value], e = locations[document.getElementById('end').value];
     if (s && e) {
       document.getElementById('res-Benefit($)').innerText = '$ ' + Math.abs(e.b - s.b).toLocaleString(undefined, {minimumFractionDigits: 2});
-      document.getElementById('res-Disal(Liter)').innerText = Math.abs(e.d - s.d).toLocaleString(undefined, {minimumFractionDigits: 0}) + ' Liter';
-      document.getElementById('res-carbon').innerText = Math.abs(e.c - s.c).toLocaleString(undefined, {minimumFractionDigits: 2}) + ' Ton';
+      document.getElementById('res-Disal(Liter)').innerText = Math.abs(e.d - s.d).toLocaleString() + ' L';
+      document.getElementById('res-carbon').innerText = Math.abs(e.c - s.c).toFixed(2) + ' T';
     }
-
-    // Step 2
     const p = locations[document.getElementById('prod-platform').value];
-    document.getElementById('res-g').innerText = p ? p.g.toLocaleString() : "____";
-    document.getElementById('res-co').innerText = p ? p.co.toLocaleString() : "____";
-
-    // Step 3
+    document.getElementById('res-g').innerText = p ? p.g.toLocaleString() : "0";
+    document.getElementById('res-co').innerText = p ? p.co.toLocaleString() : "0";
     const k = document.getElementById('type-select').value, h = parseFloat(document.getElementById('val-hours').value) || 0;
-    document.getElementById('main-output').innerText = k && h > 0 ? '$ ' + (h * presets[k].rate * presets[k].price).toLocaleString(undefined, {maximumFractionDigits: 0}) : '$ 0';
+    document.getElementById('main-output').innerText = k && h > 0 ? '$ ' + Math.round(h * presets[k].rate * presets[k].price).toLocaleString() : '$ 0';
   }
-
   init();
 </script>
 </body>
