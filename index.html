@@ -7,96 +7,65 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* ปรับ Overlay ให้โปร่งแสงขึ้นเพื่อโชว์รูป pailin.jpg */
       --bg-gradient: linear-gradient(135deg, rgba(0, 20, 50, 0.8) 0%, rgba(0, 10, 30, 0.6) 100%);
-      --accent-gold: #ffb81c;
-      --success-green: #00ff88;
-      --glass-bg: rgba(255, 255, 255, 0.07);
-      --glass-border: rgba(255, 255, 255, 0.15);
+      --accent-gold: #ffb81c; --success-green: #00ff88;
+      --glass-bg: rgba(255, 255, 255, 0.07); --glass-border: rgba(255, 255, 255, 0.15);
     }
-
     * { box-sizing: border-box; }
-
     body {
-      font-family: 'Inter', sans-serif; margin: 0; padding: 20px; min-height: 100vh;
-      /* พื้นหลัง pailin.jpg แบบ High Definition Display */
-      background: var(--bg-gradient), url('pailin.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: white; display: flex; flex-direction: column; align-items: center;
+      font-family: 'Inter', sans-serif; margin: 0; padding: 15px; min-height: 100vh;
+      background: var(--bg-gradient), url('Pailin.jpg') no-repeat center center fixed;
+      background-size: cover; color: white; display: flex; flex-direction: column; align-items: center;
     }
-
     .container { 
-      width: 100%; max-width: 550px; 
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      padding: 30px;
-      border-radius: 28px;
-      border: 1px solid var(--glass-border);
+      width: 100%; max-width: 550px; background: var(--glass-bg);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      padding: 25px; border-radius: 24px; border: 1px solid var(--glass-border);
       box-shadow: 0 25px 50px rgba(0,0,0,0.4);
     }
-
-    .app-header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
-    .logo-img { height: 50px; width: auto; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); }
+    .app-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+    .logo-img { height: 45px; width: auto; }
     .header-text { border-left: 3px solid var(--accent-gold); padding-left: 15px; }
-    .header-text h2 { margin: 0; font-size: 1.5rem; font-weight: 900; letter-spacing: -0.5px; }
-    .header-text p { margin: 0; font-size: 0.8rem; color: var(--accent-gold); font-weight: 700; letter-spacing: 2px; }
-
+    .header-text h2 { margin: 0; font-size: 1.4rem; font-weight: 900; }
+    .header-text p { margin: 0; font-size: 0.75rem; color: var(--accent-gold); font-weight: 700; letter-spacing: 2px; }
     .step-title {
-      font-size: 1rem; font-weight: 800; color: #fff; margin: 25px 0 15px;
-      display: flex; align-items: center; gap: 10px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      font-size: 1rem; font-weight: 800; margin: 22px 0 12px;
+      display: flex; align-items: center; gap: 10px;
     }
     .step-title::after { content: ""; flex: 1; height: 1px; background: var(--glass-border); }
-
-    .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
     .custom-select, .custom-input {
       background: rgba(0, 0, 0, 0.3); border: 1px solid var(--glass-border);
-      border-radius: 14px; padding: 15px; color: white; font-size: 1.1rem; font-weight: 600;
-      width: 100%; outline: none; transition: all 0.3s ease;
+      border-radius: 12px; padding: 14px; color: white; font-size: 1.05rem; font-weight: 600;
+      width: 100%; outline: none;
     }
-    .custom-select:focus, .custom-input:focus { border-color: var(--accent-gold); box-shadow: 0 0 15px rgba(255, 184, 28, 0.2); }
-
     .benefit-box {
       background: rgba(0, 0, 0, 0.2); border: 1px solid var(--glass-border);
-      border-radius: 18px; padding: 20px; margin-top: 5px;
+      border-radius: 15px; padding: 18px; margin-top: 5px;
     }
-    .benefit-item { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 1.1rem; }
-    .benefit-item:last-child { margin-bottom: 0; }
-    .benefit-item .value { font-weight: 800; color: var(--success-green); text-shadow: 0 0 10px rgba(0, 255, 136, 0.3); }
-
+    .benefit-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1rem; }
+    .benefit-item .value { font-weight: 800; color: var(--success-green); }
     .platform-stats {
-      display: flex; justify-content: space-between; padding: 12px 5px;
-      font-size: 1rem; color: #e2e8f0; border-bottom: 1px solid var(--glass-border);
+      display: flex; justify-content: space-between; padding: 10px 5px;
+      font-size: 0.95rem; color: #e2e8f0; border-bottom: 1px solid var(--glass-border);
     }
-    .platform-stats b { font-size: 1.2rem; color: var(--success-green); }
-
+    .platform-stats b { font-size: 1.1rem; color: var(--success-green); }
     .final-saving-card {
       background: linear-gradient(180deg, rgba(0, 255, 136, 0.15) 0%, rgba(0, 255, 136, 0.05) 100%);
-      border: 1px solid rgba(0, 255, 136, 0.4);
-      border-radius: 22px; padding: 25px; text-align: center; margin-top: 30px;
+      border: 1px solid rgba(0, 255, 136, 0.4); border-radius: 20px; padding: 22px; text-align: center; margin-top: 25px;
     }
-    .final-saving-card .amount { 
-      font-size: 3.5rem; font-weight: 900; color: var(--success-green); 
-      margin: 10px 0; text-shadow: 0 0 20px rgba(0, 255, 136, 0.5); 
-    }
-
+    .final-saving-card .amount { font-size: 3rem; font-weight: 900; color: var(--success-green); margin: 5px 0; }
     @media (max-width: 480px) {
-      body { padding: 10px; }
-      .container { padding: 20px; border-radius: 20px; }
-      .final-saving-card .amount { font-size: 2.8rem; }
-      .header-text h2 { font-size: 1.2rem; }
+      .container { padding: 18px; }
+      .final-saving-card .amount { font-size: 2.5rem; }
     }
   </style>
 </head>
 <body>
-
 <div class="container">
   <header class="app-header">
-    <img src="logo.png" alt="Logo" class="logo-img" onerror="this.style.opacity='0'">
-    <div class="header-text">
-      <h2>Operational Estimator</h2>
-      <p>PAILIN ASSET PERFORMANCE</p>
-    </div>
+    <img src="logo.png" alt="" class="logo-img" onerror="this.style.display='none'">
+    <div class="header-text"><h2>Operational Estimator</h2><p>PAILIN ASSET PERFORMANCE</p></div>
   </header>
 
   <div class="step-title">🚢 STEP 1: Route Selection</div>
@@ -104,20 +73,17 @@
     <select id="start" class="custom-select" onchange="calculate()"><option value="">Origin</option></select>
     <select id="end" class="custom-select" onchange="calculate()"><option value="">Destination</option></select>
   </div>
-
   <div class="benefit-box">
-    <div class="benefit-item"><span>💰 Cost Saving:</span> <span class="value" id="res-Benefit($)">$ 0.00</span></div>
-    <div class="benefit-item"><span>⛽ Diesel Saving:</span> <span class="value" id="res-Disal(Liter)">0 L</span></div>
-    <div class="benefit-item"><span>🍃 Carbon Reduced:</span> <span class="value" id="res-carbon">0.00 T</span></div>
+    <div class="benefit-item"><span>💰 Cost Saving</span> <span class="value" id="res-Benefit($)">$ 0.00</span></div>
+    <div class="benefit-item"><span>⛽ Diesel Saving</span> <span class="value" id="res-Disal(Liter)">0 L</span></div>
+    <div class="benefit-item"><span>🍃 Carbon Reduced</span> <span class="value" id="res-carbon">0.00 T</span></div>
   </div>
 
   <div class="step-title">🏗️ STEP 2: Platform Data</div>
-  <select id="prod-platform" class="custom-select" onchange="calculate()" style="margin-bottom: 10px;">
-    <option value="">Select Platform</option>
-  </select>
+  <select id="prod-platform" class="custom-select" onchange="calculate()" style="margin-bottom:10px;"><option value="">Select Platform</option></select>
   <div class="platform-stats">
-    <span>💨 Gas: <b id="res-g">0</b> <small>MMSCFD</small></span>
-    <span>💧 Condy: <b id="res-co">0</b> <small>BBLS</small></span>
+    <span>💨 Gas: <b id="res-g">0</b> MMSCFD</span>
+    <span>💧 Condy: <b id="res-co">0</b> BBLS</span>
   </div>
 
   <div class="step-title">🛠 STEP 3: Media & Hours</div>
@@ -132,50 +98,47 @@
   </div>
 
   <div class="final-saving-card">
-    <div style="font-size: 0.8rem; font-weight: 900; color: #cbd5e0; letter-spacing: 2px;">ESTIMATED COST SAVING</div>
+    <div style="font-size:0.8rem; font-weight:900; color:#cbd5e0; letter-spacing:1px;">ESTIMATED SAVING</div>
     <div class="amount" id="main-output">$ 0</div>
-    <div style="font-size: 1rem; font-weight: 600; color: #cbd5e0;">USD per Operation</div>
+    <div style="font-size:0.9rem; font-weight:600; color:#cbd5e0;">USD per Operation</div>
   </div>
 </div>
 
 <script>
-  // Dataset กู้คืนให้ครบ 30+ แท่นเหมือนเดิม
   const locations = {
-    "PALQ": { b: 0, d: 0, c: 0, g: 0, co: 0 }, "NALQ": { b: -7905.33, d: -7185.94, c: -19.52, g: 0, co: 0 },
-    "SKL":  { b: 4483.62, d: 4075.61, c: 11.07, g: 0, co: 0 }, "PAWA": { b: 132.35, d: 120.32, c: 0.33, g: 0, co: 0 },
-    "PAWB": { b: 110.88, d: 100.80, c: 0.27, g: 43518, co: 276.26 }, "PAWC": { b: 308.32, d: 280.28, c: 0.76, g: 90157, co: 0 },
-    "PAWD": { b: 93.20, d: 84.73, c: 0.23, g: 42356, co: 0 }, "PAWL": { b: 233.58, d: 212.35, c: 0.57, g: 79776, co: 1465.68 }, 
-    "PAWM": { b: 96.76, d: 87.96, c: 0.24, g: 30742, co: 213.93 }, "PAWN": { b: 400.29, d: 363.9, c: 0.99, g: 19382, co: 298.99 }, 
-    "PAWP": { b: 267.12, d: 242.84, c: 0.66, g: 58761, co: 359.87 }, "PAWQ": { b: 147.88, d: 134.44, c: 0.36, g: 50523, co: 895.53 }, 
-    "PAWR": { b: 384.29, d: 349.35, c: 0.95, g: 16042, co: 152.01 }, "PAWS": { b: 211.12, d: 191.93, c: 0.52, g: 29181, co: 160.54 }, 
-    "PAWT": { b: 225.07, d: 204.61, c: 0.55, g: 13429, co: 1066.83 }, "MGWA": { b: 622.82, d: 566.20, c: 1.54, g: 30343, co: 821.62 }, 
-    "MGWD": { b: 493.95, d: 449.05, c: 1.22, g: 42356, co: 464.15 }, "MGWF": { b: 555.07, d: 504.61, c: 1.37, g: 86019, co: 2201.19 }, 
-    "MGWI": { b: 616.81, d: 560.74, c: 1.52, g: 121479, co: 1402.34 }, "MGWJ": { b: 914.38, d: 831.25, c: 2.26, g: 83878, co: 1023.19 }, 
-    "MGWK": { b: 879.85, d: 799.79, c: 2.17, g: 207390, co: 2130.04 }
+    "PALQ":{b:0,d:0,c:0,g:0,co:0},"NALQ":{b:-7905.3,d:-7185.9,c:-19.5,g:0,co:0},"SKL":{b:4483.6,d:4075.6,c:11.1,g:0,co:0},
+    "PAWA":{b:132.4,d:120.3,c:0.3,g:0,co:0},"PAWB":{b:110.9,d:100.8,c:0.3,g:43518,co:276.3},"PAWC":{b:308.3,d:280.3,c:0.8,g:90157,co:0},
+    "PAWD":{b:93.2,d:84.7,c:0.2,g:42356,co:0},"PAWE":{b:203.0,d:184.5,c:0.5,g:0,co:0},"PAWF":{b:3.2,d:2.9,c:0,g:0,co:0},
+    "PAWG":{b:280.6,d:255.1,c:0.7,g:0,co:0},"PAWH":{b:121.3,d:110.3,c:0.3,g:0,co:0},"PAWI":{b:204.1,d:185.6,c:0.5,g:0,co:0},
+    "PAWJ":{b:356.1,d:323.7,c:0.9,g:0,co:0},"PAWK":{b:442.8,d:402.6,c:1.1,g:0,co:0},"PAWL":{b:233.6,d:212.4,c:0.6,g:79776,co:1465.7},
+    "PAWM":{b:96.8,d:88.0,c:0.2,g:30742,co:213.9},"PAWN":{b:400.3,d:363.9,c:1,g:19382,co:299},"PAWO":{b:249.2,d:226.5,c:0.6,g:0,co:0},
+    "PAWP":{b:267.1,d:242.8,c:0.7,g:58761,co:359.9},"PAWQ":{b:147.9,d:134.4,c:0.4,g:50523,co:895.5},"PAWR":{b:384.3,d:349.4,c:1,g:16042,co:152},
+    "PAWS":{b:211.1,d:191.9,c:0.5,g:29181,co:160.5},"PAWT":{b:225.1,d:204.6,c:0.6,g:13429,co:1066.8},"PAWU":{b:147.2,d:133.8,c:0.4,g:0,co:0},
+    "MGWA":{b:622.8,d:566.2,c:1.5,g:30343,co:821.6},"MGWB":{b:902.6,d:820.6,c:2.2,g:11505,co:107.2},"MGWC":{b:775.9,d:705.4,c:1.9,g:11723,co:133.2},
+    "MGWD":{b:494.0,d:449.1,c:1.2,g:42356,co:464.2},"MGWE":{b:578.3,d:525.8,c:1.4,g:35460,co:216.7},"MGWF":{b:555.1,d:504.6,c:1.4,g:86019,co:2201.2},
+    "MGWG":{b:758.1,d:689.2,c:1.9,g:43336,co:470.3},"MGWH":{b:920.2,d:836.6,c:2.3,g:17966,co:346.8},"MGWI":{b:616.8,d:560.7,c:1.5,g:121479,co:1402.3},
+    "MGWJ":{b:914.4,d:831.3,c:2.3,g:83878,co:1023.2},"MGWK":{b:879.9,d:799.8,c:2.2,g:207390,co:2130.0},"MGWL":{b:639.3,d:581.1,c:1.6,g:0,co:0}
   };
-
-  const presets = { gas_pacpp: { rate: 9.17, price: 6000 }, condy: { rate: 396, price: 60 }, remote: { rate: 0.21, price: 6000 } };
-
+  const presets = { gas_pacpp:{rate:9.17,price:6000}, condy:{rate:396,price:60}, remote:{rate:0.21,price:6000} };
   function init() {
-    const sS = document.getElementById('start'), eS = document.getElementById('end'), pS = document.getElementById('prod-platform');
+    const sS=document.getElementById('start'), eS=document.getElementById('end'), pS=document.getElementById('prod-platform');
     Object.keys(locations).sort().forEach(loc => {
       sS.add(new Option(loc, loc)); eS.add(new Option(loc, loc));
-      if (locations[loc].g > 0 || locations[loc].co > 0) pS.add(new Option(loc, loc));
+      if(locations[loc].g > 0 || locations[loc].co > 0) pS.add(new Option(loc, loc));
     });
   }
-
   function calculate() {
-    const s = locations[document.getElementById('start').value], e = locations[document.getElementById('end').value];
-    if (s && e) {
+    const s=locations[document.getElementById('start').value], e=locations[document.getElementById('end').value];
+    if(s && e) {
       document.getElementById('res-Benefit($)').innerText = '$ ' + Math.abs(e.b - s.b).toLocaleString(undefined, {minimumFractionDigits: 2});
       document.getElementById('res-Disal(Liter)').innerText = Math.abs(e.d - s.d).toLocaleString() + ' L';
       document.getElementById('res-carbon').innerText = Math.abs(e.c - s.c).toFixed(2) + ' T';
     }
-    const p = locations[document.getElementById('prod-platform').value];
+    const p=locations[document.getElementById('prod-platform').value];
     document.getElementById('res-g').innerText = p ? p.g.toLocaleString() : "0";
     document.getElementById('res-co').innerText = p ? p.co.toLocaleString() : "0";
-    const k = document.getElementById('type-select').value, h = parseFloat(document.getElementById('val-hours').value) || 0;
-    document.getElementById('main-output').innerText = k && h > 0 ? '$ ' + Math.round(h * presets[k].rate * presets[k].price).toLocaleString() : '$ 0';
+    const k=document.getElementById('type-select').value, h=parseFloat(document.getElementById('val-hours').value) || 0;
+    document.getElementById('main-output').innerText = k && h>0 ? '$ '+Math.round(h*presets[k].rate*presets[k].price).toLocaleString() : '$ 0';
   }
   init();
 </script>
