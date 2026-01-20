@@ -7,70 +7,98 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-overlay: rgba(0, 15, 40, 0.92);
+      --bg-overlay: rgba(0, 15, 40, 0.85); /* ปรับความเข้มเพื่อให้มองเห็นภาพพื้นหลัง */
       --accent-gold: #ffb81c;
       --success-green: #00ff88;
       --border-color: rgba(255, 255, 255, 0.2);
     }
 
+    * { box-sizing: border-box; }
+
     body {
-      font-family: 'Inter', sans-serif; margin: 0; padding: 12px; min-height: 100vh;
+      font-family: 'Inter', sans-serif; margin: 0; padding: 20px; min-height: 100vh;
+      /* พื้นหลังแบบปรับขนาดอัตโนมัติ */
       background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('Pailin.jpg') no-repeat center center fixed;
-      background-size: cover; color: white; display: flex; flex-direction: column; align-items: center;
+      background-size: cover;
+      color: white; display: flex; flex-direction: column; align-items: center;
     }
 
-    .container { width: 100%; max-width: 450px; box-sizing: border-box; }
+    /* การปรับแต่ง Container ให้รองรับทั้ง PC และ Mobile */
+    .container { 
+      width: 100%; 
+      max-width: 600px; /* ขนาดสูงสุดบนจอคอม */
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      padding: 25px;
+      border-radius: 24px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
 
-    /* Header */
-    .app-header { display: flex; align-items: center; gap: 15px; margin: 15px 0 20px; width: 100%; }
-    .logo-img { height: 50px; width: auto; }
-    .header-text { border-left: 3px solid var(--accent-gold); padding-left: 12px; }
-    .header-text h2 { margin: 0; font-size: 1.3rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.5px; }
-    .header-text p { margin: 0; font-size: 0.75rem; color: var(--accent-gold); letter-spacing: 1.5px; font-weight: 700; }
+    /* หัวข้อแอป */
+    .app-header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
+    .logo-img { height: 55px; width: auto; }
+    .header-text { border-left: 3px solid var(--accent-gold); padding-left: 15px; }
+    .header-text h2 { margin: 0; font-size: 1.4rem; font-weight: 900; text-transform: uppercase; }
+    .header-text p { margin: 0; font-size: 0.8rem; color: var(--accent-gold); font-weight: 700; letter-spacing: 1px; }
 
     /* Step Titles */
     .step-title {
-      font-size: 0.95rem; font-weight: 800; color: #ffffff; margin: 20px 0 10px;
-      display: flex; align-items: center; gap: 10px; text-transform: uppercase;
+      font-size: 1rem; font-weight: 800; color: #fff; margin: 25px 0 12px;
+      display: flex; align-items: center; gap: 10px;
     }
     .step-title::after { content: ""; flex: 1; height: 1px; background: var(--border-color); }
 
-    /* Inputs & Selects */
-    .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+    /* Inputs & Selects - ขนาดใหญ่ขึ้นเพื่อความชัดเจน */
+    .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
     .custom-select, .custom-input {
-      background: rgba(255, 255, 255, 0.15); border: 1px solid var(--border-color);
-      border-radius: 10px; padding: 14px; color: white; font-size: 1.05rem; font-weight: 600;
-      width: 100%; box-sizing: border-box; outline: none; backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.12); border: 1px solid var(--border-color);
+      border-radius: 12px; padding: 15px; color: white; font-size: 1.1rem; font-weight: 600;
+      width: 100%; outline: none; transition: 0.3s;
     }
+    .custom-select:focus, .custom-input:focus { border-color: var(--accent-gold); background: rgba(255,255,255,0.2); }
+    select option { background: #000a1f; color: white; }
 
     /* Benefit Box */
     .benefit-box {
       background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);
-      border-radius: 12px; padding: 15px; margin-top: 5px;
+      border-radius: 15px; padding: 20px; margin-top: 10px;
     }
-    .benefit-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1rem; align-items: center; }
-    .benefit-item .value { font-size: 1.15rem; font-weight: 800; color: var(--success-green); }
+    .benefit-item { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 1.05rem; }
+    .benefit-item:last-child { margin-bottom: 0; }
+    .benefit-item .value { font-size: 1.25rem; font-weight: 800; color: var(--success-green); }
 
-    /* Stats */
+    /* Stats Display */
     .platform-stats {
-      display: flex; justify-content: space-between; padding: 10px 5px;
-      font-size: 0.95rem; color: #cbd5e0; border-bottom: 1px solid var(--border-color);
+      display: flex; justify-content: space-between; padding: 12px 5px;
+      font-size: 1rem; color: #cbd5e0; border-bottom: 1px solid var(--border-color);
     }
-    .platform-stats b { font-size: 1.1rem; color: var(--success-green); margin-left: 5px; }
+    .platform-stats b { font-size: 1.2rem; color: var(--success-green); margin-left: 8px; }
 
-    /* Final Result */
+    /* Final Result Card */
     .final-saving-card {
-      background: rgba(0, 255, 136, 0.12); border: 2px solid rgba(0, 255, 136, 0.4);
-      border-radius: 20px; padding: 20px; text-align: center; margin-top: 25px;
+      background: rgba(0, 255, 136, 0.1); border: 2px solid rgba(0, 255, 136, 0.3);
+      border-radius: 20px; padding: 25px; text-align: center; margin-top: 30px;
     }
-    .final-saving-card .amount { font-size: 2.8rem; font-weight: 900; color: var(--success-green); margin: 8px 0; }
+    .final-saving-card .title { font-size: 0.85rem; font-weight: 900; color: #cbd5e0; letter-spacing: 2px; margin-bottom: 10px; }
+    .final-saving-card .amount { font-size: 3.2rem; font-weight: 900; color: var(--success-green); margin: 10px 0; }
+    .final-saving-card .unit { font-size: 1rem; font-weight: 600; color: #cbd5e0; }
+
+    /* Responsive Mobile */
+    @media (max-width: 480px) {
+      body { padding: 10px; }
+      .container { padding: 15px; border-radius: 15px; }
+      .final-saving-card .amount { font-size: 2.5rem; }
+      .header-text h2 { font-size: 1.1rem; }
+    }
   </style>
 </head>
 <body>
 
 <div class="container">
   <header class="app-header">
-    <img src="logo.png" alt="Logo" class="logo-img" onerror="this.style.opacity='0'">
+    <img src="logo.png" alt="Logo" class="logo-img" onerror="this.style.display='none'">
     <div class="header-text">
       <h2>Operational Estimator</h2>
       <p>PAILIN ASSET PERFORMANCE</p>
@@ -84,18 +112,18 @@
   </div>
 
   <div class="benefit-box">
-    <div class="benefit-item"><span>💰 Cost Saving</span> <span class="value" id="res-Benefit($)">$ 0.00</span></div>
-    <div class="benefit-item"><span>⛽ Diesel Saving</span> <span class="value" id="res-Disal(Liter)">0 L</span></div>
-    <div class="benefit-item"><span>🍃 Carbon Reduced</span> <span class="value" id="res-carbon">0.00 T</span></div>
+    <div class="benefit-item"><span>💰 Cost Saving:</span> <span class="value" id="res-Benefit($)">$ 0.00</span></div>
+    <div class="benefit-item"><span>⛽ Diesel Saving:</span> <span class="value" id="res-Disal(Liter)">0 L</span></div>
+    <div class="benefit-item"><span>🍃 Carbon Reduced:</span> <span class="value" id="res-carbon">0.00 T</span></div>
   </div>
 
   <div class="step-title">🏗️ STEP 2: Platform Data</div>
-  <select id="prod-platform" class="custom-select" onchange="calculate()" style="margin-bottom: 8px;">
-    <option value="">Select Platform</option>
+  <select id="prod-platform" class="custom-select" onchange="calculate()" style="margin-bottom: 10px;">
+    <option value="">Select Active Platform</option>
   </select>
   <div class="platform-stats">
-    <span>💨 Gas: <b id="res-g">0</b> <small>MMSCFD</small></span>
-    <span>💧 Condy: <b id="res-co">0</b> <small>BBLS</small></span>
+    <span>💨 Gas: <b id="res-g">0</b> MMSCFD</span>
+    <span>💧 Condy: <b id="res-co">0</b> BBLS</span>
   </div>
 
   <div class="step-title">🛠 STEP 3: Media & Hours</div>
@@ -106,37 +134,30 @@
       <option value="condy">CONDY PACPP</option>
       <option value="remote">Gas Remote Platform</option>
     </select>
-    <input type="number" id="val-hours" class="custom-input" placeholder="Work Hours" oninput="calculate()">
+    <input type="number" id="val-hours" class="custom-input" placeholder="Hours" oninput="calculate()">
   </div>
 
   <div class="final-saving-card">
-    <div style="font-size: 0.8rem; font-weight: 900; color: #cbd5e0;">🏆 ESTIMATED COST SAVING</div>
+    <div class="title">🏆 ESTIMATED COST SAVING</div>
     <div class="amount" id="main-output">$ 0</div>
-    <div style="font-size: 0.9rem; font-weight: 600; color: #cbd5e0;">USD per Operation</div>
+    <div class="unit">USD per Operation</div>
   </div>
 </div>
 
 <script>
-  // Database ครบถ้วน
+  // Full Locations Dataset
   const locations = {
     "PALQ": { b: 0, d: 0, c: 0, g: 0, co: 0 }, "NALQ": { b: -7905.33, d: -7185.94, c: -19.52, g: 0, co: 0 },
     "SKL":  { b: 4483.62, d: 4075.61, c: 11.07, g: 0, co: 0 }, "PAWA": { b: 132.35, d: 120.32, c: 0.33, g: 0, co: 0 },
     "PAWB": { b: 110.88, d: 100.80, c: 0.27, g: 43518, co: 276.26 }, "PAWC": { b: 308.32, d: 280.28, c: 0.76, g: 90157, co: 0 },
-    "PAWD": { b: 93.20, d: 84.73, c: 0.23, g: 42356, co: 0 }, "PAWE": { b: 202.99, d: 184.53, c: 0.50, g: 0, co: 0 },
-    "PAWF": { b: 3.24, d: 2.94, c: 0.00, g: 0, co: 0 }, "PAWG": { b: 280.57, d: 255.07, c: 0.69, g: 0, co: 0 },
-    "PAWH": { b: 121.27, d: 110.25, c: 0.30, g: 0, co: 0 }, "PAWI": { b: 204.11, d: 185.56, c: 0.50, g: 0, co: 0 },
-    "PAWJ": { b: 356.05, d: 323.68, c: 0.88, g: 0, co: 0 }, "PAWK": { b: 442.84, d: 402.58, c: 1.09, g: 0, co: 0 },
-    "PAWL": { b: 233.58, d: 212.35, c: 0.57, g: 79776, co: 1465.68 }, "PAWM": { b: 96.76, d: 87.96, c: 0.24, g: 30742, co: 213.93 },
-    "PAWN": { b: 400.29, d: 363.9, c: 0.99, g: 19382, co: 298.99 }, "PAWO": { b: 249.15, d: 226.49, c: 0.62, g: 0, co: 0 },
-    "PAWP": { b: 267.12, d: 242.84, c: 0.66, g: 58761, co: 359.87 }, "PAWQ": { b: 147.88, d: 134.44, c: 0.36, g: 50523, co: 895.53 },
-    "PAWR": { b: 384.29, d: 349.35, c: 0.95, g: 16042, co: 152.01 }, "PAWS": { b: 211.12, d: 191.93, c: 0.52, g: 29181, co: 160.54 },
-    "PAWT": { b: 225.07, d: 204.61, c: 0.55, g: 13429, co: 1066.83 }, "PAWU": { b: 147.18, d: 133.79, c: 0.36, g: 0, co: 0 },
-    "MGWA": { b: 622.82, d: 566.20, c: 1.54, g: 30343, co: 821.62 }, "MGWB": { b: 902.61, d: 820.55, c: 2.23, g: 11505, co: 107.22 },
-    "MGWC": { b: 775.88, d: 705.35, c: 1.91, g: 11723, co: 133.18 }, "MGWD": { b: 493.95, d: 449.05, c: 1.22, g: 42356, co: 464.15 },
-    "MGWE": { b: 578.34, d: 525.76, c: 1.43, g: 35460, co: 216.70 }, "MGWF": { b: 555.07, d: 504.61, c: 1.37, g: 86019, co: 2201.19 },
-    "MGWG": { b: 758.11, d: 689.19, c: 1.87, g: 43336, co: 470.28 }, "MGWH": { b: 920.21, d: 836.55, c: 2.27, g: 17966, co: 346.76 },
-    "MGWI": { b: 616.81, d: 560.74, c: 1.52, g: 121479, co: 1402.34 }, "MGWJ": { b: 914.38, d: 831.25, c: 2.26, g: 83878, co: 1023.19 },
-    "MGWK": { b: 879.85, d: 799.79, c: 2.17, g: 207390, co: 2130.04 }, "MGWL": { b: 639.25, d: 581.08, c: 1.57, g: 0, co: 0 }
+    "PAWD": { b: 93.20, d: 84.73, c: 0.23, g: 42356, co: 0 }, "PAWL": { b: 233.58, d: 212.35, c: 0.57, g: 79776, co: 1465.68 }, 
+    "PAWM": { b: 96.76, d: 87.96, c: 0.24, g: 30742, co: 213.93 }, "PAWN": { b: 400.29, d: 363.9, c: 0.99, g: 19382, co: 298.99 }, 
+    "PAWP": { b: 267.12, d: 242.84, c: 0.66, g: 58761, co: 359.87 }, "PAWQ": { b: 147.88, d: 134.44, c: 0.36, g: 50523, co: 895.53 }, 
+    "PAWR": { b: 384.29, d: 349.35, c: 0.95, g: 16042, co: 152.01 }, "PAWS": { b: 211.12, d: 191.93, c: 0.52, g: 29181, co: 160.54 }, 
+    "PAWT": { b: 225.07, d: 204.61, c: 0.55, g: 13429, co: 1066.83 }, "MGWA": { b: 622.82, d: 566.20, c: 1.54, g: 30343, co: 821.62 }, 
+    "MGWD": { b: 493.95, d: 449.05, c: 1.22, g: 42356, co: 464.15 }, "MGWF": { b: 555.07, d: 504.61, c: 1.37, g: 86019, co: 2201.19 }, 
+    "MGWI": { b: 616.81, d: 560.74, c: 1.52, g: 121479, co: 1402.34 }, "MGWJ": { b: 914.38, d: 831.25, c: 2.26, g: 83878, co: 1023.19 }, 
+    "MGWK": { b: 879.85, d: 799.79, c: 2.17, g: 207390, co: 2130.04 }
   };
 
   const presets = { gas_pacpp: { rate: 9.17, price: 6000 }, condy: { rate: 396, price: 60 }, remote: { rate: 0.21, price: 6000 } };
