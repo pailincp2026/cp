@@ -1,188 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Chevron Operational Estimator</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      /* ปรับ Overlay ให้สมดุล: เห็นรูปชัดแต่ตัวหนังสืออ่านง่าย */
-      --bg-gradient: linear-gradient(135deg, rgba(0, 20, 50, 0.8) 0%, rgba(0, 10, 30, 0.7) 100%);
-      --accent-gold: #ffb81c; 
-      --success-green: #00ff88;
-      --glass-bg: rgba(255, 255, 255, 0.08); 
-      --glass-border: rgba(255, 255, 255, 0.18);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Chevron Operational Estimator</title>
 
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    
-    body {
-      font-family: 'Inter', sans-serif; 
-      margin: 0; 
-      padding: 15px; 
-      min-height: 100vh;
-      color: white; 
-      display: flex; 
-      flex-direction: column; 
-      align-items: center;
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
 
-      /* ส่วนจัดการพื้นหลัง */
-      background-color: #001432; /* สีสำรองกรณีรูปไม่โหลด */
-      background-image: var(--bg-gradient), url('pailin.jpg');
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-size: cover;
-    }
+<style>
+:root{
+  --bg-gradient: linear-gradient(135deg, rgba(0,20,50,0.8), rgba(0,10,30,0.7));
+  --accent-gold:#ffb81c;
+  --success-green:#00ff88;
+  --glass-bg:rgba(255,255,255,0.08);
+  --glass-border:rgba(255,255,255,0.18);
+}
+*{box-sizing:border-box;}
+body{
+  font-family:'Inter',sans-serif;
+  margin:0;padding:15px;
+  min-height:100vh;color:white;
+  display:flex;align-items:center;justify-content:center;
+  background:#001432;
+  background-image:var(--bg-gradient),url('pailin.jpg');
+  background-size:cover;
+}
+.container{
+  width:100%;max-width:550px;
+  background:var(--glass-bg);
+  backdrop-filter:blur(20px);
+  padding:25px;border-radius:24px;
+  border:1px solid var(--glass-border);
+  box-shadow:0 25px 50px rgba(0,0,0,0.5);
+}
+.app-header{display:flex;gap:15px;margin-bottom:20px;}
+.logo-img{height:45px;}
+.header-text{border-left:3px solid var(--accent-gold);padding-left:15px;}
+.header-text h2{margin:0;font-size:1.4rem;font-weight:900;}
+.header-text p{margin:0;font-size:0.75rem;color:var(--accent-gold);font-weight:700;letter-spacing:2px;}
+.desc{font-size:0.8rem;color:#cbd5e0;margin-top:6px;}
 
-    .container { 
-      width: 100%; 
-      max-width: 550px; 
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px); 
-      -webkit-backdrop-filter: blur(20px);
-      padding: 25px; 
-      border-radius: 24px; 
-      border: 1px solid var(--glass-border);
-      box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-      margin: auto 0; /* จัดให้อยู่กลางหน้าจอแนวตั้งพอดี */
-    }
+.step-title{font-weight:800;margin:22px 0 12px;display:flex;gap:10px;}
+.step-title::after{content:"";flex:1;height:1px;background:var(--glass-border);}
 
-    .app-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
-    .logo-img { height: 45px; width: auto; }
-    .header-text { border-left: 3px solid var(--accent-gold); padding-left: 15px; }
-    .header-text h2 { margin: 0; font-size: 1.4rem; font-weight: 900; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-    .header-text p { margin: 0; font-size: 0.75rem; color: var(--accent-gold); font-weight: 700; letter-spacing: 2px; }
-
-    .step-title {
-      font-size: 1rem; font-weight: 800; margin: 22px 0 12px;
-      display: flex; align-items: center; gap: 10px; text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-    }
-    .step-title::after { content: ""; flex: 1; height: 1px; background: var(--glass-border); }
-
-    .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-    
-    .custom-select, .custom-input {
-      background: rgba(0, 0, 0, 0.4); border: 1px solid var(--glass-border);
-      border-radius: 12px; padding: 14px; color: white; font-size: 1.05rem; font-weight: 600;
-      width: 100%; outline: none; transition: all 0.2s ease;
-    }
-    .custom-select:focus, .custom-input:focus { border-color: var(--accent-gold); background: rgba(0,0,0,0.6); }
-
-    .benefit-box {
-      background: rgba(0, 0, 0, 0.25); border: 1px solid var(--glass-border);
-      border-radius: 15px; padding: 18px; margin-top: 5px;
-    }
-    .benefit-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1rem; }
-    .benefit-item .value { font-weight: 800; color: var(--success-green); text-shadow: 0 0 10px rgba(0,255,136,0.2); }
-
-    .platform-stats {
-      display: flex; justify-content: space-between; padding: 10px 5px;
-      font-size: 0.95rem; color: #e2e8f0; border-bottom: 1px solid var(--glass-border);
-    }
-    .platform-stats b { font-size: 1.1rem; color: var(--success-green); }
-
-    .final-saving-card {
-      background: linear-gradient(180deg, rgba(0, 255, 136, 0.18) 0%, rgba(0, 255, 136, 0.05) 100%);
-      border: 1px solid rgba(0, 255, 136, 0.4); border-radius: 20px; padding: 22px; text-align: center; margin-top: 25px;
-    }
-    .final-saving-card .amount { 
-        font-size: clamp(2rem, 8vw, 3.2rem); 
-        font-weight: 900; color: var(--success-green); margin: 5px 0; 
-        text-shadow: 0 0 20px rgba(0,255,136,0.4);
-    }
-
-    select option { background: #000a1f; color: white; }
-
-    @media (max-width: 480px) {
-      .container { padding: 18px; border-radius: 20px; }
-      .header-text h2 { font-size: 1.2rem; }
-    }
-  </style>
+.input-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.custom-select,.custom-input,.reset-btn{
+  background:rgba(0,0,0,0.4);
+  border:1px solid var(--glass-border);
+  border-radius:12px;padding:14px;
+  color:white;font-size:1.05rem;font-weight:600;width:100%;
+}
+.benefit-box{
+  background:rgba(0,0,0,0.25);
+  border:1px solid var(--glass-border);
+  border-radius:15px;padding:18px;margin-top:10px;
+}
+.benefit-item{display:flex;justify-content:space-between;margin-bottom:10px;}
+.value{font-weight:800;color:var(--success-green);}
+.platform-stats{display:flex;justify-content:space-between;padding:10px 5px;border-bottom:1px solid var(--glass-border);}
+.final-saving-card{
+  background:linear-gradient(180deg,rgba(0,255,136,.18),rgba(0,255,136,.05));
+  border:1px solid rgba(0,255,136,.4);
+  border-radius:20px;padding:22px;text-align:center;margin-top:25px;
+}
+.amount{font-size:3rem;font-weight:900;color:var(--success-green);}
+.reset-btn{background:#ff3b3b;font-weight:800;margin-top:12px;}
+.status{font-size:.8rem;color:var(--accent-gold);margin-top:10px;}
+</style>
 </head>
+
 <body>
 <div class="container">
-  <header class="app-header">
-    <img src="logo.png" alt="" class="logo-img" onerror="this.style.display='none'">
-    <div class="header-text"><h2>Operational Estimator</h2><p>LIN ASSET PERFORMANCE</p></div>
-  </header>
 
-  <div class="step-title">🚢 Route : Round Trip </div>
-  <div class="input-row">
-    <select id="start" class="custom-select" onchange="calculate()"><option value="">Origin</option></select>
-    <select id="end" class="custom-select" onchange="calculate()"><option value="">Destination</option></select>
+<header class="app-header">
+  <img src="logo.png" class="logo-img" onerror="this.style.display='none'">
+  <div class="header-text">
+    <h2>Operational Estimator</h2>
+    <p>LIN ASSET PERFORMANCE</p>
+    <div class="desc">Estimate operational cost, fuel saving and carbon reduction</div>
   </div>
-  <div class="benefit-box">
-    <div class="benefit-item"><span>💰 Cost Saving</span> <span class="value" id="res-Benefit($)">$ 0.00</span></div>
-    <div class="benefit-item"><span>⛽ Diesel Saving</span> <span class="value" id="res-Disal(Liter)">0 L</span></div>
-    <div class="benefit-item"><span>🍃 Carbon Reduced</span> <span class="value" id="res-carbon">0.00 T</span></div>
-  </div>
+</header>
 
-  <div class="step-title">🏗️ Platform : Remote Data</div>
-  <select id="prod-platform" class="custom-select" onchange="calculate()" style="margin-bottom:10px;"><option value="">Select Platform</option></select>
-  <div class="platform-stats">
-    <span>💨 Gas: <b id="res-g">0</b> MMSCFD</span>
-    <span>💧 Condy: <b id="res-co">0</b> BBLS</span>
-  </div>
+<div class="step-title">🚢 Route : Round Trip</div>
+<div class="input-row">
+  <select id="start" class="custom-select" onchange="calculate()">
+    <option value="">Origin</option>
+  </select>
+  <select id="end" class="custom-select" disabled onchange="calculate()">
+    <option value="">Destination</option>
+  </select>
+</div>
 
-  <div class="step-title">🛠 Process : Other</div>
-  <div class="input-row">
-    <select id="type-select" class="custom-select" onchange="calculate()">
-      <option value="">Process Select Type</option>
-      <option value="gas_pacpp">Gas / PACPP</option>
-      <option value="condy">CONDY PACPP</option>
-      <option value="remote">Gas Remote Platform</option>
-    </select>
-    <input type="number" id="val-hours" class="custom-input" placeholder="Hours" oninput="calculate()">
-  </div>
+<div class="benefit-box">
+  <div class="benefit-item"><span>💰 Cost Saving</span><span class="value" id="res-Benefit">$ 0.00</span></div>
+  <div class="benefit-item"><span>⛽ Diesel Saving</span><span class="value" id="res-Diesel">0 L</span></div>
+  <div class="benefit-item"><span>🍃 Carbon Reduced</span><span class="value" id="res-carbon">0.00 T</span></div>
+</div>
 
-  <div class="final-saving-card">
-    <div style="font-size:0.85rem; font-weight:900; color:#cbd5e0; letter-spacing:1px; text-transform:uppercase;">Estimated Saving</div>
-    <div class="amount" id="main-output">$ 0</div>
-  </div>
+<div class="step-title">🏗️ Platform</div>
+<select id="prod-platform" class="custom-select" onchange="calculate()">
+  <option value="">Select Production Platform</option>
+</select>
+
+<div class="platform-stats">
+  <span>💨 Gas: <b id="res-g">0</b> MMSCFD</span>
+  <span>💧 Condy: <b id="res-co">0</b> BBLS</span>
+</div>
+
+<div class="step-title">🛠 Processing Type</div>
+<div class="input-row">
+  <select id="type-select" class="custom-select" onchange="calculate()">
+    <option value="">Select Process</option>
+    <option value="gas_pacpp">Gas / PACPP</option>
+    <option value="condy">CONDY PACPP</option>
+    <option value="remote">Gas Remote Platform</option>
+  </select>
+  <input type="number" id="val-hours" class="custom-input" placeholder="Hours (hr)" oninput="calculate()">
+</div>
+
+<div class="status" id="status">Please select Origin and Destination</div>
+
+<div class="final-saving-card">
+  <div style="font-size:.85rem;font-weight:900;color:#cbd5e0;">Estimated Operational Saving</div>
+  <div class="amount" id="main-output">$ 0</div>
+</div>
+
+<button class="reset-btn" onclick="resetAll()">Reset</button>
+
 </div>
 
 <script>
-  const locations = {
-    "PALQ":{b:0,d:0,c:0,g:0,co:0},"NALQ":{b:-7905.3,d:-7185.9,c:-19.5,g:0,co:0},"SKL":{b:4483.6,d:4075.6,c:11.1,g:0,co:0},
-    "PAWA":{b:132.4,d:120.3,c:0.3,g:0,co:0},"PAWB":{b:110.9,d:100.8,c:0.3,g:43518,co:276.3},"PAWC":{b:308.3,d:280.3,c:0.8,g:90157,co:0},
-    "PAWD":{b:93.2,d:84.7,c:0.2,g:42356,co:0},"PAWE":{b:203.0,d:184.5,c:0.5,g:0,co:0},"PAWF":{b:3.2,d:2.9,c:0,g:0,co:0},
-    "PAWG":{b:280.6,d:255.1,c:0.7,g:0,co:0},"PAWH":{b:121.3,d:110.3,c:0.3,g:0,co:0},"PAWI":{b:204.1,d:185.6,c:0.5,g:0,co:0},
-    "PAWJ":{b:356.1,d:323.7,c:0.9,g:0,co:0},"PAWK":{b:442.8,d:402.6,c:1.1,g:0,co:0},"PAWL":{b:233.6,d:212.4,c:0.6,g:79776,co:1465.7},
-    "PAWM":{b:96.8,d:88.0,c:0.2,g:30742,co:213.9},"PAWN":{b:400.3,d:363.9,c:1,g:19382,co:299},"PAWO":{b:249.2,d:226.5,c:0.6,g:0,co:0},
-    "PAWP":{b:267.1,d:242.8,c:0.7,g:58761,co:359.9},"PAWQ":{b:147.9,d:134.4,c:0.4,g:50523,co:895.5},"PAWR":{b:384.3,d:349.4,c:1,g:16042,co:152},
-    "PAWS":{b:211.1,d:191.9,c:0.5,g:29181,co:160.5},"PAWT":{b:225.1,d:204.6,c:0.6,g:13429,co:1066.8},"PAWU":{b:147.2,d:133.8,c:0.4,g:0,co:0},
-    "MGWA":{b:622.8,d:566.2,c:1.5,g:30343,co:821.6},"MGWB":{b:902.6,d:820.6,c:2.2,g:11505,co:107.2},"MGWC":{b:775.9,d:705.4,c:1.9,g:11723,co:133.2},
-    "MGWD":{b:494.0,d:449.1,c:1.2,g:42356,co:464.2},"MGWE":{b:578.3,d:525.8,c:1.4,g:35460,co:216.7},"MGWF":{b:555.1,d:504.6,c:1.4,g:86019,co:2201.2},
-    "MGWG":{b:758.1,d:689.2,c:1.9,g:43336,co:470.3},"MGWH":{b:920.2,d:836.6,c:2.3,g:17966,co:346.8},"MGWI":{b:616.8,d:560.7,c:1.5,g:121479,co:1402.3},
-    "MGWJ":{b:914.4,d:831.3,c:2.3,g:83878,co:1023.2},"MGWK":{b:879.9,d:799.8,c:2.2,g:207390,co:2130.0},"MGWL":{b:639.3,d:581.1,c:1.6,g:0,co:0}
-  };
+const locations = {
+"PALQ":{b:0,d:0,c:0,g:0,co:0},
+"NALQ":{b:-7905.3,d:-7185.9,c:-19.5,g:0,co:0},
+"SKL":{b:4483.6,d:4075.6,c:11.1,g:0,co:0},
+"PAWA":{b:132.4,d:120.3,c:0.3,g:0,co:0},
+"PAWB":{b:110.9,d:100.8,c:0.3,g:43518,co:276.3},
+"PAWC":{b:308.3,d:280.3,c:0.8,g:90157,co:0},
+"PAWD":{b:93.2,d:84.7,c:0.2,g:42356,co:0},
+"PAWE":{b:203.0,d:184.5,c:0.5,g:0,co:0},
+"PAWF":{b:3.2,d:2.9,c:0,g:0,co:0},
+"PAWG":{b:280.6,d:255.1,c:0.7,g:0,co:0},
+"PAWH":{b:121.3,d:110.3,c:0.3,g:0,co:0},
+"PAWI":{b:204.1,d:185.6,c:0.5,g:0,co:0},
+"PAWJ":{b:356.1,d:323.7,c:0.9,g:0,co:0},
+"PAWK":{b:442.8,d:402.6,c:1.1,g:0,co:0},
+"PAWL":{b:233.6,d:212.4,c:0.6,g:79776,co:1465.7},
+"PAWM":{b:96.8,d:88.0,c:0.2,g:30742,co:213.9},
+"PAWN":{b:400.3,d:363.9,c:1,g:19382,co:299},
+"PAWO":{b:249.2,d:226.5,c:0.6,g:0,co:0},
+"PAWP":{b:267.1,d:242.8,c:0.7,g:58761,co:359.9},
+"PAWQ":{b:147.9,d:134.4,c:0.4,g:50523,co:895.5},
+"PAWR":{b:384.3,d:349.4,c:1,g:16042,co:152},
+"PAWS":{b:211.1,d:191.9,c:0.5,g:29181,co:160.5},
+"PAWT":{b:225.1,d:204.6,c:0.6,g:13429,co:1066.8},
+"PAWU":{b:147.2,d:133.8,c:0.4,g:0,co:0},
+"MGWA":{b:622.8,d:566.2,c:1.5,g:30343,co:821.6},
+"MGWB":{b:902.6,d:820.6,c:2.2,g:11505,co:107.2},
+"MGWC":{b:775.9,d:705.4,c:1.9,g:11723,co:133.2},
+"MGWD":{b:494.0,d:449.1,c:1.2,g:42356,co:464.2},
+"MGWE":{b:578.3,d:525.8,c:1.4,g:35460,co:216.7},
+"MGWF":{b:555.1,d:504.6,c:1.4,g:86019,co:2201.2},
+"MGWG":{b:758.1,d:689.2,c:1.9,g:43336,co:470.3},
+"MGWH":{b:920.2,d:836.6,c:2.3,g:17966,co:346.8},
+"MGWI":{b:616.8,d:560.7,c:1.5,g:121479,co:1402.3},
+"MGWJ":{b:914.4,d:831.3,c:2.3,g:83878,co:1023.2},
+"MGWK":{b:879.9,d:799.8,c:2.2,g:207390,co:2130.0},
+"MGWL":{b:639.3,d:581.1,c:1.6,g:0,co:0}
+};
 
-  const presets = { gas_pacpp:{rate:9.17,price:6000}, condy:{rate:396,price:60}, remote:{rate:0.21,price:6000} };
+const presets = {
+  gas_pacpp:{rate:9.17,price:6000},
+  condy:{rate:396,price:60},
+  remote:{rate:0.21,price:6000}
+};
 
-  function init() {
-    const sS=document.getElementById('start'), eS=document.getElementById('end'), pS=document.getElementById('prod-platform');
-    Object.keys(locations).sort().forEach(loc => {
-      sS.add(new Option(loc, loc)); eS.add(new Option(loc, loc));
-      if(locations[loc].g > 0 || locations[loc].co > 0) pS.add(new Option(loc, loc));
-    });
-  }
+function init(){
+  const s=document.getElementById('start');
+  const e=document.getElementById('end');
+  const p=document.getElementById('prod-platform');
 
-  function calculate() {
-    const s=locations[document.getElementById('start').value], e=locations[document.getElementById('end').value];
-    if(s && e) {
-      document.getElementById('res-Benefit($)').innerText = '$ ' + Math.abs(e.b - s.b).toLocaleString(undefined, {minimumFractionDigits: 2});
-      document.getElementById('res-Disal(Liter)').innerText = Math.abs(e.d - s.d).toLocaleString() + ' L';
-      document.getElementById('res-carbon').innerText = Math.abs(e.c - s.c).toFixed(2) + ' T';
+  Object.keys(locations).sort().forEach(loc=>{
+    s.add(new Option(loc,loc));
+    e.add(new Option(loc,loc));
+    if(locations[loc].g>0||locations[loc].co>0){
+      p.add(new Option(loc,loc));
     }
-    const p=locations[document.getElementById('prod-platform').value];
-    document.getElementById('res-g').innerText = p ? p.g.toLocaleString() : "0";
-    document.getElementById('res-co').innerText = p ? p.co.toLocaleString() : "0";
-    const k=document.getElementById('type-select').value, h=parseFloat(document.getElementById('val-hours').value) || 0;
-    document.getElementById('main-output').innerText = k && h>0 ? '$ '+Math.round(h*presets[k].rate*presets[k].price).toLocaleString() : '$ 0';
+  });
+}
+
+function calculate(){
+  const sVal=start.value,eVal=end.value;
+  const s=locations[sVal],e=locations[eVal];
+
+  if(s) end.disabled=false;
+
+  if(s&&e){
+    res-Benefit.innerText='$ '+Math.abs(e.b-s.b).toLocaleString(undefined,{minimumFractionDigits:2});
+    res-Diesel.innerText=Math.abs(e.d-s.d).toLocaleString()+' L';
+    res-carbon.innerText=Math.abs(e.c-s.c).toFixed(2)+' T';
   }
-  init();
+
+  const p=locations[prod-platform.value];
+  res-g.innerText=p?p.g.toLocaleString():0;
+  res-co.innerText=p?p.co.toLocaleString():0;
+
+  const k=type-select.value,h=parseFloat(val-hours.value)||0;
+  main-output.innerText=k&&h>0?'$ '+Math.round(h*presets[k].rate*presets[k].price).toLocaleString():'$ 0';
+
+  if(!s||!e) status.innerText="Please select Origin and Destination";
+  else if(!k||h<=0) status.innerText="Please select process type and hours";
+  else status.innerText="Calculation ready ✔";
+}
+
+function resetAll(){
+  document.querySelectorAll('select,input').forEach(el=>el.value="");
+  end.disabled=true;
+  calculate();
+}
+
+init();
 </script>
 </body>
 </html>
