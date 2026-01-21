@@ -7,69 +7,94 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-gradient: linear-gradient(135deg, rgba(0, 20, 50, 0.8) 0%, rgba(0, 10, 30, 0.7) 100%);
+      --bg-gradient: linear-gradient(135deg, rgba(0, 10, 30, 0.9) 0%, rgba(0, 20, 50, 0.8) 100%);
       --accent-gold: #ffb81c; 
       --success-green: #00ff88;
-      --glass-bg: rgba(255, 255, 255, 0.08); 
-      --glass-border: rgba(255, 255, 255, 0.18);
+      --glass-bg: rgba(255, 255, 255, 0.07); 
+      --glass-border: rgba(255, 255, 255, 0.15);
     }
 
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     
     body {
       font-family: 'Inter', 'Sarabun', sans-serif; 
-      margin: 0; padding: 15px; min-height: 100vh; color: white; 
+      margin: 0; padding: 20px; min-height: 100vh; color: white; 
       display: flex; flex-direction: column; align-items: center;
       background-color: #001432;
-      background-image: var(--bg-gradient), url('Pailin.jpg');
+      background-image: var(--bg-gradient), url('pailin.jpg');
       background-position: center; background-repeat: no-repeat; background-attachment: fixed; background-size: cover;
     }
 
+    /* ปรับปรุง Container ให้ยืดหยุ่น (Responsive) */
     .container { 
-      width: 100%; max-width: 550px; background: var(--glass-bg);
-      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      padding: 25px; border-radius: 24px; border: 1px solid var(--glass-border);
-      box-shadow: 0 25px 50px rgba(0,0,0,0.5); margin: auto 0;
+      width: 100%; 
+      max-width: 800px; /* ขยายให้กว้างขึ้นเล็กน้อยสำหรับจอคอม */
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+      padding: 30px; border-radius: 28px; border: 1px solid var(--glass-border);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5); 
+      margin: auto 0;
     }
 
-    /* Header & Language Switcher */
-    .app-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 25px; }
-    .header-left { display: flex; align-items: center; gap: 12px; }
-    .logo-img { height: 42px; width: auto; }
-    .header-text { border-left: 3px solid var(--accent-gold); padding-left: 12px; }
-    .header-text h2 { margin: 0; font-size: 1.25rem; font-weight: 900; line-height: 1.1; }
-    .header-text p { margin: 4px 0 0; font-size: 0.7rem; color: var(--accent-gold); font-weight: 700; letter-spacing: 1px; }
+    /* Header Section */
+    .app-header { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 30px; }
+    .header-left { display: flex; align-items: center; gap: 15px; }
+    .logo-img { height: 50px; width: auto; }
+    .header-text { border-left: 4px solid var(--accent-gold); padding-left: 15px; }
+    .header-text h2 { margin: 0; font-size: clamp(1.1rem, 4vw, 1.6rem); font-weight: 900; line-height: 1; }
+    .header-text p { margin: 5px 0 0; font-size: 0.75rem; color: var(--accent-gold); font-weight: 700; letter-spacing: 1.5px; }
 
-    .lang-switch { display: flex; background: rgba(0,0,0,0.4); padding: 3px; border-radius: 10px; border: 1px solid var(--glass-border); flex-shrink: 0; }
-    .lang-btn { padding: 5px 10px; border-radius: 7px; cursor: pointer; font-size: 0.65rem; font-weight: 900; border: none; background: transparent; color: #888; transition: 0.3s; }
+    .lang-switch { display: flex; background: rgba(0,0,0,0.5); padding: 4px; border-radius: 12px; border: 1px solid var(--glass-border); }
+    .lang-btn { padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.7rem; font-weight: 900; border: none; background: transparent; color: #888; transition: 0.3s; }
     .lang-btn.active { background: var(--accent-gold); color: #000; }
 
-    /* Section Styles */
-    .step-title { font-size: 0.95rem; font-weight: 800; margin: 20px 0 12px; display: flex; align-items: center; gap: 10px; }
+    /* Layout สำหรับจอคอม (Desktop) จะเป็น 2 คอลัมน์ในบางส่วน */
+    .step-title { font-size: 1rem; font-weight: 800; margin: 25px 0 15px; display: flex; align-items: center; gap: 10px; opacity: 0.9; }
     .step-title::after { content: ""; flex: 1; height: 1px; background: var(--glass-border); }
 
-    .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+    .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin-bottom: 15px; }
+    
     .custom-select, .custom-input {
       background: rgba(0, 0, 0, 0.4); border: 1px solid var(--glass-border);
-      border-radius: 12px; padding: 14px; color: white; font-size: 1.05rem; font-weight: 600; width: 100%; outline: none;
+      border-radius: 14px; padding: 16px; color: white; font-size: 1rem; font-weight: 600; width: 100%; outline: none; transition: 0.3s;
     }
+    .custom-select:focus, .custom-input:focus { border-color: var(--accent-gold); background: rgba(0, 0, 0, 0.6); }
 
-    .benefit-box { background: rgba(0, 0, 0, 0.25); border: 1px solid var(--glass-border); border-radius: 15px; padding: 18px; margin-top: 5px; }
-    .benefit-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1rem; }
-    .benefit-item .value { font-weight: 800; color: var(--success-green); }
+    .benefit-box { 
+      background: rgba(0, 0, 0, 0.25); border: 1px solid var(--glass-border); 
+      border-radius: 20px; padding: 20px; display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;
+    }
+    .benefit-item { display: flex; flex-direction: column; gap: 5px; }
+    .benefit-item span:first-child { font-size: 0.75rem; color: #ccc; font-weight: 600; }
+    .benefit-item .value { font-size: 1.2rem; font-weight: 800; color: var(--success-green); }
 
-    /* Stats Display */
-    .stats-row { display: flex; justify-content: space-between; padding: 10px 5px; font-size: 0.85rem; color: #e2e8f0; border-bottom: 1px solid var(--glass-border); margin-bottom: 10px; }
-    .stats-row b { font-size: 1.05rem; color: var(--success-green); }
+    .stats-row { 
+      display: flex; justify-content: space-around; padding: 15px; 
+      background: rgba(255,255,255,0.03); border-radius: 12px; margin-top: 10px;
+    }
+    .stats-row span { font-size: 0.85rem; color: #e2e8f0; }
+    .stats-row b { color: var(--success-green); font-size: 1.1rem; }
 
-    /* Final Output Card */
+    /* Final Card */
     .final-saving-card {
-      background: linear-gradient(180deg, rgba(0, 255, 136, 0.18) 0%, rgba(0, 255, 136, 0.05) 100%);
-      border: 1px solid rgba(0, 255, 136, 0.4); border-radius: 20px; padding: 22px; text-align: center; margin-top: 25px;
+      background: linear-gradient(180deg, rgba(0, 255, 136, 0.15) 0%, rgba(0, 255, 136, 0.03) 100%);
+      border: 1px solid rgba(0, 255, 136, 0.3); border-radius: 24px; padding: 30px; text-align: center; margin-top: 30px;
     }
-    .final-saving-card .amount { font-size: clamp(2rem, 8vw, 3.2rem); font-weight: 900; color: var(--success-green); margin: 5px 0; }
+    .final-saving-card .amount { font-size: clamp(2.5rem, 10vw, 4.5rem); font-weight: 900; color: var(--success-green); margin: 10px 0; text-shadow: 0 0 20px rgba(0,255,136,0.3); }
 
-    select option { background: #000a1f; color: white; }
+    /* Footer */
+    .app-footer {
+      margin-top: 40px; text-align: center; width: 100%; max-width: 600px;
+      font-size: 0.65rem; color: rgba(255,255,255,0.4); line-height: 1.6;
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 20px; border-radius: 0; border: none; background: transparent; backdrop-filter: none; }
+      .app-header { flex-direction: row; align-items: flex-start; }
+      .stats-row { flex-direction: column; gap: 10px; align-items: flex-start; }
+    }
   </style>
 </head>
 <body>
@@ -77,7 +102,7 @@
 <div class="container">
   <header class="app-header">
     <div class="header-left">
-      <img src="logo.png" alt="" class="logo-img" onerror="this.style.display='none'">
+      <img src="logo.png" alt="Logo" class="logo-img" onerror="this.style.display='none'">
       <div class="header-text">
         <h2 id="txt-title">Operational Estimator</h2>
         <p>LIN ASSET PERFORMANCE</p>
@@ -90,27 +115,29 @@
   </header>
 
   <div class="step-title" id="txt-route">🚢 Route : Round Trip</div>
-  <div class="input-row">
+  <div class="input-grid">
     <select id="start" class="custom-select" onchange="calculate()"><option value="" id="opt-origin">Origin</option></select>
     <select id="end" class="custom-select" onchange="calculate()"><option value="" id="opt-dest">Destination</option></select>
   </div>
   <div class="benefit-box">
-    <div class="benefit-item"><span id="txt-cost">💰 Cost Saving</span> <span class="value" id="res-Benefit($)">$ 0.00</span></div>
-    <div class="benefit-item"><span id="txt-diesel">⛽ Diesel Saving</span> <span class="value" id="res-Disal(Liter)">0 L</span></div>
-    <div class="benefit-item"><span id="txt-carbon">🍃 Carbon Reduced</span> <span class="value" id="res-carbon">0.00 T</span></div>
+    <div class="benefit-item"><span id="txt-cost">Cost Saving</span><span class="value" id="res-Benefit($)">$ 0.00</span></div>
+    <div class="benefit-item"><span id="txt-diesel">Diesel Saving</span><span class="value" id="res-Disal(Liter)">0 L</span></div>
+    <div class="benefit-item"><span id="txt-carbon">Carbon Reduced</span><span class="value" id="res-carbon">0.00 T</span></div>
   </div>
 
   <div class="step-title" id="txt-platform">🏗️ Platform : Remote Data</div>
-  <select id="prod-platform" class="custom-select" onchange="calculate()" style="margin-bottom:10px;">
-    <option value="" id="opt-platform">Select Platform</option>
-  </select>
+  <div class="input-grid">
+    <select id="prod-platform" class="custom-select" onchange="calculate()">
+      <option value="" id="opt-platform">Select Platform</option>
+    </select>
+  </div>
   <div class="stats-row">
     <span>💨 Gas: <b id="res-g">0</b> MMSCFD</span>
     <span>💧 Condy: <b id="res-co">0</b> BBLS</span>
   </div>
 
   <div class="step-title" id="txt-process">🛠 Process : CPP</div>
-  <div class="input-row">
+  <div class="input-grid">
     <select id="type-select" class="custom-select" onchange="calculate()">
       <option value="" id="opt-process">Process Select</option>
       <option value="gas_pacpp">Gas / PACPP</option>
@@ -119,13 +146,27 @@
     <input type="number" id="val-hours" class="custom-input" placeholder="Hours" oninput="calculate()">
   </div>
   <div class="stats-row">
-    <span id="txt-subtotal-label">💰 Saving: <b id="res-subtotal">$ 0</b></span>
+    <span>📈 Rate: <b id="res-rate">0</b></span>
+    <span>💵 Price: <b id="res-price">0</b></span>
+    <span id="txt-sub-label">💰 Saving: <b id="res-subtotal">$ 0</b></span>
   </div>
+
+  <div class="final-saving-card">
+    <div id="txt-estimate" style="font-size:0.8rem; font-weight:800; color:var(--accent-gold); letter-spacing:2px;">ESTIMATED SAVING</div>
+    <div class="amount" id="main-output">$ 0</div>
+  </div>
+</div>
+
+<footer class="app-footer">
+  @2026 chevron internal use only<br>
+  database version 2026 Q1 | secure internal system
+</footer>
+
 <script>
   let currentLang = 'en';
   const i18n = {
-    en: { title: "Operational Estimator", route: "🚢 Route : Round Trip", origin: "Origin", dest: "Destination", cost: "💰 Cost Saving", diesel: "⛽ Diesel Saving", carbon: "🍃 Carbon Reduced", platform: "🏗️ Platform : Remote Data", sel_platform: "Select Platform", process: "🛠 Process : CPP", sel_process: "Process Select", estimate: "Estimated Saving", hours: "Hours", subtotal: "💰 Saving: " },
-    th: { title: "เครื่องมือประเมินผล", route: "🚢 เส้นทาง : ไป-กลับ", origin: "ต้นทาง", dest: "ปลายทาง", cost: "💰 ประหยัดค่าใช้จ่าย", diesel: "⛽ ประหยัดดีเซล", carbon: "🍃 ลดคาร์บอน", platform: "🏗️ ข้อมูลแพลตฟอร์ม", sel_platform: "เลือกแพลตฟอร์ม", process: "🛠 กระบวนการ : CPP", sel_process: "เลือกกระบวนการ", estimate: "ประมาณการประหยัดรวม", hours: "จำนวนชั่วโมง", subtotal: "💰 ประหยัด: " }
+    en: { title: "Operational Estimator", route: "🚢 Route : Round Trip", origin: "Origin", dest: "Destination", cost: "Cost Saving", diesel: "Diesel Saving", carbon: "Carbon Reduced", platform: "🏗️ Platform : Remote Data", sel_platform: "Select Platform", process: "🛠 Process : CPP", sel_process: "Process Select", estimate: "ESTIMATED SAVING", hours: "Hours", sub: "💰 Saving: " },
+    th: { title: "เครื่องมือประเมินผล", route: "🚢 เส้นทาง : ไป-กลับ", origin: "ต้นทาง", dest: "ปลายทาง", cost: "ประหยัดค่าใช้จ่าย", diesel: "ประหยัดดีเซล", carbon: "ลดคาร์บอน", platform: "🏗️ ข้อมูลแพลตฟอร์ม", sel_platform: "เลือกแพลตฟอร์ม", process: "🛠 กระบวนการ : CPP", sel_process: "เลือกกระบวนการ", estimate: "ประมาณการประหยัดรวม", hours: "จำนวนชั่วโมง", sub: "💰 ประหยัด: " }
   };
 
   const locations = {
@@ -147,8 +188,8 @@
 
   function setLang(lang) {
     currentLang = lang;
-    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-    document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('btn-' + lang).classList.add('active');
     const t = i18n[lang];
     document.getElementById('txt-title').innerText = t.title;
     document.getElementById('txt-route').innerText = t.route;
@@ -163,9 +204,8 @@
     document.getElementById('opt-process').innerText = t.sel_process;
     document.getElementById('txt-estimate').innerText = t.estimate;
     document.getElementById('val-hours').placeholder = t.hours;
-    // Update subtotal label without losing the value
     const subVal = document.getElementById('res-subtotal').innerText;
-    document.getElementById('txt-subtotal-label').innerHTML = `${t.subtotal} <b id="res-subtotal">${subVal}</b>`;
+    document.getElementById('txt-sub-label').innerHTML = `${t.sub} <b id="res-subtotal">${subVal}</b>`;
   }
 
   function init() {
@@ -178,36 +218,25 @@
   }
 
   function calculate() {
-    // Route Logic
     const s=locations[document.getElementById('start').value], e=locations[document.getElementById('end').value];
     if(s && e) {
       document.getElementById('res-Benefit($)').innerText = '$ ' + Math.abs(e.b - s.b).toLocaleString(undefined, {minimumFractionDigits: 2});
       document.getElementById('res-Disal(Liter)').innerText = Math.abs(e.d - s.d).toLocaleString() + ' L';
       document.getElementById('res-carbon').innerText = Math.abs(e.c - s.c).toFixed(2) + ' T';
     }
-
-    // Platform Logic
     const p=locations[document.getElementById('prod-platform').value];
     document.getElementById('res-g').innerText = p ? p.g.toLocaleString() : "0";
     document.getElementById('res-co').innerText = p ? p.co.toLocaleString() : "0";
-
-    // Process Logic
-    const k=document.getElementById('type-select').value;
-    const h=parseFloat(document.getElementById('val-hours').value) || 0;
-    
+    const k=document.getElementById('type-select').value, h=parseFloat(document.getElementById('val-hours').value) || 0;
     if(k && presets[k]) {
-        const rate = presets[k].rate;
-        const price = presets[k].price;
-        const subtotal = Math.round(h * rate * price);
-        document.getElementById('res-rate').innerText = rate.toLocaleString();
-        document.getElementById('res-price').innerText = price.toLocaleString();
-        document.getElementById('res-subtotal').innerText = '$ ' + subtotal.toLocaleString();
-        document.getElementById('main-output').innerText = '$ ' + subtotal.toLocaleString();
+        const total = Math.round(h * presets[k].rate * presets[k].price);
+        document.getElementById('res-rate').innerText = presets[k].rate.toLocaleString();
+        document.getElementById('res-price').innerText = presets[k].price.toLocaleString();
+        document.getElementById('res-subtotal').innerText = '$ ' + total.toLocaleString();
+        document.getElementById('main-output').innerText = '$ ' + total.toLocaleString();
     } else {
-        document.getElementById('res-rate').innerText = "0";
-        document.getElementById('res-price').innerText = "0";
-        document.getElementById('res-subtotal').innerText = "$ 0";
-        document.getElementById('main-output').innerText = '$ 0';
+        document.getElementById('res-rate').innerText = "0"; document.getElementById('res-price').innerText = "0";
+        document.getElementById('res-subtotal').innerText = "$ 0"; document.getElementById('main-output').innerText = '$ 0';
     }
   }
   init();
