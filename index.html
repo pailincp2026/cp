@@ -89,56 +89,52 @@
     </div>
   </header>
 
-  <div class="step-title">🚢 Route : Round Trip</div>
+  <div class="step-title">🚢 Route & Platform Data</div>
   <div class="input-row">
     <select id="start" class="custom-select" onchange="calculate()"><option value="">Origin</option></select>
     <select id="end" class="custom-select" onchange="calculate()"><option value="">Destination</option></select>
   </div>
   <div class="benefit-box">
     <div class="benefit-item"><span>💰 Cost Saving</span> <span class="value" id="res-Benefit($)">$ 0.00</span></div>
-    <div class="benefit-item"><span>⛽ Diesel Saving</span> <span class="value" id="res-Disal(Liter)">0 L</span></div>
-    <div class="benefit-item"><span>🍃 Carbon Reduced</span> <span class="value" id="res-carbon">0.00 T</span></div>
   </div>
 
-  <div class="step-title">🏗️ Platform : Remote Data</div>
-  <select id="prod-platform" class="custom-select" onchange="calculate()" style="margin-bottom:10px;">
-    <option value="">Select Platform</option>
+  <select id="prod-platform" class="custom-select" onchange="calculate()" style="margin-top:10px;">
+    <option value="">Select Platform Data</option>
   </select>
   <div class="platform-stats">
     <span>💨 Gas: <b id="res-g">0</b> MMSCFD</span>
     <span>💧 Condy: <b id="res-co">0</b> BBLS</span>
   </div>
 
-  <div class="step-title">🛠 Labor & Process</div>
+  <div class="step-title">🛠 Step 3: Base Labor Settings</div>
+  <div class="input-row">
+    <div style="grid-column: span 2;">
+      <label class="label-small">Labor Rate ($/Hr)</label>
+      <input type="number" id="labor-rate" class="custom-input" placeholder="Enter Rate (e.g. 6000)" oninput="calculate()">
+    </div>
+  </div>
+
+  <div class="step-title">📊 Step 4: Process Estimation</div>
   <div class="input-row">
     <div>
-      <label class="label-small">Labor Rate ($/Hr)</label>
-      <input type="number" id="labor-rate" class="custom-input" placeholder="Rate" oninput="calculate()">
+      <label class="label-small">Process Hours</label>
+      <input type="number" id="process-hours" class="custom-input" placeholder="Hours" oninput="calculate()">
     </div>
     <div>
-      <label class="label-small">Working Hours</label>
-      <input type="number" id="val-hours" class="custom-input" placeholder="Hours" oninput="calculate()">
+      <label class="label-small">Media Type</label>
+      <select id="type-select" class="custom-select" onchange="calculate()">
+        <option value="">Choose...</option>
+        <option value="gas_pacpp">Gas / PACPP</option>
+        <option value="condy">CONDY PACPP</option>
+        <option value="remote">Gas Remote Platform</option>
+      </select>
     </div>
-  </div>
-
-  <div class="final-saving-card">
-    <div style="font-size:0.8rem; font-weight:900; color:#cbd5e0; letter-spacing:1px;">TOTAL LABOR COST</div>
-    <div class="amount" id="labor-output">$ 0.00</div>
-  </div>
-
-  <div style="margin-top: 15px;">
-    <label class="label-small">Process Select Type</label>
-    <select id="type-select" class="custom-select" onchange="calculate()">
-      <option value="">Choose Media...</option>
-      <option value="gas_pacpp">Gas / PACPP</option>
-      <option value="condy">CONDY PACPP</option>
-      <option value="remote">Gas Remote Platform</option>
-    </select>
   </div>
 
   <div class="final-saving-card" style="border-color: var(--accent-gold); background: rgba(255, 184, 28, 0.1);">
-    <div style="font-size:0.8rem; font-weight:900; color:#cbd5e0; letter-spacing:1px;">ESTIMATED PROCESS SAVING</div>
-    <div class="amount" id="main-output" style="color: var(--accent-gold);">$ 0</div>
+    <div style="font-size:0.8rem; font-weight:900; color:#cbd5e0; letter-spacing:1px;">CALCULATED PROCESS COST</div>
+    <div class="amount" id="main-output" style="color: var(--accent-gold);">$ 0.00</div>
+    <div style="font-size:0.75rem; color:#cbd5e0; margin-top:5px;">(Rate × Hours × Media Constant)</div>
   </div>
 </div>
 
@@ -158,7 +154,7 @@
     "MGWJ":{b:914.4,d:831.3,c:2.3,g:83878,co:1023.2},"MGWK":{b:879.9,d:799.8,c:2.2,g:207390,co:2130.0},"MGWL":{b:639.3,d:581.1,c:1.6,g:0,co:0}
   };
 
-  const presets = { gas_pacpp:{rate:9.17,price:6000}, condy:{rate:396,price:60}, remote:{rate:0.21,price:6000} };
+  const presets = { gas_pacpp:{rate:9.17}, condy:{rate:396}, remote:{rate:0.21} };
 
   function init() {
     const sS=document.getElementById('start'), eS=document.getElementById('end'), pS=document.getElementById('prod-platform');
@@ -173,28 +169,24 @@
     const s=locations[document.getElementById('start').value], e=locations[document.getElementById('end').value];
     if(s && e) {
       document.getElementById('res-Benefit($)').innerText = '$ ' + Math.abs(e.b - s.b).toLocaleString(undefined, {minimumFractionDigits: 2});
-      document.getElementById('res-Disal(Liter)').innerText = Math.abs(e.d - s.d).toLocaleString() + ' L';
-      document.getElementById('res-carbon').innerText = Math.abs(e.c - s.c).toFixed(2) + ' T';
     }
 
-    // 2. Calculate Labor: Rate * Hours = Coins ($)
-    const lRate = parseFloat(document.getElementById('labor-rate').value) || 0;
-    const lHours = parseFloat(document.getElementById('val-hours').value) || 0;
-    const laborTotal = lRate * lHours;
-    document.getElementById('labor-output').innerText = '$ ' + laborTotal.toLocaleString(undefined, {minimumFractionDigits: 2});
-
-    // 3. Calculate Platform Stats
+    // 2. Calculate Platform Stats
     const p=locations[document.getElementById('prod-platform').value];
     document.getElementById('res-g').innerText = p ? p.g.toLocaleString() : "0";
     document.getElementById('res-co').innerText = p ? p.co.toLocaleString() : "0";
 
-    // 4. Calculate Process Saving
-    const k=document.getElementById('type-select').value;
-    if(k && lHours > 0) {
-      const saving = Math.round(lHours * presets[k].rate * presets[k].price);
-      document.getElementById('main-output').innerText = '$ ' + saving.toLocaleString();
+    // 3. ปรับสูตรคำนวณใหม่: Labor Rate x Process Hours x Media Constant
+    const lRate = parseFloat(document.getElementById('labor-rate').value) || 0;
+    const pHours = parseFloat(document.getElementById('process-hours').value) || 0;
+    const mediaKey = document.getElementById('type-select').value;
+
+    if(mediaKey && lRate > 0 && pHours > 0) {
+      // สูตร: Rate x Hours x Media Constant
+      const totalProcessCost = lRate * pHours * presets[mediaKey].rate;
+      document.getElementById('main-output').innerText = '$ ' + totalProcessCost.toLocaleString(undefined, {minimumFractionDigits: 2});
     } else {
-      document.getElementById('main-output').innerText = '$ 0';
+      document.getElementById('main-output').innerText = '$ 0.00';
     }
   }
   init();
