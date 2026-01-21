@@ -32,50 +32,37 @@
       box-shadow: 0 25px 50px rgba(0,0,0,0.5); margin: auto 0;
     }
 
-    /* ปรับ Header ใหม่ให้ปุ่มภาษาไม่ทับตัวหนังสือ */
-    .app-header { 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: flex-start; 
-      gap: 10px; 
-      margin-bottom: 25px; 
-    }
-
+    /* Header & Language Switcher */
+    .app-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 25px; }
     .header-left { display: flex; align-items: center; gap: 12px; }
     .logo-img { height: 42px; width: auto; }
     .header-text { border-left: 3px solid var(--accent-gold); padding-left: 12px; }
     .header-text h2 { margin: 0; font-size: 1.25rem; font-weight: 900; line-height: 1.1; }
     .header-text p { margin: 4px 0 0; font-size: 0.7rem; color: var(--accent-gold); font-weight: 700; letter-spacing: 1px; }
 
-    /* ดีไซน์ปุ่มภาษาแบบใหม่ */
-    .lang-switch {
-      display: flex; background: rgba(0,0,0,0.4);
-      padding: 3px; border-radius: 10px; border: 1px solid var(--glass-border);
-      flex-shrink: 0; /* ล็อคขนาดไม่ให้โดนเบียด */
-    }
-    .lang-btn {
-      padding: 5px 10px; border-radius: 7px; cursor: pointer; font-size: 0.65rem;
-      font-weight: 900; border: none; background: transparent; color: #888; transition: 0.3s;
-    }
+    .lang-switch { display: flex; background: rgba(0,0,0,0.4); padding: 3px; border-radius: 10px; border: 1px solid var(--glass-border); flex-shrink: 0; }
+    .lang-btn { padding: 5px 10px; border-radius: 7px; cursor: pointer; font-size: 0.65rem; font-weight: 900; border: none; background: transparent; color: #888; transition: 0.3s; }
     .lang-btn.active { background: var(--accent-gold); color: #000; }
 
+    /* Section Styles */
     .step-title { font-size: 0.95rem; font-weight: 800; margin: 20px 0 12px; display: flex; align-items: center; gap: 10px; }
     .step-title::after { content: ""; flex: 1; height: 1px; background: var(--glass-border); }
 
     .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
     .custom-select, .custom-input {
       background: rgba(0, 0, 0, 0.4); border: 1px solid var(--glass-border);
-      border-radius: 12px; padding: 14px; color: white; font-size: 1.05rem; font-weight: 600; width: 100%; outline: none; transition: 0.2s;
+      border-radius: 12px; padding: 14px; color: white; font-size: 1.05rem; font-weight: 600; width: 100%; outline: none;
     }
-    .custom-select:focus, .custom-input:focus { border-color: var(--accent-gold); }
 
     .benefit-box { background: rgba(0, 0, 0, 0.25); border: 1px solid var(--glass-border); border-radius: 15px; padding: 18px; margin-top: 5px; }
     .benefit-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1rem; }
     .benefit-item .value { font-weight: 800; color: var(--success-green); }
 
-    .platform-stats { display: flex; justify-content: space-between; padding: 10px 5px; font-size: 0.9rem; color: #e2e8f0; border-bottom: 1px solid var(--glass-border); }
-    .platform-stats b { font-size: 1.05rem; color: var(--success-green); }
+    /* Stats Display */
+    .stats-row { display: flex; justify-content: space-between; padding: 10px 5px; font-size: 0.85rem; color: #e2e8f0; border-bottom: 1px solid var(--glass-border); margin-bottom: 10px; }
+    .stats-row b { font-size: 1.05rem; color: var(--success-green); }
 
+    /* Final Output Card */
     .final-saving-card {
       background: linear-gradient(180deg, rgba(0, 255, 136, 0.18) 0%, rgba(0, 255, 136, 0.05) 100%);
       border: 1px solid rgba(0, 255, 136, 0.4); border-radius: 20px; padding: 22px; text-align: center; margin-top: 25px;
@@ -83,10 +70,6 @@
     .final-saving-card .amount { font-size: clamp(2rem, 8vw, 3.2rem); font-weight: 900; color: var(--success-green); margin: 5px 0; }
 
     select option { background: #000a1f; color: white; }
-    @media (max-width: 400px) {
-      .header-text h2 { font-size: 1.1rem; }
-      .container { padding: 18px; }
-    }
   </style>
 </head>
 <body>
@@ -100,7 +83,6 @@
         <p>LIN ASSET PERFORMANCE</p>
       </div>
     </div>
-    
     <div class="lang-switch">
       <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
       <button class="lang-btn" onclick="setLang('th')" id="btn-th">TH</button>
@@ -112,7 +94,6 @@
     <select id="start" class="custom-select" onchange="calculate()"><option value="" id="opt-origin">Origin</option></select>
     <select id="end" class="custom-select" onchange="calculate()"><option value="" id="opt-dest">Destination</option></select>
   </div>
-
   <div class="benefit-box">
     <div class="benefit-item"><span id="txt-cost">💰 Cost Saving</span> <span class="value" id="res-Benefit($)">$ 0.00</span></div>
     <div class="benefit-item"><span id="txt-diesel">⛽ Diesel Saving</span> <span class="value" id="res-Disal(Liter)">0 L</span></div>
@@ -123,7 +104,7 @@
   <select id="prod-platform" class="custom-select" onchange="calculate()" style="margin-bottom:10px;">
     <option value="" id="opt-platform">Select Platform</option>
   </select>
-  <div class="platform-stats">
+  <div class="stats-row">
     <span>💨 Gas: <b id="res-g">0</b> MMSCFD</span>
     <span>💧 Condy: <b id="res-co">0</b> BBLS</span>
   </div>
@@ -131,11 +112,16 @@
   <div class="step-title" id="txt-process">🛠 Process : CPP</div>
   <div class="input-row">
     <select id="type-select" class="custom-select" onchange="calculate()">
-      <option value="" id="opt-process">Select Process</option>
+      <option value="" id="opt-process">Process Select</option>
       <option value="gas_pacpp">Gas / PACPP</option>
       <option value="condy">CONDY PACPP</option>
     </select>
     <input type="number" id="val-hours" class="custom-input" placeholder="Hours" oninput="calculate()">
+  </div>
+  <div class="stats-row">
+    <span>📈 Rate: <b id="res-rate">0</b></span>
+    <span>💵 Price: <b id="res-price">0</b></span>
+    <span id="txt-subtotal-label">💰 Saving: <b id="res-subtotal">$ 0</b></span>
   </div>
 
   <div class="final-saving-card">
@@ -147,36 +133,8 @@
 <script>
   let currentLang = 'en';
   const i18n = {
-    en: {
-      title: "Operational Estimator",
-      route: "🚢 Route : Round Trip",
-      origin: "Origin",
-      dest: "Destination",
-      cost: "💰 Cost Saving",
-      diesel: "⛽ Diesel Saving",
-      carbon: "🍃 Carbon Reduced",
-      platform: "🏗️ Platform : Remote Data",
-      sel_platform: "Select Platform",
-      process: "🏭 Process : CPP",
-      sel_process: "Process Select",
-      estimate: "Estimated Saving",
-      hours: "Hours"
-    },
-    th: {
-      title: "เครื่องมือประเมินผล",
-      route: "🚢 เส้นทาง : ไป-กลับ",
-      origin: "ต้นทาง",
-      dest: "ปลายทาง",
-      cost: "💰 ประหยัดค่าใช้จ่าย",
-      diesel: "⛽ ประหยัดดีเซล",
-      carbon: "🍃 ลดคาร์บอน",
-      platform: "🏗️ ข้อมูลแพลตฟอร์ม",
-      sel_platform: "เลือกแพลตฟอร์ม",
-      process: "🏭 กระบวนการ : CPP",
-      sel_process: "เลือกกระบวนการ",
-      estimate: "ประมาณการประหยัดรวม",
-      hours: "จำนวนชั่วโมง"
-    }
+    en: { title: "Operational Estimator", route: "🚢 Route : Round Trip", origin: "Origin", dest: "Destination", cost: "💰 Cost Saving", diesel: "⛽ Diesel Saving", carbon: "🍃 Carbon Reduced", platform: "🏗️ Platform : Remote Data", sel_platform: "Select Platform", process: "🛠 Process : CPP", sel_process: "Process Select", estimate: "Estimated Saving", hours: "Hours", subtotal: "💰 Saving: " },
+    th: { title: "เครื่องมือประเมินผล", route: "🚢 เส้นทาง : ไป-กลับ", origin: "ต้นทาง", dest: "ปลายทาง", cost: "💰 ประหยัดค่าใช้จ่าย", diesel: "⛽ ประหยัดดีเซล", carbon: "🍃 ลดคาร์บอน", platform: "🏗️ ข้อมูลแพลตฟอร์ม", sel_platform: "เลือกแพลตฟอร์ม", process: "🛠 กระบวนการ : CPP", sel_process: "เลือกกระบวนการ", estimate: "ประมาณการประหยัดรวม", hours: "จำนวนชั่วโมง", subtotal: "💰 ประหยัด: " }
   };
 
   const locations = {
@@ -200,7 +158,6 @@
     currentLang = lang;
     document.getElementById('btn-en').classList.toggle('active', lang === 'en');
     document.getElementById('btn-th').classList.toggle('active', lang === 'th');
-    
     const t = i18n[lang];
     document.getElementById('txt-title').innerText = t.title;
     document.getElementById('txt-route').innerText = t.route;
@@ -215,6 +172,9 @@
     document.getElementById('opt-process').innerText = t.sel_process;
     document.getElementById('txt-estimate').innerText = t.estimate;
     document.getElementById('val-hours').placeholder = t.hours;
+    // Update subtotal label without losing the value
+    const subVal = document.getElementById('res-subtotal').innerText;
+    document.getElementById('txt-subtotal-label').innerHTML = `${t.subtotal} <b id="res-subtotal">${subVal}</b>`;
   }
 
   function init() {
@@ -227,17 +187,37 @@
   }
 
   function calculate() {
+    // Route Logic
     const s=locations[document.getElementById('start').value], e=locations[document.getElementById('end').value];
     if(s && e) {
       document.getElementById('res-Benefit($)').innerText = '$ ' + Math.abs(e.b - s.b).toLocaleString(undefined, {minimumFractionDigits: 2});
       document.getElementById('res-Disal(Liter)').innerText = Math.abs(e.d - s.d).toLocaleString() + ' L';
       document.getElementById('res-carbon').innerText = Math.abs(e.c - s.c).toFixed(2) + ' T';
     }
+
+    // Platform Logic
     const p=locations[document.getElementById('prod-platform').value];
     document.getElementById('res-g').innerText = p ? p.g.toLocaleString() : "0";
     document.getElementById('res-co').innerText = p ? p.co.toLocaleString() : "0";
-    const k=document.getElementById('type-select').value, h=parseFloat(document.getElementById('val-hours').value) || 0;
-    document.getElementById('main-output').innerText = k && h>0 ? '$ '+Math.round(h*presets[k].rate*presets[k].price).toLocaleString() : '$ 0';
+
+    // Process Logic
+    const k=document.getElementById('type-select').value;
+    const h=parseFloat(document.getElementById('val-hours').value) || 0;
+    
+    if(k && presets[k]) {
+        const rate = presets[k].rate;
+        const price = presets[k].price;
+        const subtotal = Math.round(h * rate * price);
+        document.getElementById('res-rate').innerText = rate.toLocaleString();
+        document.getElementById('res-price').innerText = price.toLocaleString();
+        document.getElementById('res-subtotal').innerText = '$ ' + subtotal.toLocaleString();
+        document.getElementById('main-output').innerText = '$ ' + subtotal.toLocaleString();
+    } else {
+        document.getElementById('res-rate').innerText = "0";
+        document.getElementById('res-price').innerText = "0";
+        document.getElementById('res-subtotal').innerText = "$ 0";
+        document.getElementById('main-output').innerText = '$ 0';
+    }
   }
   init();
 </script>
