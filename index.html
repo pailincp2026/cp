@@ -30,35 +30,44 @@
       backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
       padding: 25px; border-radius: 24px; border: 1px solid var(--glass-border);
       box-shadow: 0 25px 50px rgba(0,0,0,0.5); margin: auto 0;
-      position: relative;
     }
 
-    /* Language Switcher Style */
+    /* ปรับ Header ใหม่ให้ปุ่มภาษาไม่ทับตัวหนังสือ */
+    .app-header { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: flex-start; 
+      gap: 10px; 
+      margin-bottom: 25px; 
+    }
+
+    .header-left { display: flex; align-items: center; gap: 12px; }
+    .logo-img { height: 42px; width: auto; }
+    .header-text { border-left: 3px solid var(--accent-gold); padding-left: 12px; }
+    .header-text h2 { margin: 0; font-size: 1.25rem; font-weight: 900; line-height: 1.1; }
+    .header-text p { margin: 4px 0 0; font-size: 0.7rem; color: var(--accent-gold); font-weight: 700; letter-spacing: 1px; }
+
+    /* ดีไซน์ปุ่มภาษาแบบใหม่ */
     .lang-switch {
-      position: absolute; top: 20px; right: 20px;
-      display: flex; gap: 5px; background: rgba(0,0,0,0.3);
-      padding: 4px; border-radius: 8px; border: 1px solid var(--glass-border);
+      display: flex; background: rgba(0,0,0,0.4);
+      padding: 3px; border-radius: 10px; border: 1px solid var(--glass-border);
+      flex-shrink: 0; /* ล็อคขนาดไม่ให้โดนเบียด */
     }
     .lang-btn {
-      padding: 4px 8px; border-radius: 5px; cursor: pointer; font-size: 0.7rem;
-      font-weight: 800; border: none; background: transparent; color: #666; transition: 0.3s;
+      padding: 5px 10px; border-radius: 7px; cursor: pointer; font-size: 0.65rem;
+      font-weight: 900; border: none; background: transparent; color: #888; transition: 0.3s;
     }
     .lang-btn.active { background: var(--accent-gold); color: #000; }
 
-    .app-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
-    .logo-img { height: 45px; width: auto; }
-    .header-text { border-left: 3px solid var(--accent-gold); padding-left: 15px; }
-    .header-text h2 { margin: 0; font-size: 1.4rem; font-weight: 900; }
-    .header-text p { margin: 0; font-size: 0.75rem; color: var(--accent-gold); font-weight: 700; letter-spacing: 2px; }
-
-    .step-title { font-size: 1rem; font-weight: 800; margin: 22px 0 12px; display: flex; align-items: center; gap: 10px; }
+    .step-title { font-size: 0.95rem; font-weight: 800; margin: 20px 0 12px; display: flex; align-items: center; gap: 10px; }
     .step-title::after { content: ""; flex: 1; height: 1px; background: var(--glass-border); }
 
     .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
     .custom-select, .custom-input {
       background: rgba(0, 0, 0, 0.4); border: 1px solid var(--glass-border);
-      border-radius: 12px; padding: 14px; color: white; font-size: 1.05rem; font-weight: 600; width: 100%; outline: none;
+      border-radius: 12px; padding: 14px; color: white; font-size: 1.05rem; font-weight: 600; width: 100%; outline: none; transition: 0.2s;
     }
+    .custom-select:focus, .custom-input:focus { border-color: var(--accent-gold); }
 
     .benefit-box { background: rgba(0, 0, 0, 0.25); border: 1px solid var(--glass-border); border-radius: 15px; padding: 18px; margin-top: 5px; }
     .benefit-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1rem; }
@@ -74,21 +83,27 @@
     .final-saving-card .amount { font-size: clamp(2rem, 8vw, 3.2rem); font-weight: 900; color: var(--success-green); margin: 5px 0; }
 
     select option { background: #000a1f; color: white; }
+    @media (max-width: 400px) {
+      .header-text h2 { font-size: 1.1rem; }
+      .container { padding: 18px; }
+    }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <div class="lang-switch">
-    <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
-    <button class="lang-btn" onclick="setLang('th')" id="btn-th">TH</button>
-  </div>
-
   <header class="app-header">
-    <img src="logo.png" alt="" class="logo-img" onerror="this.style.display='none'">
-    <div class="header-text">
-      <h2 id="txt-title">Operational Estimator</h2>
-      <p>LIN ASSET PERFORMANCE</p>
+    <div class="header-left">
+      <img src="logo.png" alt="" class="logo-img" onerror="this.style.display='none'">
+      <div class="header-text">
+        <h2 id="txt-title">Operational Estimator</h2>
+        <p>LIN ASSET PERFORMANCE</p>
+      </div>
+    </div>
+    
+    <div class="lang-switch">
+      <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
+      <button class="lang-btn" onclick="setLang('th')" id="btn-th">TH</button>
     </div>
   </header>
 
@@ -148,14 +163,14 @@
       hours: "Hours"
     },
     th: {
-      title: "เครื่องมือประเมินผลงาน",
+      title: "เครื่องมือประเมินผล",
       route: "🚢 เส้นทาง : ไป-กลับ",
       origin: "ต้นทาง",
       dest: "ปลายทาง",
       cost: "💰 ประหยัดค่าใช้จ่าย",
       diesel: "⛽ ประหยัดดีเซล",
       carbon: "🍃 ลดคาร์บอน",
-      platform: "🏗️ แพลตฟอร์ม : ข้อมูลรีโมท",
+      platform: "🏗️ ข้อมูลแพลตฟอร์ม",
       sel_platform: "เลือกแพลตฟอร์ม",
       process: "🛠 กระบวนการ : CPP",
       sel_process: "เลือกกระบวนการ",
@@ -183,11 +198,9 @@
 
   function setLang(lang) {
     currentLang = lang;
-    // Update active button UI
     document.getElementById('btn-en').classList.toggle('active', lang === 'en');
     document.getElementById('btn-th').classList.toggle('active', lang === 'th');
     
-    // Update Text Content
     const t = i18n[lang];
     document.getElementById('txt-title').innerText = t.title;
     document.getElementById('txt-route').innerText = t.route;
@@ -210,7 +223,7 @@
       sS.add(new Option(loc, loc)); eS.add(new Option(loc, loc));
       if(locations[loc].g > 0 || locations[loc].co > 0) pS.add(new Option(loc, loc));
     });
-    setLang('en'); // Default
+    setLang('en');
   }
 
   function calculate() {
