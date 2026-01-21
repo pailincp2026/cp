@@ -7,50 +7,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* ปรับ Overlay ให้สมดุล: เห็นรูปชัดแต่ตัวหนังสืออ่านง่าย */
-      --bg-gradient: linear-gradient(135deg, rgba(0, 20, 50, 0.8) 0%, rgba(0, 10, 30, 0.7) 100%);
+      --bg-gradient: linear-gradient(135deg, rgba(0, 20, 50, 0.85) 0%, rgba(0, 10, 30, 0.7) 100%);
       --accent-gold: #ffb81c; 
       --success-green: #00ff88;
       --glass-bg: rgba(255, 255, 255, 0.08); 
       --glass-border: rgba(255, 255, 255, 0.18);
     }
-
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     
     body {
-      font-family: 'Inter', sans-serif; 
-      margin: 0; 
-      padding: 15px; 
-      min-height: 100vh;
-      color: white; 
-      display: flex; 
-      flex-direction: column; 
-      align-items: center;
-
-      /* ส่วนจัดการพื้นหลัง */
-      background-color: #001432; /* สีสำรองกรณีรูปไม่โหลด */
-      background-image: var(--bg-gradient), url('pailin.jpg');
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-size: cover;
+      font-family: 'Inter', sans-serif; margin: 0; padding: 15px; min-height: 100vh;
+      background: var(--bg-gradient), url('Pailin.jpg') no-repeat center center fixed;
+      background-size: cover; color: white; display: flex; flex-direction: column; align-items: center;
     }
 
     .container { 
-      width: 100%; 
-      max-width: 550px; 
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px); 
-      -webkit-backdrop-filter: blur(20px);
-      padding: 25px; 
-      border-radius: 24px; 
-      border: 1px solid var(--glass-border);
+      width: 100%; max-width: 550px; background: var(--glass-bg);
+      backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+      padding: 25px; border-radius: 24px; border: 1px solid var(--glass-border);
       box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-      margin: auto 0; /* จัดให้อยู่กลางหน้าจอแนวตั้งพอดี */
     }
 
     .app-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
-    .logo-img { height: 45px; width: auto; }
     .header-text { border-left: 3px solid var(--accent-gold); padding-left: 15px; }
     .header-text h2 { margin: 0; font-size: 1.4rem; font-weight: 900; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
     .header-text p { margin: 0; font-size: 0.75rem; color: var(--accent-gold); font-weight: 700; letter-spacing: 2px; }
@@ -68,14 +46,14 @@
       border-radius: 12px; padding: 14px; color: white; font-size: 1.05rem; font-weight: 600;
       width: 100%; outline: none; transition: all 0.2s ease;
     }
-    .custom-select:focus, .custom-input:focus { border-color: var(--accent-gold); background: rgba(0,0,0,0.6); }
+    .custom-select:focus, .custom-input:focus { border-color: var(--accent-gold); }
 
     .benefit-box {
       background: rgba(0, 0, 0, 0.25); border: 1px solid var(--glass-border);
       border-radius: 15px; padding: 18px; margin-top: 5px;
     }
     .benefit-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 1rem; }
-    .benefit-item .value { font-weight: 800; color: var(--success-green); text-shadow: 0 0 10px rgba(0,255,136,0.2); }
+    .benefit-item .value { font-weight: 800; color: var(--success-green); }
 
     .platform-stats {
       display: flex; justify-content: space-between; padding: 10px 5px;
@@ -85,7 +63,7 @@
 
     .final-saving-card {
       background: linear-gradient(180deg, rgba(0, 255, 136, 0.18) 0%, rgba(0, 255, 136, 0.05) 100%);
-      border: 1px solid rgba(0, 255, 136, 0.4); border-radius: 20px; padding: 22px; text-align: center; margin-top: 25px;
+      border: 1px solid rgba(0, 255, 136, 0.4); border-radius: 20px; padding: 22px; text-align: center; margin-top: 15px;
     }
     .final-saving-card .amount { 
         font-size: clamp(2rem, 8vw, 3.2rem); 
@@ -93,22 +71,25 @@
         text-shadow: 0 0 20px rgba(0,255,136,0.4);
     }
 
-    select option { background: #000a1f; color: white; }
+    .label-small { font-size: 0.8rem; color: #cbd5e0; margin-bottom: 5px; display: block; font-weight: 600; }
 
     @media (max-width: 480px) {
-      .container { padding: 18px; border-radius: 20px; }
+      .container { padding: 18px; }
       .header-text h2 { font-size: 1.2rem; }
     }
   </style>
 </head>
 <body>
+
 <div class="container">
   <header class="app-header">
-    <img src="logo.png" alt="" class="logo-img" onerror="this.style.display='none'">
-    <div class="header-text"><h2>Operational Estimator</h2><p>LIN ASSET PERFORMANCE</p></div>
+    <div class="header-text">
+      <h2>Operational Estimator</h2>
+      <p>LIN ASSET PERFORMANCE</p>
+    </div>
   </header>
 
-  <div class="step-title">🚢 Route : Round Trip </div>
+  <div class="step-title">🚢 Route : Round Trip</div>
   <div class="input-row">
     <select id="start" class="custom-select" onchange="calculate()"><option value="">Origin</option></select>
     <select id="end" class="custom-select" onchange="calculate()"><option value="">Destination</option></select>
@@ -120,26 +101,44 @@
   </div>
 
   <div class="step-title">🏗️ Platform : Remote Data</div>
-  <select id="prod-platform" class="custom-select" onchange="calculate()" style="margin-bottom:10px;"><option value="">Select Platform</option></select>
+  <select id="prod-platform" class="custom-select" onchange="calculate()" style="margin-bottom:10px;">
+    <option value="">Select Platform</option>
+  </select>
   <div class="platform-stats">
     <span>💨 Gas: <b id="res-g">0</b> MMSCFD</span>
     <span>💧 Condy: <b id="res-co">0</b> BBLS</span>
   </div>
 
-  <div class="step-title">🛠 Process : Other</div>
+  <div class="step-title">🛠 Labor & Process</div>
   <div class="input-row">
+    <div>
+      <label class="label-small">Labor Rate ($/Hr)</label>
+      <input type="number" id="labor-rate" class="custom-input" placeholder="Rate" oninput="calculate()">
+    </div>
+    <div>
+      <label class="label-small">Working Hours</label>
+      <input type="number" id="val-hours" class="custom-input" placeholder="Hours" oninput="calculate()">
+    </div>
+  </div>
+
+  <div class="final-saving-card">
+    <div style="font-size:0.8rem; font-weight:900; color:#cbd5e0; letter-spacing:1px;">TOTAL LABOR COST</div>
+    <div class="amount" id="labor-output">$ 0.00</div>
+  </div>
+
+  <div style="margin-top: 15px;">
+    <label class="label-small">Process Select Type</label>
     <select id="type-select" class="custom-select" onchange="calculate()">
-      <option value="">Process Select Type</option>
+      <option value="">Choose Media...</option>
       <option value="gas_pacpp">Gas / PACPP</option>
       <option value="condy">CONDY PACPP</option>
       <option value="remote">Gas Remote Platform</option>
     </select>
-    <input type="number" id="val-hours" class="custom-input" placeholder="Hours" oninput="calculate()">
   </div>
 
-  <div class="final-saving-card">
-    <div style="font-size:0.85rem; font-weight:900; color:#cbd5e0; letter-spacing:1px; text-transform:uppercase;">Estimated Saving</div>
-    <div class="amount" id="main-output">$ 0</div>
+  <div class="final-saving-card" style="border-color: var(--accent-gold); background: rgba(255, 184, 28, 0.1);">
+    <div style="font-size:0.8rem; font-weight:900; color:#cbd5e0; letter-spacing:1px;">ESTIMATED PROCESS SAVING</div>
+    <div class="amount" id="main-output" style="color: var(--accent-gold);">$ 0</div>
   </div>
 </div>
 
@@ -170,17 +169,33 @@
   }
 
   function calculate() {
+    // 1. Calculate Route
     const s=locations[document.getElementById('start').value], e=locations[document.getElementById('end').value];
     if(s && e) {
       document.getElementById('res-Benefit($)').innerText = '$ ' + Math.abs(e.b - s.b).toLocaleString(undefined, {minimumFractionDigits: 2});
       document.getElementById('res-Disal(Liter)').innerText = Math.abs(e.d - s.d).toLocaleString() + ' L';
       document.getElementById('res-carbon').innerText = Math.abs(e.c - s.c).toFixed(2) + ' T';
     }
+
+    // 2. Calculate Labor: Rate * Hours = Coins ($)
+    const lRate = parseFloat(document.getElementById('labor-rate').value) || 0;
+    const lHours = parseFloat(document.getElementById('val-hours').value) || 0;
+    const laborTotal = lRate * lHours;
+    document.getElementById('labor-output').innerText = '$ ' + laborTotal.toLocaleString(undefined, {minimumFractionDigits: 2});
+
+    // 3. Calculate Platform Stats
     const p=locations[document.getElementById('prod-platform').value];
     document.getElementById('res-g').innerText = p ? p.g.toLocaleString() : "0";
     document.getElementById('res-co').innerText = p ? p.co.toLocaleString() : "0";
-    const k=document.getElementById('type-select').value, h=parseFloat(document.getElementById('val-hours').value) || 0;
-    document.getElementById('main-output').innerText = k && h>0 ? '$ '+Math.round(h*presets[k].rate*presets[k].price).toLocaleString() : '$ 0';
+
+    // 4. Calculate Process Saving
+    const k=document.getElementById('type-select').value;
+    if(k && lHours > 0) {
+      const saving = Math.round(lHours * presets[k].rate * presets[k].price);
+      document.getElementById('main-output').innerText = '$ ' + saving.toLocaleString();
+    } else {
+      document.getElementById('main-output').innerText = '$ 0';
+    }
   }
   init();
 </script>
